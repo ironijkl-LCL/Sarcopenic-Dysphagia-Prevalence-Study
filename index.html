@@ -7,47 +7,75 @@
 <title>Sarcopenic Dysphagia Prevalence Study Data</title>
 
 <style>
-body {
-    font-family: Arial;
-    background:#eef2f7;
-    margin:0;
-}
-.container {
-    max-width: 900px;
-    margin:auto;
-    padding:15px;
-}
+body { font-family: Arial; background:#eef2f7; margin:0; }
+.container { max-width:950px; margin:auto; padding:20px; }
+
 .section {
-    background:white;
-    padding:15px;
-    margin-bottom:15px;
-    border-radius:10px;
+  background:white;
+  padding:18px;
+  margin-bottom:18px;
+  border-radius:12px;
+  box-shadow:0 4px 10px rgba(0,0,0,0.05);
 }
-h1 {
-    text-align:center;
-}
+
+h1 { text-align:center; }
+
 h2 {
-    background:#273c75;
-    color:white;
-    padding:6px;
-    font-size:15px;
+  color:#192a56;
+  border-left:5px solid #4a69bd;
+  padding-left:8px;
 }
-label {
-    display:block;
-    margin-top:8px;
+
+.grid {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
 }
+
+label { font-size:13px; }
+
+.qno {
+  font-weight:bold;
+  color:#1e3799;
+  margin-right:5px;
+}
+
 input, select {
-    width:100%;
-    padding:8px;
-    margin-top:4px;
+  width:100%;
+  padding:10px;
+  margin-top:4px;
+  border-radius:8px;
+  border:1px solid #ccc;
 }
+
+input.invalid, select.invalid {
+  border:2px solid red;
+  background:#fff5f5;
+}
+
+.checkbox-group {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:6px;
+}
+
+.checkbox-group label {
+  background:#f5f6fa;
+  padding:6px;
+  border-radius:6px;
+}
+
 button {
-    width:100%;
-    padding:12px;
-    background:#192a56;
-    color:white;
-    border:none;
-    margin-top:15px;
+  width:100%;
+  padding:14px;
+  background:#1e3799;
+  color:white;
+  border:none;
+  border-radius:10px;
+}
+
+@media(max-width:600px){
+  .grid { grid-template-columns:1fr; }
 }
 </style>
 </head>
@@ -56,236 +84,136 @@ button {
 
 <div class="container">
 
-<h1>
-📊 Sarcopenic Dysphagia Prevalence Study Data<br>
-<span style="font-size:14px; color:#555;">
-Data Entry Form
-</span>
-</h1>
+<h1>📊 Sarcopenic Dysphagia Prevalence Study Data</h1>
 
-<form>
+<form id="form">
 
-<!-- 基本資料 -->
+<!-- 1 Personal Info -->
 <div class="section">
-<h2>基本資料</h2>
+<h2>1️⃣ Personal Information</h2>
+<div class="grid">
 
-<label>ST</label>
+<div><label><span class="qno">1.1</span>ST</label>
 <select required>
-<option disabled selected>選擇 ST</option>
+<option value="" disabled selected>Select ST</option>
 <option>Dorothy</option>
 <option>Mattew</option>
 <option>Tina</option>
 <option>Bibianna</option>
-</select>
+</select></div>
 
-<label>RCHE no.</label>
-<input>
-
-<label>Type of RCHE</label>
-<input>
-
-<label>Case no.</label>
-<input>
-
-<label>Age</label>
-<input type="number">
-
-<label>Gender</label>
-<select><option>Male</option><option>Female</option></select>
-
-<label>Date of Ax</label>
-<input type="date">
-
-<label>Weight (kg)</label>
-<input id="weight" type="number" oninput="calcBMI()">
-
-<label>Height (cm)</label>
-<input id="height" type="number" oninput="calcBMI()">
-
-<label>BMI</label>
-<input id="bmi" readonly>
+<div><label><span class="qno">1.2</span>RCHE no.</label><input required></div>
+<div><label><span class="qno">1.3</span>Type of RCHE</label><input></div>
+<div><label><span class="qno">1.4</span>Case no.</label><input required></div>
+<div><label><span class="qno">1.5</span>Age</label><input type="number" required></div>
+<div><label><span class="qno">1.6</span>Gender</label><select required><option value="">Select</option><option>Male</option><option>Female</option></select></div>
+<div><label><span class="qno">1.7</span>Date of Assessment</label><input type="date" required></div>
+<div><label><span class="qno">1.8</span>Weight (kg)</label><input id="weight" type="number" oninput="calcBMI()" required></div>
+<div><label><span class="qno">1.9</span>Height (cm)</label><input id="height" type="number" oninput="calcBMI()" required></div>
+<div><label><span class="qno">1.10</span>BMI</label><input id="bmi" readonly></div>
 
 </div>
+</div>
 
-<!-- 營養 -->
+<!-- 2 Medical History -->
 <div class="section">
-<h2>Malnutrition</h2>
+<h2>2️⃣ Medical History (PMHx)</h2>
 
-<label>MNA-SF</label>
-<input type="number">
+<div class="checkbox-group">
+<label><span class="qno">2.1</span><input type="checkbox">CVA</label>
+<label><span class="qno">2.2</span><input type="checkbox">Parkinson's</label>
+<label><span class="qno">2.3</span><input type="checkbox">TBI/SCI</label>
+<label><span class="qno">2.4</span><input type="checkbox">Brain tumor</label>
+<label><span class="qno">2.5</span><input type="checkbox">Neuromuscular diseases</label>
+<label><span class="qno">2.6</span><input type="checkbox">Head and Neck Cancer</label>
+<label><span class="qno">2.7</span><input type="checkbox">Connective tissue diseases</label>
+<label><span class="qno">2.8</span><input type="checkbox">COPD</label>
+<label><span class="qno">2.9</span><input type="checkbox">Dementia</label>
+</div>
 
-<label>On oral nutritional supplements</label>
-<select><option>Yes</option><option>No</option></select>
+<br>
 
-<label>Pitting Edema</label>
-<select><option>Yes</option><option>No</option></select>
+<div class="grid">
+<div><label><span class="qno">2.10</span>Other causes for DSG</label><input></div>
+<div><label><span class="qno">2.11</span>Other PMHx</label><input></div>
+</div>
 
 </div>
 
-<!-- 病史 -->
+<!-- 3 Admission -->
 <div class="section">
-<h2>PMHx</h2>
+<h2>3️⃣ Admission History (Last 6 Months)</h2>
 
-<label><input type="checkbox"> CVA</label>
-<label><input type="checkbox"> Parkinson's</label>
-<label><input type="checkbox"> TBI/SCI</label>
-<label><input type="checkbox"> Brain tumor</label>
-<label><input type="checkbox"> Neuromuscular diseases</label>
-<label><input type="checkbox"> Head and Neck Cancer</label>
-<label><input type="checkbox"> Connective tissue diseases</label>
-<label><input type="checkbox"> COPD</label>
-<label><input type="checkbox"> Dementia</label>
-
-<label>Other causes for DSG</label>
-<input>
-
-<label>Other PMHx</label>
-<input>
+<div class="grid">
+<label><span class="qno">3.1</span>Pneumonia Episodes</label><input type="number">
+<label><span class="qno">3.2</span>Pneumonia LOS (days)</label><input type="number">
+<label><span class="qno">3.3</span>Fall Episodes</label><input type="number">
+<label><span class="qno">3.4</span>Fall LOS (days)</label><input type="number">
+<label><span class="qno">3.5</span>UTI/Dehydration Episodes</label><input type="number">
+<label><span class="qno">3.6</span>UTI/Dehydration LOS (days)</label><input type="number">
+</div>
 
 </div>
 
-<!-- 入院 -->
+<!-- 4 Sarcopenia -->
 <div class="section">
-<h2>Admissions (6 months)</h2>
+<h2>4️⃣ Sarcopenia Assessment</h2>
 
-<label>Total episodes of pneumonia</label>
-<input type="number">
-
-<label>Total LOS for pneumonia (days)</label>
-<input type="number">
-
-<label>Total episodes of fall-related admissions</label>
-<input type="number">
-
-<label>Total LOS for fall-related admissions (days)</label>
-<input type="number">
-
-<label>Total episodes of dehydration/UTI</label>
-<input type="number">
-
-<label>Total LOS for dehydration/UTI (days)</label>
-<input type="number">
+<div class="grid">
+<label><span class="qno">4.1</span>CC (cm)</label><input type="number">
+<label><span class="qno">4.2</span>MUAC (cm)</label><input type="number">
+<label><span class="qno">4.3</span>HGS (kg)</label><input type="number">
+<label><span class="qno">4.4</span>HGS Reliability</label><select><option>Reliable</option><option>Unreliable</option></select>
+<label><span class="qno">4.5</span>Maximum tongue pressure (kPa)</label><input type="number">
+<label><span class="qno">4.6</span>Tongue Reliability</label><select><option>Reliable</option><option>Unreliable</option></select>
+<label><span class="qno">4.7</span>Chin tuck strength (kPa)</label><input type="number">
+<label><span class="qno">4.8</span>Chin Reliability</label><select><option>Reliable</option><option>Unreliable</option></select>
+</div>
 
 </div>
 
-<!-- Service -->
-<div class="section">
-<h2>Service (3 months)</h2>
-
-<label>No. of MOSTE ST sessions</label>
-<input type="number">
-
-<label>No. of MOSTE PT sessions</label>
-<input type="number">
-
-<label>Dietetic service</label>
-<select><option>Yes</option><option>No</option></select>
-
-</div>
-
-<!-- Sarcopenia -->
-<div class="section">
-<h2>Sarcopenia Measurement</h2>
-
-<label>CC (cm)</label>
-<input type="number">
-
-<label>MUAC (cm)</label>
-<input type="number">
-
-<label>HGS (kg)</label>
-<input type="number">
-
-<label>Reliability of HGS measurement</label>
-<select><option>Reliable</option><option>Unreliable</option></select>
-
-<label>Maximum tongue pressure (kPa)</label>
-<input type="number">
-
-<label>Reliability of tongue strength data</label>
-<select><option>Reliable</option><option>Unreliable</option></select>
-
-<label>Maximum chin tuck strength (kPa)</label>
-<input type="number">
-
-<label>Reliability of chin tuck strength data</label>
-<select><option>Reliable</option><option>Unreliable</option></select>
-
-</div>
-
-<!-- Whole-body -->
-<div class="section">
-<h2>Whole-body Sarcopenia</h2>
-
-<label>Possible Generalized Sarcopenia</label>
-<select><option>Yes</option><option>No</option></select>
-
-</div>
-
-<!-- 吞嚥 -->
-<div class="section">
-<h2>Dysphagia</h2>
-
-<label>DSG</label>
-<select><option>Yes</option><option>No</option></select>
-
-<label>Type of DSG</label>
-<input>
-
-<label>IDDSI Liquid Level</label>
-<input type="number">
-
-<label>IDDSI Food Level</label>
-<input type="number">
-
-<label>IDDSI-FDS</label>
-<input>
-
-<label>TOM Impairment</label>
-<input>
-
-<label>TOM Activity</label>
-<input>
-
-</div>
-
-<!-- 結果 -->
-<div class="section">
-<h2>Result</h2>
-
-<label>Low HGS</label><select><option>Yes</option><option>No</option></select>
-<label>Low CC</label><select><option>Yes</option><option>No</option></select>
-<label>Low MUAC</label><select><option>Yes</option><option>No</option></select>
-<label>Low tongue pressure</label><select><option>Yes</option><option>No</option></select>
-
-<label>Diagnostic Classification</label>
-<select>
-<option>Normal</option>
-<option>Sarcopenic</option>
-<option>Not classifiable</option>
-</select>
-
-<label>Remarks</label>
-<input>
-
-<label>Missing data</label>
-<select><option>No</option><option>Yes</option></select>
-
-</div>
-
-<button type="submit">Submit</button>
+<button type="submit">💾 Submit</button>
 
 </form>
-
 </div>
 
 <script>
 function calcBMI(){
-    let h = document.getElementById("height").value/100;
-    let w = document.getElementById("weight").value;
-    if(h && w){
-        document.getElementById("bmi").value = (w/(h*h)).toFixed(2);
-    }
+ let h = document.getElementById("height").value/100;
+ let w = document.getElementById("weight").value;
+ if(h && w){
+  document.getElementById("bmi").value=(w/(h*h)).toFixed(2);
+ }
+}
+
+document.getElementById("form").addEventListener("submit",function(e){
+ let ok=true;
+ document.querySelectorAll("input,select").forEach(f=>{
+  if(f.required && !f.value){
+   f.classList.add("invalid"); ok=false;
+  }else f.classList.remove("invalid");
+ });
+ if(!ok){
+  e.preventDefault();
+  let first=document.querySelector(".invalid");
+  first.scrollIntoView({behavior:"smooth",block:"center"});
+  first.focus();
+ }
+});
+
+let f=document.querySelectorAll("input,select");
+f.forEach((el,i)=>{
+ el.addEventListener("change",()=>move(i));
+ el.addEventListener("keydown",(e)=>{
+  if(e.key==="Enter"){e.preventDefault();move(i)}
+ });
+});
+
+function move(i){
+ let f=document.querySelectorAll("input,select");
+ for(let j=i+1;j<f.length;j++){
+  if(!f[j].disabled){f[j].focus();break;}
+ }
 }
 </script>
 
