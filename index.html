@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Sarcopenic Dysphagia Prevalence Study Data</title>
+
+<style>
+body {
+    font-family: Arial;
+    background:#eef2f7;
+    margin:0;
+}
+.container {
+    max-width: 900px;
+    margin:auto;
+    padding:15px;
+}
+.section {
+    background:white;
+    padding:15px;
+    margin-bottom:15px;
+    border-radius:10px;
+}
+h1 {
+    text-align:center;
+}
+h2 {
+    background:#273c75;
+    color:white;
+    padding:6px;
+    font-size:15px;
+}
+label {
+    display:block;
+    margin-top:8px;
+}
+input, select {
+    width:100%;
+    padding:8px;
+    margin-top:4px;
+}
+button {
+    width:100%;
+    padding:12px;
+    background:#192a56;
+    color:white;
+    border:none;
+    margin-top:15px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>
+📊 Sarcopenic Dysphagia Prevalence Study Data<br>
+<span style="font-size:14px; color:#555;">
+Data Entry Form
+</span>
+</h1>
+
+<form>
+
+<!-- 基本資料 -->
+<div class="section">
+<h2>基本資料</h2>
+
+<label>ST</label>
+<select required>
+<option disabled selected>選擇 ST</option>
+<option>Dorothy</option>
+<option>Mattew</option>
+<option>Tina</option>
+<option>Bibianna</option>
+</select>
+
+<label>RCHE no.</label>
+<input>
+
+<label>Type of RCHE</label>
+<input>
+
+<label>Case no.</label>
+<input>
+
+<label>Age</label>
+<input type="number">
+
+<label>Gender</label>
+<select><option>Male</option><option>Female</option></select>
+
+<label>Date of Ax</label>
+<input type="date">
+
+<label>Weight (kg)</label>
+<input id="weight" type="number" oninput="calcBMI()">
+
+<label>Height (cm)</label>
+<input id="height" type="number" oninput="calcBMI()">
+
+<label>BMI</label>
+<input id="bmi" readonly>
+
+</div>
+
+<!-- 營養 -->
+<div class="section">
+<h2>Malnutrition</h2>
+
+<label>MNA-SF</label>
+<input type="number">
+
+<label>On oral nutritional supplements</label>
+<select><option>Yes</option><option>No</option></select>
+
+<label>Pitting Edema</label>
+<select><option>Yes</option><option>No</option></select>
+
+</div>
+
+<!-- 病史 -->
+<div class="section">
+<h2>PMHx</h2>
+
+<label><input type="checkbox"> CVA</label>
+<label><input type="checkbox"> Parkinson's</label>
+<label><input type="checkbox"> TBI/SCI</label>
+<label><input type="checkbox"> Brain tumor</label>
+<label><input type="checkbox"> Neuromuscular diseases</label>
+<label><input type="checkbox"> Head and Neck Cancer</label>
+<label><input type="checkbox"> Connective tissue diseases</label>
+<label><input type="checkbox"> COPD</label>
+<label><input type="checkbox"> Dementia</label>
+
+<label>Other causes for DSG</label>
+<input>
+
+<label>Other PMHx</label>
+<input>
+
+</div>
+
+<!-- 入院 -->
+<div class="section">
+<h2>Admissions (6 months)</h2>
+
+<label>Total episodes of pneumonia</label>
+<input type="number">
+
+<label>Total LOS for pneumonia (days)</label>
+<input type="number">
+
+<label>Total episodes of fall-related admissions</label>
+<input type="number">
+
+<label>Total LOS for fall-related admissions (days)</label>
+<input type="number">
+
+<label>Total episodes of dehydration/UTI</label>
+<input type="number">
+
+<label>Total LOS for dehydration/UTI (days)</label>
+<input type="number">
+
+</div>
+
+<!-- Service -->
+<div class="section">
+<h2>Service (3 months)</h2>
+
+<label>No. of MOSTE ST sessions</label>
+<input type="number">
+
+<label>No. of MOSTE PT sessions</label>
+<input type="number">
+
+<label>Dietetic service</label>
+<select><option>Yes</option><option>No</option></select>
+
+</div>
+
+<!-- Sarcopenia -->
+<div class="section">
+<h2>Sarcopenia Measurement</h2>
+
+<label>CC (cm)</label>
+<input type="number">
+
+<label>MUAC (cm)</label>
+<input type="number">
+
+<label>HGS (kg)</label>
+<input type="number">
+
+<label>Reliability of HGS measurement</label>
+<select><option>Reliable</option><option>Unreliable</option></select>
+
+<label>Maximum tongue pressure (kPa)</label>
+<input type="number">
+
+<label>Reliability of tongue strength data</label>
+<select><option>Reliable</option><option>Unreliable</option></select>
+
+<label>Maximum chin tuck strength (kPa)</label>
+<input type="number">
+
+<label>Reliability of chin tuck strength data</label>
+<select><option>Reliable</option><option>Unreliable</option></select>
+
+</div>
+
+<!-- Whole-body -->
+<div class="section">
+<h2>Whole-body Sarcopenia</h2>
+
+<label>Possible Generalized Sarcopenia</label>
+<select><option>Yes</option><option>No</option></select>
+
+</div>
+
+<!-- 吞嚥 -->
+<div class="section">
+<h2>Dysphagia</h2>
+
+<label>DSG</label>
+<select><option>Yes</option><option>No</option></select>
+
+<label>Type of DSG</label>
+<input>
+
+<label>IDDSI Liquid Level</label>
+<input type="number">
+
+<label>IDDSI Food Level</label>
+<input type="number">
+
+<label>IDDSI-FDS</label>
+<input>
+
+<label>TOM Impairment</label>
+<input>
+
+<label>TOM Activity</label>
+<input>
+
+</div>
+
+<!-- 結果 -->
+<div class="section">
+<h2>Result</h2>
+
+<label>Low HGS</label><select><option>Yes</option><option>No</option></select>
+<label>Low CC</label><select><option>Yes</option><option>No</option></select>
+<label>Low MUAC</label><select><option>Yes</option><option>No</option></select>
+<label>Low tongue pressure</label><select><option>Yes</option><option>No</option></select>
+
+<label>Diagnostic Classification</label>
+<select>
+<option>Normal</option>
+<option>Sarcopenic</option>
+<option>Not classifiable</option>
+</select>
+
+<label>Remarks</label>
+<input>
+
+<label>Missing data</label>
+<select><option>No</option><option>Yes</option></select>
+
+</div>
+
+<button type="submit">Submit</button>
+
+</form>
+
+</div>
+
+<script>
+function calcBMI(){
+    let h = document.getElementById("height").value/100;
+    let w = document.getElementById("weight").value;
+    if(h && w){
+        document.getElementById("bmi").value = (w/(h*h)).toFixed(2);
+    }
+}
+</script>
+
+</body>
+</html>
