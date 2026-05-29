@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-HK">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,75 +7,89 @@
 <title>Sarcopenic Dysphagia Prevalence Study Data</title>
 
 <style>
-body { font-family: Arial; background:#eef2f7; margin:0; }
-.container { max-width:950px; margin:auto; padding:20px; }
+body{
+  font-family: Arial;
+  background:#f6f8fb;
+  margin:0;
+}
 
-.section {
-  background:white;
+.container{
+  max-width:1000px;
+  margin:auto;
   padding:18px;
+}
+
+.section{
+  background:#fff;
+  padding:12px 14px;
+  margin-bottom:12px;
+  border-radius:8px;
+  border:1px solid #e6e9ef;
+}
+
+h1{
+  text-align:center;
   margin-bottom:18px;
-  border-radius:12px;
-  box-shadow:0 4px 10px rgba(0,0,0,0.05);
 }
 
-h1 { text-align:center; }
-
-h2 {
-  color:#192a56;
-  border-left:5px solid #4a69bd;
-  padding-left:8px;
+h2{
+  font-size:14px;
+  color:#1e3799;
+  margin-bottom:10px;
 }
 
-.grid {
+/* ✅ 核心：對齊 */
+.grid{
   display:grid;
   grid-template-columns:1fr 1fr;
-  gap:12px;
+  gap:10px 14px;
 }
 
-label { font-size:13px; }
+.field{
+  display:flex;
+  flex-direction:column;
+}
 
-.qno {
+label{
+  font-size:12px;
+  margin-bottom:2px;
+}
+
+.qno{
   font-weight:bold;
   color:#1e3799;
-  margin-right:5px;
+  margin-right:4px;
 }
 
-input, select {
-  width:100%;
-  padding:10px;
-  margin-top:4px;
-  border-radius:8px;
+input, select{
+  padding:6px 8px;
+  font-size:13px;
   border:1px solid #ccc;
+  border-radius:5px;
+  box-sizing:border-box;
 }
 
-input.invalid, select.invalid {
-  border:2px solid red;
-  background:#fff5f5;
-}
-
-.checkbox-group {
+/* checkbox */
+.checkbox-group{
   display:grid;
   grid-template-columns:1fr 1fr;
-  gap:6px;
+  gap:4px 10px;
 }
 
-.checkbox-group label {
-  background:#f5f6fa;
-  padding:6px;
+/* button */
+button{
+  width:100%;
+  padding:10px;
+  margin-top:10px;
+  background:#2f59c0;
+  color:white;
+  border:none;
   border-radius:6px;
 }
 
-button {
-  width:100%;
-  padding:14px;
-  background:#1e3799;
-  color:white;
-  border:none;
-  border-radius:10px;
-}
-
+/* mobile */
 @media(max-width:600px){
-  .grid { grid-template-columns:1fr; }
+  .grid{ grid-template-columns:1fr; }
 }
 </style>
 </head>
@@ -86,136 +100,122 @@ button {
 
 <h1>📊 Sarcopenic Dysphagia Prevalence Study Data</h1>
 
-<form id="form">
+<form>
 
-<!-- 1 Personal Info -->
+<!-- ✅ 1 PERSONAL -->
 <div class="section">
 <h2>1️⃣ Personal Information</h2>
+
 <div class="grid">
 
-<div><label><span class="qno">1.1</span>ST</label>
-<select required>
-<option value="" disabled selected>Select ST</option>
-<option>Dorothy</option>
-<option>Mattew</option>
-<option>Tina</option>
-<option>Bibianna</option>
+<div class="field"><label><span class="qno">1.1</span>ST</label>
+<select><option>Select</option>
+<option>Dorothy</option><option>Mattew</option><option>Tina</option><option>Bibianna</option>
 </select></div>
 
-<div><label><span class="qno">1.2</span>RCHE no.</label><input required></div>
-<div><label><span class="qno">1.3</span>Type of RCHE</label><input></div>
-<div><label><span class="qno">1.4</span>Case no.</label><input required></div>
-<div><label><span class="qno">1.5</span>Age</label><input type="number" required></div>
-<div><label><span class="qno">1.6</span>Gender</label><select required><option value="">Select</option><option>Male</option><option>Female</option></select></div>
-<div><label><span class="qno">1.7</span>Date of Assessment</label><input type="date" required></div>
-<div><label><span class="qno">1.8</span>Weight (kg)</label><input id="weight" type="number" oninput="calcBMI()" required></div>
-<div><label><span class="qno">1.9</span>Height (cm)</label><input id="height" type="number" oninput="calcBMI()" required></div>
-<div><label><span class="qno">1.10</span>BMI</label><input id="bmi" readonly></div>
+<div class="field"><label><span class="qno">1.2</span>RCHE no.</label><input></div>
+
+<div class="field"><label><span class="qno">1.3</span>Type of RCHE</label><input></div>
+
+<div class="field"><label><span class="qno">1.4</span>Case no.</label><input></div>
+
+<div class="field"><label><span class="qno">1.5</span>Age</label><input type="number"></div>
+
+<div class="field"><label><span class="qno">1.6</span>Gender</label>
+<select><option>Male</option><option>Female</option></select></div>
+
+<div class="field"><label><span class="qno">1.7</span>Date of Ax</label><input type="date"></div>
+
+<div class="field"><label><span class="qno">1.8</span>Weight (kg)</label><input></div>
+
+<div class="field"><label><span class="qno">1.9</span>Height (cm)</label><input></div>
+
+<div class="field"><label><span class="qno">1.10</span>BMI</label><input></div>
 
 </div>
 </div>
 
-<!-- 2 Medical History -->
+<!-- ✅ 2 MALNUTRITION -->
 <div class="section">
-<h2>2️⃣ Medical History (PMHx)</h2>
+<h2>2️⃣ Malnutrition</h2>
+
+<div class="grid">
+
+<div class="field"><label><span class="qno">2.1</span>MNA-SF</label><input></div>
+
+<div class="field"><label><span class="qno">2.2</span>Oral nutritional supplement</label>
+<select><option>Yes</option><option>No</option></select></div>
+
+<div class="field"><label><span class="qno">2.3</span>Pitting Edema</label>
+<select><option>Yes</option><option>No</option></select></div>
+
+</div>
+</div>
+
+<!-- ✅ 3 PMHx -->
+<div class="section">
+<h2>3️⃣ Medical History</h2>
 
 <div class="checkbox-group">
-<label><span class="qno">2.1</span><input type="checkbox">CVA</label>
-<label><span class="qno">2.2</span><input type="checkbox">Parkinson's</label>
-<label><span class="qno">2.3</span><input type="checkbox">TBI/SCI</label>
-<label><span class="qno">2.4</span><input type="checkbox">Brain tumor</label>
-<label><span class="qno">2.5</span><input type="checkbox">Neuromuscular diseases</label>
-<label><span class="qno">2.6</span><input type="checkbox">Head and Neck Cancer</label>
-<label><span class="qno">2.7</span><input type="checkbox">Connective tissue diseases</label>
-<label><span class="qno">2.8</span><input type="checkbox">COPD</label>
-<label><span class="qno">2.9</span><input type="checkbox">Dementia</label>
+<label><input type="checkbox">CVA</label>
+<label><input type="checkbox">Parkinson's</label>
+<label><input type="checkbox">TBI/SCI</label>
+<label><input type="checkbox">Brain tumor</label>
+<label><input type="checkbox">Neuromuscular diseases</label>
+<label><input type="checkbox">Head and Neck Cancer</label>
+<label><input type="checkbox">Connective tissue diseases</label>
+<label><input type="checkbox">COPD</label>
+<label><input type="checkbox">Dementia</label>
 </div>
 
 <br>
 
 <div class="grid">
-<div><label><span class="qno">2.10</span>Other causes for DSG</label><input></div>
-<div><label><span class="qno">2.11</span>Other PMHx</label><input></div>
+<div class="field"><label>Other causes for DSG</label><input></div>
+<div class="field"><label>Other PMHx</label><input></div>
 </div>
 
 </div>
 
-<!-- 3 Admission -->
+<!-- ✅ 4 ADMISSION -->
 <div class="section">
-<h2>3️⃣ Admission History (Last 6 Months)</h2>
+<h2>4️⃣ Admission (6 months)</h2>
 
 <div class="grid">
-<label><span class="qno">3.1</span>Pneumonia Episodes</label><input type="number">
-<label><span class="qno">3.2</span>Pneumonia LOS (days)</label><input type="number">
-<label><span class="qno">3.3</span>Fall Episodes</label><input type="number">
-<label><span class="qno">3.4</span>Fall LOS (days)</label><input type="number">
-<label><span class="qno">3.5</span>UTI/Dehydration Episodes</label><input type="number">
-<label><span class="qno">3.6</span>UTI/Dehydration LOS (days)</label><input type="number">
-</div>
+
+<div class="field"><label>Pneumonia episodes</label><input></div>
+<div class="field"><label>Pneumonia LOS</label><input></div>
+<div class="field"><label>Fall episodes</label><input></div>
+<div class="field"><label>Fall LOS</label><input></div>
+<div class="field"><label>UTI episodes</label><input></div>
+<div class="field"><label>UTI LOS</label><input></div>
 
 </div>
+</div>
 
-<!-- 4 Sarcopenia -->
+<!-- ✅ 5 SARCOPENIA -->
 <div class="section">
-<h2>4️⃣ Sarcopenia Assessment</h2>
+<h2>5️⃣ Sarcopenia Assessment</h2>
 
 <div class="grid">
-<label><span class="qno">4.1</span>CC (cm)</label><input type="number">
-<label><span class="qno">4.2</span>MUAC (cm)</label><input type="number">
-<label><span class="qno">4.3</span>HGS (kg)</label><input type="number">
-<label><span class="qno">4.4</span>HGS Reliability</label><select><option>Reliable</option><option>Unreliable</option></select>
-<label><span class="qno">4.5</span>Maximum tongue pressure (kPa)</label><input type="number">
-<label><span class="qno">4.6</span>Tongue Reliability</label><select><option>Reliable</option><option>Unreliable</option></select>
-<label><span class="qno">4.7</span>Chin tuck strength (kPa)</label><input type="number">
-<label><span class="qno">4.8</span>Chin Reliability</label><select><option>Reliable</option><option>Unreliable</option></select>
-</div>
+
+<div class="field"><label>CC</label><input></div>
+<div class="field"><label>MUAC</label><input></div>
+<div class="field"><label>HGS</label><input></div>
+<div class="field"><label>HGS Reliability</label><select><option>Reliable</option><option>Unreliable</option></select></div>
+<div class="field"><label>Tongue Pressure</label><input></div>
+<div class="field"><label>Tongue Reliability</label><select><option>Reliable</option><option>Unreliable</option></select></div>
+<div class="field"><label>Chin Tuck Strength</label><input></div>
+<div class="field"><label>Chin Reliability</label><select><option>Reliable</option><option>Unreliable</option></select></div>
 
 </div>
+</div>
 
-<button type="submit">💾 Submit</button>
+<button>Submit</button>
 
 </form>
+
 </div>
-
-<script>
-function calcBMI(){
- let h = document.getElementById("height").value/100;
- let w = document.getElementById("weight").value;
- if(h && w){
-  document.getElementById("bmi").value=(w/(h*h)).toFixed(2);
- }
-}
-
-document.getElementById("form").addEventListener("submit",function(e){
- let ok=true;
- document.querySelectorAll("input,select").forEach(f=>{
-  if(f.required && !f.value){
-   f.classList.add("invalid"); ok=false;
-  }else f.classList.remove("invalid");
- });
- if(!ok){
-  e.preventDefault();
-  let first=document.querySelector(".invalid");
-  first.scrollIntoView({behavior:"smooth",block:"center"});
-  first.focus();
- }
-});
-
-let f=document.querySelectorAll("input,select");
-f.forEach((el,i)=>{
- el.addEventListener("change",()=>move(i));
- el.addEventListener("keydown",(e)=>{
-  if(e.key==="Enter"){e.preventDefault();move(i)}
- });
-});
-
-function move(i){
- let f=document.querySelectorAll("input,select");
- for(let j=i+1;j<f.length;j++){
-  if(!f[j].disabled){f[j].focus();break;}
- }
-}
-</script>
 
 </body>
 </html>
