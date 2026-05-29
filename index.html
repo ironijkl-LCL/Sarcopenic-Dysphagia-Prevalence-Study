@@ -8,7 +8,7 @@
 
 <style>
 body{
-  font-family: Arial;
+  font-family:-apple-system, Arial;
   background:#f6f8fb;
   margin:0;
 }
@@ -16,21 +16,18 @@ body{
 .container{
   max-width:1000px;
   margin:auto;
-  padding:18px;
+  padding:16px;
 }
 
 .section{
-  background:#fff;
+  background:white;
   padding:12px 14px;
   margin-bottom:12px;
   border-radius:8px;
   border:1px solid #e6e9ef;
 }
 
-h1{
-  text-align:center;
-  margin-bottom:18px;
-}
+h1{text-align:center;margin-bottom:18px;}
 
 h2{
   font-size:14px;
@@ -38,7 +35,7 @@ h2{
   margin-bottom:10px;
 }
 
-/* ✅ 核心：對齊 */
+/* ✅ 排版核心 */
 .grid{
   display:grid;
   grid-template-columns:1fr 1fr;
@@ -66,7 +63,6 @@ input, select{
   font-size:13px;
   border:1px solid #ccc;
   border-radius:5px;
-  box-sizing:border-box;
 }
 
 /* checkbox */
@@ -87,9 +83,8 @@ button{
   border-radius:6px;
 }
 
-/* mobile */
 @media(max-width:600px){
-  .grid{ grid-template-columns:1fr; }
+  .grid{grid-template-columns:1fr;}
 }
 </style>
 </head>
@@ -102,20 +97,32 @@ button{
 
 <form>
 
-<!-- ✅ 1 PERSONAL -->
+<!-- 1 PERSONAL -->
 <div class="section">
 <h2>1️⃣ Personal Information</h2>
-
 <div class="grid">
 
-<div class="field"><label><span class="qno">1.1</span>ST</label>
-<select><option>Select</option>
-<option>Dorothy</option><option>Mattew</option><option>Tina</option><option>Bibianna</option>
-</select></div>
+<div class="field">
+<label><span class="qno">1.1</span>ST</label>
+<select>
+<option>Select</option>
+<option>Dorothy</option>
+<option>Mattew</option>
+<option>Tina</option>
+<option>Bibianna</option>
+</select>
+</div>
 
 <div class="field"><label><span class="qno">1.2</span>RCHE no.</label><input></div>
 
-<div class="field"><label><span class="qno">1.3</span>Type of RCHE</label><input></div>
+<div class="field">
+<label><span class="qno">1.3</span>Type of RCHE</label>
+<select>
+<option value="">Select</option>
+<option>CONTRACT</option>
+<option>PRIVATE</option>
+</select>
+</div>
 
 <div class="field"><label><span class="qno">1.4</span>Case no.</label><input></div>
 
@@ -126,24 +133,26 @@ button{
 
 <div class="field"><label><span class="qno">1.7</span>Date of Ax</label><input type="date"></div>
 
-<div class="field"><label><span class="qno">1.8</span>Weight (kg)</label><input></div>
+<div class="field"><label><span class="qno">1.8</span>Weight (kg)</label>
+<input id="weight" type="number" oninput="calcBMI()"></div>
 
-<div class="field"><label><span class="qno">1.9</span>Height (cm)</label><input></div>
+<div class="field"><label><span class="qno">1.9</span>Height (cm)</label>
+<input id="height" type="number" oninput="calcBMI()"></div>
 
-<div class="field"><label><span class="qno">1.10</span>BMI</label><input></div>
+<div class="field"><label><span class="qno">1.10</span>BMI</label>
+<input id="bmi" readonly></div>
 
 </div>
 </div>
 
-<!-- ✅ 2 MALNUTRITION -->
+<!-- 2 MALNUTRITION -->
 <div class="section">
 <h2>2️⃣ Malnutrition</h2>
-
 <div class="grid">
 
 <div class="field"><label><span class="qno">2.1</span>MNA-SF</label><input></div>
 
-<div class="field"><label><span class="qno">2.2</span>Oral nutritional supplement</label>
+<div class="field"><label><span class="qno">2.2</span>Oral Nutritional Supplements</label>
 <select><option>Yes</option><option>No</option></select></div>
 
 <div class="field"><label><span class="qno">2.3</span>Pitting Edema</label>
@@ -152,7 +161,7 @@ button{
 </div>
 </div>
 
-<!-- ✅ 3 PMHx -->
+<!-- 3 MEDICAL HISTORY -->
 <div class="section">
 <h2>3️⃣ Medical History</h2>
 
@@ -177,36 +186,44 @@ button{
 
 </div>
 
-<!-- ✅ 4 ADMISSION -->
+<!-- 4 ADMISSION -->
 <div class="section">
-<h2>4️⃣ Admission (6 months)</h2>
+<h2>4️⃣ Admissions (6 months)</h2>
 
 <div class="grid">
 
-<div class="field"><label>Pneumonia episodes</label><input></div>
-<div class="field"><label>Pneumonia LOS</label><input></div>
-<div class="field"><label>Fall episodes</label><input></div>
-<div class="field"><label>Fall LOS</label><input></div>
-<div class="field"><label>UTI episodes</label><input></div>
-<div class="field"><label>UTI LOS</label><input></div>
+<div class="field"><label>Pneumonia Episodes</label><input></div>
+<div class="field"><label>Pneumonia LOS (days)</label><input></div>
+
+<div class="field"><label>Fall Episodes</label><input></div>
+<div class="field"><label>Fall LOS (days)</label><input></div>
+
+<div class="field"><label>UTI/Dehydration Episodes</label><input></div>
+<div class="field"><label>LOS (days)</label><input></div>
 
 </div>
 </div>
 
-<!-- ✅ 5 SARCOPENIA -->
+<!-- 5 SARCOPENIA -->
 <div class="section">
-<h2>5️⃣ Sarcopenia Assessment</h2>
+<h2>5️⃣ Sarcopenia Measurement</h2>
 
 <div class="grid">
 
-<div class="field"><label>CC</label><input></div>
-<div class="field"><label>MUAC</label><input></div>
-<div class="field"><label>HGS</label><input></div>
-<div class="field"><label>HGS Reliability</label><select><option>Reliable</option><option>Unreliable</option></select></div>
-<div class="field"><label>Tongue Pressure</label><input></div>
-<div class="field"><label>Tongue Reliability</label><select><option>Reliable</option><option>Unreliable</option></select></div>
+<div class="field"><label>CC (cm)</label><input></div>
+<div class="field"><label>MUAC (cm)</label><input></div>
+
+<div class="field"><label>HGS (kg)</label><input></div>
+<div class="field"><label>Reliability of HGS</label>
+<select><option>Reliable</option><option>Unreliable</option></select></div>
+
+<div class="field"><label>Maximum Tongue Pressure</label><input></div>
+<div class="field"><label>Reliability (Tongue)</label>
+<select><option>Reliable</option><option>Unreliable</option></select></div>
+
 <div class="field"><label>Chin Tuck Strength</label><input></div>
-<div class="field"><label>Chin Reliability</label><select><option>Reliable</option><option>Unreliable</option></select></div>
+<div class="field"><label>Reliability (Chin)</label>
+<select><option>Reliable</option><option>Unreliable</option></select></div>
 
 </div>
 </div>
@@ -216,6 +233,16 @@ button{
 </form>
 
 </div>
+
+<script>
+function calcBMI(){
+ let h = document.getElementById("height").value / 100;
+ let w = document.getElementById("weight").value;
+ if(h && w){
+  document.getElementById("bmi").value = (w/(h*h)).toFixed(2);
+ }
+}
+</script>
 
 </body>
 </html>
