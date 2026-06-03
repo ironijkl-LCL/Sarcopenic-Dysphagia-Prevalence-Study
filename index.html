@@ -13,16 +13,40 @@
   .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px; }
   label { font-size: 14px; font-weight: 500; display: block; margin-bottom: 5px; }
   .qno { font-weight: bold; color: #1e3799; margin-right: 5px; }
-  input, select { width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #ccc; box-sizing: border-box; font-size: 14px; }
+  input, select { width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #ccc; box-sizing: border-box; font-size: 14px; background-color: white; }
   input:focus, select:focus { outline: none; border-color: #4a69bd; box-shadow: 0 0 5px rgba(74, 105, 189, 0.3); }
   input.invalid, select.invalid { border: 2px solid red; background: #fff5f5; }
-  .checkbox-group { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; background: #f8f9fa; padding: 15px; border-radius: 8px; }
-  .checkbox-group label { background: white; padding: 10px; border-radius: 6px; border: 1px solid #eee; display: flex; align-items: center; cursor: pointer; margin: 0; }
-  .checkbox-group input { width: auto; margin-right: 10px; }
-  button { width: 100%; padding: 15px; background: #1e3799; color: white; border: none; border-radius: 10px; font-size: 16px; font-weight: bold; cursor: pointer; margin-top: 30px; transition: background 0.2s; }
-  button:hover { background: #142870; }
-  button:disabled { background: #a5b1c2; cursor: not-allowed; }
-  @media(max-width:768px){ .grid, .grid-3, .checkbox-group { grid-template-columns: 1fr; } }
+  
+  .btn-container { display: flex; gap: 15px; margin-top: 30px; }
+  button { flex: 1; padding: 15px; color: white; border: none; border-radius: 10px; font-size: 16px; font-weight: bold; cursor: pointer; transition: background 0.2s; }
+  .btn-submit { background: #1e3799; }
+  .btn-submit:hover { background: #142870; }
+  .btn-submit:disabled { background: #a5b1c2; cursor: not-allowed; }
+  .btn-print { background: #20bf6b; }
+  .btn-print:hover { background: #1b9454; }
+
+  @media(max-width:768px){ 
+    .grid, .grid-3 { grid-template-columns: 1fr; } 
+    .btn-container { flex-direction: column; }
+  }
+
+  /* 🖨️ PDF 列印美化設定 */
+  @media print {
+    body { background: white; padding: 0; margin: 0; }
+    .container { box-shadow: none; padding: 0; max-width: 100%; }
+    .btn-container { display: none !important; }
+    input, select { 
+      border: none !important; 
+      border-bottom: 1px solid #000 !important; 
+      border-radius: 0 !important; 
+      background: transparent !important;
+      padding: 5px 0 !important;
+      appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+    }
+    .section { page-break-inside: avoid; }
+  }
 </style>
 </head>
 <body>
@@ -44,7 +68,13 @@
           </select>
         </div>
         <div><label><span class="qno">1.2</span>RCHE no.</label><input name="rche_no" required></div>
-        <div><label><span class="qno">1.3</span>Type of RCHE</label><input name="type_of_rche"></div>
+        <div><label><span class="qno">1.3</span>Type of RCHE</label>
+          <select name="type_of_rche">
+            <option value="">Select</option>
+            <option>Private</option>
+            <option>Contract</option>
+          </select>
+        </div>
         <div><label><span class="qno">1.4</span>Case no.</label><input name="case_no" required></div>
         <div><label><span class="qno">1.5</span>Age</label><input name="age" type="number" required></div>
         <div><label><span class="qno">1.6</span>Gender</label>
@@ -66,21 +96,46 @@
 
     <div class="section">
       <h2>2️⃣ Medical History (PMHx)</h2>
-      <div class="checkbox-group">
-        <label><span class="qno">2.1</span><input type="checkbox" name="cva" value="true">CVA</label>
-        <label><span class="qno">2.2</span><input type="checkbox" name="parkinson" value="true">Parkinson's</label>
-        <label><span class="qno">2.3</span><input type="checkbox" name="tbi_sci" value="true">TBI/SCI</label>
-        <label><span class="qno">2.4</span><input type="checkbox" name="brain_tumor" value="true">Brain tumor</label>
-        <label><span class="qno">2.5</span><input type="checkbox" name="neuromuscular" value="true">Neuromuscular diseases</label>
-        <label><span class="qno">2.6</span><input type="checkbox" name="head_neck_cancer" value="true">Head & Neck Cancer</label>
-        <label><span class="qno">2.7</span><input type="checkbox" name="connective_disease" value="true">Connective tissue diseases</label>
-        <label><span class="qno">2.8</span><input type="checkbox" name="copd" value="true">COPD</label>
-        <label><span class="qno">2.9</span><input type="checkbox" name="dementia" value="true">Dementia</label>
+      <div class="grid">
+        <div><label><span class="qno">2.1</span>CVA</label>
+          <select name="cva"><option value="">Select</option><option>Yes</option><option>No</option></select>
+        </div>
+        <div><label><span class="qno">2.2</span>Parkinson's</label>
+          <select name="parkinson"><option value="">Select</option><option>Yes</option><option>No</option></select>
+        </div>
+        <div><label><span class="qno">2.3</span>TBI/SCI</label>
+          <select name="tbi_sci"><option value="">Select</option><option>Yes</option><option>No</option></select>
+        </div>
+        <div><label><span class="qno">2.4</span>Brain tumor</label>
+          <select name="brain_tumor"><option value="">Select</option><option>Yes</option><option>No</option></select>
+        </div>
+        <div><label><span class="qno">2.5</span>Neuromuscular diseases</label>
+          <select name="neuromuscular"><option value="">Select</option><option>Yes</option><option>No</option></select>
+        </div>
+        <div><label><span class="qno">2.6</span>Head and Neck Cancer</label>
+          <select name="head_neck_cancer"><option value="">Select</option><option>Yes</option><option>No</option></select>
+        </div>
+        <div><label><span class="qno">2.7</span>Connective tissue diseases</label>
+          <select name="connective_disease"><option value="">Select</option><option>Yes</option><option>No</option></select>
+        </div>
+        <div><label><span class="qno">2.8</span>COPD</label>
+          <select name="copd"><option value="">Select</option><option>Yes</option><option>No</option></select>
+        </div>
+        <div><label><span class="qno">2.9</span>Dementia</label>
+          <select name="dementia"><option value="">Select</option><option>Yes</option><option>No</option></select>
+        </div>
+        <div><label><span class="qno">2.10</span>Other causes for DSG</label>
+          <select name="other_causes_dsg">
+            <option value="">Select</option>
+            <option>Obvious</option>
+            <option>Potential</option>
+            <option>No</option>
+          </select>
+        </div>
       </div>
       <br>
-      <div class="grid-3">
-        <div><label><span class="qno">2.10</span>Other causes for DSG</label><input name="other_causes_dsg"></div>
-        <div><label><span class="qno">2.11</span>Other causes (Specify)</label><input name="other_causes_specify"></div>
+      <div class="grid">
+        <div><label><span class="qno">2.11</span>Other causes (Specify here)</label><input name="other_causes_specify"></div>
         <div><label><span class="qno">2.12</span>Other PMHx</label><input name="other_pmhx"></div>
       </div>
     </div>
@@ -96,18 +151,19 @@
         <label><span class="qno">3.6</span>UTI/Dehydration Total LOS</label><input name="uti_los" type="number" min="0">
         <label><span class="qno">3.7</span>No. of MOSTE ST sessions</label><input name="moste_st_sessions" type="number" min="0">
         <label><span class="qno">3.8</span>No. of MOSTE PT sessions</label><input name="moste_pt_sessions" type="number" min="0">
-        <label><span class="qno">3.9</span>Dietetic service</label><input name="dietetic_service">
+        
+        <label><span class="qno">3.9</span>Dietetic service</label>
+        <select name="dietetic_service"><option value="">Select</option><option>Yes</option><option>No</option></select>
+        
         <label><span class="qno">3.10</span>On oral nutritional supplements (ONS)</label>
-        <select name="ons">
-          <option value="">Select</option>
-          <option>Yes</option>
-          <option>No</option>
-        </select>
+        <select name="ons"><option value="">Select</option><option>Yes</option><option>No</option></select>
+        
         <label><span class="qno">3.11</span>Pitting Edema</label>
         <select name="pitting_edema">
           <option value="">Select</option>
           <option>Yes</option>
           <option>No</option>
+          <option>Invalid</option>
         </select>
       </div>
     </div>
@@ -115,17 +171,34 @@
     <div class="section">
       <h2>4️⃣ Sarcopenia & Clinical Measurements</h2>
       <div class="grid">
-        <label><span class="qno">4.1</span>CC (cm)</label><input name="cc">
+        <label><span class="qno">4.1</span>CC (cm) [Invalid or Number]</label><input name="cc" placeholder="例如: 31 或 Invalid">
         <label><span class="qno">4.2</span>MUAC (cm)</label><input name="muac" type="number" step="0.1">
         <label><span class="qno">4.3</span>HGS (kg)</label><input name="hgs" type="number" step="0.1">
         <label><span class="qno">4.4</span>Reliability of HGS</label>
-        <select name="hgs_reliability"><option value="">Select</option><option>Reliable</option><option>Unreliable</option></select>
+        <select name="hgs_reliability">
+          <option value="">Select</option>
+          <option>Reliable</option>
+          <option>Questionable</option>
+          <option>Cannot be measured</option>
+        </select>
+        
         <label><span class="qno">4.5</span>Max Tongue Pressure (kPa)</label><input name="tongue_pressure" type="number" step="0.1">
         <label><span class="qno">4.6</span>Reliability of Tongue Data</label>
-        <select name="tongue_reliability"><option value="">Select</option><option>Reliable</option><option>Unreliable</option></select>
+        <select name="tongue_reliability">
+          <option value="">Select</option>
+          <option>Reliable</option>
+          <option>Questionable</option>
+          <option>Cannot be measured</option>
+        </select>
+        
         <label><span class="qno">4.7</span>Max Chin Tuck Strength (kPa)</label><input name="chin_tuck" type="number" step="0.1">
         <label><span class="qno">4.8</span>Reliability of Chin Tuck Data</label>
-        <select name="chin_reliability"><option value="">Select</option><option>Reliable</option><option>Unreliable</option></select>
+        <select name="chin_reliability">
+          <option value="">Select</option>
+          <option>Reliable</option>
+          <option>Questionable</option>
+          <option>Cannot be measured</option>
+        </select>
       </div>
     </div>
 
@@ -134,22 +207,77 @@
       <div class="grid">
         <label><span class="qno">5.1</span>DSG</label>
         <select name="dsg"><option value="">Select</option><option>Yes</option><option>No</option></select>
-        <label><span class="qno">5.2</span>Type of DSG</label><input name="type_of_dsg">
-        <label><span class="qno">5.3</span>IDDSI Liquid Level</label><input name="iddsi_liquid" type="number" min="0" max="4">
-        <label><span class="qno">5.4</span>IDDSI Food Level</label><input name="iddsi_food" type="number" min="3" max="7">
-        <label><span class="qno">5.5</span>IDDSI-FDS</label><input name="iddsi_fds">
-        <label><span class="qno">5.6</span>TOM_Impairment</label><input name="tom_impairment" type="number" step="0.5">
-        <label><span class="qno">5.7</span>TOM_Activity</label><input name="tom_activity" type="number" step="0.5">
+        <label><span class="qno">5.2</span>Type of DSG</label>
+        <select name="type_of_dsg">
+          <option value="">Select</option>
+          <option>Sarcopenic Dysphagia</option>
+          <option>Presbyphagia</option>
+          <option>Neurogenic Dysphagia</option>
+          <option>Mechanical Dysphagia</option>
+          <option>Psychogenic Dysphagia</option>
+          <option>Other causes</option>
+          <option>Normal</option>
+        </select>
+        
+        <label><span class="qno">5.3</span>IDDSI Liquid Level</label>
+        <select name="iddsi_liquid">
+          <option value="">Select</option>
+          <option>0 - Thin</option>
+          <option>1 - Slightly Thick</option>
+          <option>2 - Mildly Thick</option>
+          <option>3 - Moderately Thick</option>
+          <option>4 - Extremely Thick</option>
+        </select>
+        
+        <label><span class="qno">5.4</span>IDDSI Food Level</label>
+        <select name="iddsi_food">
+          <option value="">Select</option>
+          <option>3 - Liquidised</option>
+          <option>4 - Pureed</option>
+          <option>5 - Minced & Moist</option>
+          <option>6 - Soft & Bite-sized</option>
+          <option>7 - Regular / Easy to Chew</option>
+        </select>
+        
+        <label><span class="qno">5.5</span>IDDSI-FDS</label>
+        <select name="iddsi_fds">
+          <option value="">Select</option>
+          <option>0</option><option>1</option><option>2</option><option>3</option>
+          <option>4</option><option>5</option><option>6</option><option>7</option>
+          <option>8</option><option>9</option><option>10</option>
+        </select>
+        
+        <label><span class="qno">5.6</span>TOM_Impairment</label>
+        <select name="tom_impairment">
+          <option value="">Select</option>
+          <option>0</option><option>0.5</option><option>1</option><option>1.5</option><option>2</option>
+          <option>2.5</option><option>3</option><option>3.5</option><option>4</option><option>4.5</option><option>5</option>
+        </select>
+        
+        <label><span class="qno">5.7</span>TOM_Activity</label>
+        <select name="tom_activity">
+          <option value="">Select</option>
+          <option>0</option><option>0.5</option><option>1</option><option>1.5</option><option>2</option>
+          <option>2.5</option><option>3</option><option>3.5</option><option>4</option><option>4.5</option><option>5</option>
+        </select>
       </div>
     </div>
 
-    <button type="submit" id="submitBtn">💾 Submit Data</button>
+    <div class="btn-container">
+      <button type="submit" class="btn-submit" id="submitBtn">💾 Submit Data</button>
+      <button type="button" class="btn-print" id="printBtn">🖨️ Export PDF / Print</button>
+    </div>
   </form>
 </div>
 
 <script>
-// 這裡已經替換成你提供的 Google Apps Script 網頁應用程式 URL
+// 對接你已部署成功的有效 Google Apps Script API 網址
 const scriptURL = 'https://script.google.com/macros/s/AKfycbwGls7YCho5UpH5IckkDnufeY_AAouXMPXTr2sDoUvQk1Q20m1BzsZ2GN35um0vF1GUeg/exec'; 
+
+/* 🖨️ 輸出 PDF 檔案列印 */
+document.getElementById("printBtn").addEventListener("click", function() {
+  window.print();
+});
 
 /* 自動計算 BMI 邏輯 */
 function calcBMI(){
@@ -164,10 +292,9 @@ function calcBMI(){
 
 /* 表單提交事件處理 */
 document.getElementById("form").addEventListener("submit", function(e) {
-  e.preventDefault(); // 阻止原生表單跳轉頁面
+  e.preventDefault(); 
   
   let ok = true;
-  // 檢查所有必填欄位 (required)
   document.querySelectorAll("input[required], select[required]").forEach(f => {
     if (!f.value) {
       f.classList.add("invalid"); 
@@ -184,29 +311,16 @@ document.getElementById("form").addEventListener("submit", function(e) {
     return;
   }
 
-  // 進入發送狀態，停用按鈕防止重複點擊
   const submitButton = document.getElementById("submitBtn");
   submitButton.disabled = true;
   submitButton.innerText = "⏳ Sending Data...";
 
-  // 封裝表單資料
   const formData = new FormData(this);
-  
-  // 處理核取方塊 (Checkbox)：若未勾選則手動補上 "false"
-  const checkboxes = document.querySelectorAll("input[type='checkbox']");
-  checkboxes.forEach(cb => {
-    if (!formData.has(cb.name)) {
-      formData.append(cb.name, "false");
-    }
-  });
-
-  // 轉換為 URL 參數格式
   const urlParams = new URLSearchParams(formData).toString();
 
-  // 透過 fetch 非同步發送 POST 請求至 Google Apps Script
   fetch(scriptURL, {
     method: "POST",
-    mode: "no-cors", // 使用 no-cors 模式避免跨網域拒絕問題
+    mode: "no-cors", 
     headers: {
       "Content-Type": "application/x-www-form-urlencoded"
     },
@@ -214,8 +328,8 @@ document.getElementById("form").addEventListener("submit", function(e) {
   })
   .then(response => {
     alert("🎉 資料已成功排程並寫入 Google 試算表！");
-    document.getElementById("form").reset(); // 重設表單
-    document.getElementById("bmi").value = ""; // 清空唯讀欄位
+    document.getElementById("form").reset(); 
+    document.getElementById("bmi").value = ""; 
     submitButton.disabled = false;
     submitButton.innerText = "💾 Submit Data";
   })
@@ -232,10 +346,8 @@ let fields = document.querySelectorAll("input, select");
 fields.forEach((el, i) => {
   el.addEventListener("keydown", (e) => {
     if (e.key === "Enter") {
-      // 排除 textarea 或 submit 按鈕
-      if (el.type !== "submit") {
+      if (el.type !== "submit" && el.type !== "button") {
         e.preventDefault();
-        // 尋找下一個未停用的欄位聚焦
         for (let j = i + 1; j < fields.length; j++) {
           if (!fields[j].disabled && fields[j].type !== "hidden") {
             fields[j].focus();
