@@ -9,6 +9,13 @@
   .container { max-width: 950px; margin: auto; background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
   h1 { text-align: center; color: #1e3799; margin-bottom: 30px; }
   h2 { color: #192a56; border-left: 5px solid #4a69bd; padding-left: 8px; margin-top: 30px; margin-bottom: 15px; }
+  
+  /* 搜尋區塊樣式 */
+  .search-box { background: #ffeaa7; padding: 15px; border-radius: 10px; margin-bottom: 25px; display: flex; gap: 10px; align-items: center; }
+  .search-box input { flex: 2; }
+  .search-box button { flex: 1; margin: 0; padding: 10px; background: #d35400; font-size: 14px; }
+  .search-box button:hover { background: #b33921; }
+
   .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
   .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px; }
   label { font-size: 14px; font-weight: 500; display: block; margin-bottom: 5px; }
@@ -28,13 +35,14 @@
   @media(max-width:768px){ 
     .grid, .grid-3 { grid-template-columns: 1fr; } 
     .btn-container { flex-direction: column; }
+    .search-box { flex-direction: column; align-items: stretch; }
   }
 
   /* 🖨️ PDF 列印美化設定 */
   @media print {
     body { background: white; padding: 0; margin: 0; }
     .container { box-shadow: none; padding: 0; max-width: 100%; }
-    .btn-container { display: none !important; }
+    .btn-container, .search-box { display: none !important; } /* 列印時隱藏搜尋欄與按鈕 */
     input, select { 
       border: none !important; 
       border-bottom: 1px solid #000 !important; 
@@ -53,8 +61,14 @@
 
 <div class="container">
   <h1>📊 Sarcopenic Dysphagia Prevalence Study Data</h1>
-  <form id="form">
+  
+  <div class="search-box">
+    <span style="font-weight: bold; color: #d35400;">🔍 尋找舊個案列印：</span>
+    <input type="text" id="searchCaseNo" placeholder="請輸入 Case no.">
+    <button type="button" id="searchBtn">載入歷史資料</button>
+  </div>
 
+  <form id="form">
     <div class="section">
       <h2>1️⃣ 基本資料 (Basic Information)</h2>
       <div class="grid">
@@ -97,39 +111,18 @@
     <div class="section">
       <h2>2️⃣ Medical History (PMHx)</h2>
       <div class="grid">
-        <div><label><span class="qno">2.1</span>CVA</label>
-          <select name="cva"><option value="">Select</option><option>Yes</option><option>No</option></select>
-        </div>
-        <div><label><span class="qno">2.2</span>Parkinson's</label>
-          <select name="parkinson"><option value="">Select</option><option>Yes</option><option>No</option></select>
-        </div>
-        <div><label><span class="qno">2.3</span>TBI/SCI</label>
-          <select name="tbi_sci"><option value="">Select</option><option>Yes</option><option>No</option></select>
-        </div>
-        <div><label><span class="qno">2.4</span>Brain tumor</label>
-          <select name="brain_tumor"><option value="">Select</option><option>Yes</option><option>No</option></select>
-        </div>
-        <div><label><span class="qno">2.5</span>Neuromuscular diseases</label>
-          <select name="neuromuscular"><option value="">Select</option><option>Yes</option><option>No</option></select>
-        </div>
-        <div><label><span class="qno">2.6</span>Head and Neck Cancer</label>
-          <select name="head_neck_cancer"><option value="">Select</option><option>Yes</option><option>No</option></select>
-        </div>
-        <div><label><span class="qno">2.7</span>Connective tissue diseases</label>
-          <select name="connective_disease"><option value="">Select</option><option>Yes</option><option>No</option></select>
-        </div>
-        <div><label><span class="qno">2.8</span>COPD</label>
-          <select name="copd"><option value="">Select</option><option>Yes</option><option>No</option></select>
-        </div>
-        <div><label><span class="qno">2.9</span>Dementia</label>
-          <select name="dementia"><option value="">Select</option><option>Yes</option><option>No</option></select>
-        </div>
+        <div><label><span class="qno">2.1</span>CVA</label><select name="cva"><option value="">Select</option><option>Yes</option><option>No</option></select></div>
+        <div><label><span class="qno">2.2</span>Parkinson's</label><select name="parkinson"><option value="">Select</option><option>Yes</option><option>No</option></select></div>
+        <div><label><span class="qno">2.3</span>TBI/SCI</label><select name="tbi_sci"><option value="">Select</option><option>Yes</option><option>No</option></select></div>
+        <div><label><span class="qno">2.4</span>Brain tumor</label><select name="brain_tumor"><option value="">Select</option><option>Yes</option><option>No</option></select></div>
+        <div><label><span class="qno">2.5</span>Neuromuscular diseases</label><select name="neuromuscular"><option value="">Select</option><option>Yes</option><option>No</option></select></div>
+        <div><label><span class="qno">2.6</span>Head and Neck Cancer</label><select name="head_neck_cancer"><option value="">Select</option><option>Yes</option><option>No</option></select></div>
+        <div><label><span class="qno">2.7</span>Connective tissue diseases</label><select name="connective_disease"><option value="">Select</option><option>Yes</option><option>No</option></select></div>
+        <div><label><span class="qno">2.8</span>COPD</label><select name="copd"><option value="">Select</option><option>Yes</option><option>No</option></select></div>
+        <div><label><span class="qno">2.9</span>Dementia</label><select name="dementia"><option value="">Select</option><option>Yes</option><option>No</option></select></div>
         <div><label><span class="qno">2.10</span>Other causes for DSG</label>
           <select name="other_causes_dsg">
-            <option value="">Select</option>
-            <option>Obvious</option>
-            <option>Potential</option>
-            <option>No</option>
+            <option value="">Select</option><option>Obvious</option><option>Potential</option><option>No</option>
           </select>
         </div>
       </div>
@@ -151,20 +144,9 @@
         <label><span class="qno">3.6</span>UTI/Dehydration Total LOS</label><input name="uti_los" type="number" min="0">
         <label><span class="qno">3.7</span>No. of MOSTE ST sessions</label><input name="moste_st_sessions" type="number" min="0">
         <label><span class="qno">3.8</span>No. of MOSTE PT sessions</label><input name="moste_pt_sessions" type="number" min="0">
-        
-        <label><span class="qno">3.9</span>Dietetic service</label>
-        <select name="dietetic_service"><option value="">Select</option><option>Yes</option><option>No</option></select>
-        
-        <label><span class="qno">3.10</span>On oral nutritional supplements (ONS)</label>
-        <select name="ons"><option value="">Select</option><option>Yes</option><option>No</option></select>
-        
-        <label><span class="qno">3.11</span>Pitting Edema</label>
-        <select name="pitting_edema">
-          <option value="">Select</option>
-          <option>Yes</option>
-          <option>No</option>
-          <option>Invalid</option>
-        </select>
+        <label><span class="qno">3.9</span>Dietetic service</label><select name="dietetic_service"><option value="">Select</option><option>Yes</option><option>No</option></select>
+        <label><span class="qno">3.10</span>On oral nutritional supplements (ONS)</label><select name="ons"><option value="">Select</option><option>Yes</option><option>No</option></select>
+        <label><span class="qno">3.11</span>Pitting Edema</label><select name="pitting_edema"><option value="">Select</option><option>Yes</option><option>No</option><option>Invalid</option></select>
       </div>
     </div>
 
@@ -175,91 +157,34 @@
         <label><span class="qno">4.2</span>MUAC (cm)</label><input name="muac" type="number" step="0.1">
         <label><span class="qno">4.3</span>HGS (kg)</label><input name="hgs" type="number" step="0.1">
         <label><span class="qno">4.4</span>Reliability of HGS</label>
-        <select name="hgs_reliability">
-          <option value="">Select</option>
-          <option>Reliable</option>
-          <option>Questionable</option>
-          <option>Cannot be measured</option>
-        </select>
-        
+        <select name="hgs_reliability"><option value="">Select</option><option>Reliable</option><option>Questionable</option><option>Cannot be measured</option></select>
         <label><span class="qno">4.5</span>Max Tongue Pressure (kPa)</label><input name="tongue_pressure" type="number" step="0.1">
         <label><span class="qno">4.6</span>Reliability of Tongue Data</label>
-        <select name="tongue_reliability">
-          <option value="">Select</option>
-          <option>Reliable</option>
-          <option>Questionable</option>
-          <option>Cannot be measured</option>
-        </select>
-        
+        <select name="tongue_reliability"><option value="">Select</option><option>Reliable</option><option>Questionable</option><option>Cannot be measured</option></select>
         <label><span class="qno">4.7</span>Max Chin Tuck Strength (kPa)</label><input name="chin_tuck" type="number" step="0.1">
         <label><span class="qno">4.8</span>Reliability of Chin Tuck Data</label>
-        <select name="chin_reliability">
-          <option value="">Select</option>
-          <option>Reliable</option>
-          <option>Questionable</option>
-          <option>Cannot be measured</option>
-        </select>
+        <select name="chin_reliability"><option value="">Select</option><option>Reliable</option><option>Questionable</option><option>Cannot be measured</option></select>
       </div>
     </div>
 
     <div class="section">
       <h2>5️⃣ Dysphagia & Outcome Measures (DSG)</h2>
       <div class="grid">
-        <label><span class="qno">5.1</span>DSG</label>
-        <select name="dsg"><option value="">Select</option><option>Yes</option><option>No</option></select>
+        <label><span class="qno">5.1</span>DSG</label><select name="dsg"><option value="">Select</option><option>Yes</option><option>No</option></select>
         <label><span class="qno">5.2</span>Type of DSG</label>
         <select name="type_of_dsg">
-          <option value="">Select</option>
-          <option>Sarcopenic Dysphagia</option>
-          <option>Presbyphagia</option>
-          <option>Neurogenic Dysphagia</option>
-          <option>Mechanical Dysphagia</option>
-          <option>Psychogenic Dysphagia</option>
-          <option>Other causes</option>
-          <option>Normal</option>
+          <option value="">Select</option><option>Sarcopenic Dysphagia</option><option>Presbyphagia</option><option>Neurogenic Dysphagia</option><option>Mechanical Dysphagia</option><option>Psychogenic Dysphagia</option><option>Other causes</option><option>Normal</option>
         </select>
-        
         <label><span class="qno">5.3</span>IDDSI Liquid Level</label>
-        <select name="iddsi_liquid">
-          <option value="">Select</option>
-          <option>0 - Thin</option>
-          <option>1 - Slightly Thick</option>
-          <option>2 - Mildly Thick</option>
-          <option>3 - Moderately Thick</option>
-          <option>4 - Extremely Thick</option>
-        </select>
-        
+        <select name="iddsi_liquid"><option value="">Select</option><option>0 - Thin</option><option>1 - Slightly Thick</option><option>2 - Mildly Thick</option><option>3 - Moderately Thick</option><option>4 - Extremely Thick</option></select>
         <label><span class="qno">5.4</span>IDDSI Food Level</label>
-        <select name="iddsi_food">
-          <option value="">Select</option>
-          <option>3 - Liquidised</option>
-          <option>4 - Pureed</option>
-          <option>5 - Minced & Moist</option>
-          <option>6 - Soft & Bite-sized</option>
-          <option>7 - Regular / Easy to Chew</option>
-        </select>
-        
+        <select name="iddsi_food"><option value="">Select</option><option>3 - Liquidised</option><option>4 - Pureed</option><option>5 - Minced & Moist</option><option>6 - Soft & Bite-sized</option><option>7 - Regular / Easy to Chew</option></select>
         <label><span class="qno">5.5</span>IDDSI-FDS</label>
-        <select name="iddsi_fds">
-          <option value="">Select</option>
-          <option>0</option><option>1</option><option>2</option><option>3</option>
-          <option>4</option><option>5</option><option>6</option><option>7</option>
-          <option>8</option><option>9</option><option>10</option>
-        </select>
-        
+        <select name="iddsi_fds"><option value="">Select</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option></select>
         <label><span class="qno">5.6</span>TOM_Impairment</label>
-        <select name="tom_impairment">
-          <option value="">Select</option>
-          <option>0</option><option>0.5</option><option>1</option><option>1.5</option><option>2</option>
-          <option>2.5</option><option>3</option><option>3.5</option><option>4</option><option>4.5</option><option>5</option>
-        </select>
-        
+        <select name="tom_impairment"><option value="">Select</option><option>0</option><option>0.5</option><option>1</option><option>1.5</option><option>2</option><option>2.5</option><option>3</option><option>3.5</option><option>4</option><option>4.5</option><option>5</option></select>
         <label><span class="qno">5.7</span>TOM_Activity</label>
-        <select name="tom_activity">
-          <option value="">Select</option>
-          <option>0</option><option>0.5</option><option>1</option><option>1.5</option><option>2</option>
-          <option>2.5</option><option>3</option><option>3.5</option><option>4</option><option>4.5</option><option>5</option>
-        </select>
+        <select name="tom_activity"><option value="">Select</option><option>0</option><option>0.5</option><option>1</option><option>1.5</option><option>2</option><option>2.5</option><option>3</option><option>3.5</option><option>4</option><option>4.5</option><option>5</option></select>
       </div>
     </div>
 
@@ -271,46 +196,80 @@
 </div>
 
 <script>
-// 對接你已部署成功的有效 Google Apps Script API 網址
 const scriptURL = 'https://script.google.com/macros/s/AKfycbwGls7YCho5UpH5IckkDnufeY_AAouXMPXTr2sDoUvQk1Q20m1BzsZ2GN35um0vF1GUeg/exec'; 
 
-/* 🖨️ 輸出 PDF 檔案列印 */
-document.getElementById("printBtn").addEventListener("click", function() {
-  window.print();
+/* 🔍 新增功能：從 Google 試算表搜尋並回填資料 */
+document.getElementById("searchBtn").addEventListener("click", function() {
+  let caseNo = document.getElementById("searchCaseNo").value.trim();
+  if(!caseNo) { alert("請輸入 Case no.！"); return; }
+  
+  let btn = this;
+  btn.disabled = true;
+  btn.innerText = "🔍 搜尋中...";
+  
+  // 透過 URL 參數發送 GET 請求
+  fetch(`${scriptURL}?search_case=${encodeURIComponent(caseNo)}`)
+  .then(res => res.json())
+  .then(res => {
+    if(res.status === "success") {
+      alert("🎉 成功找到個案資料，已自動填入表單！");
+      let data = res.data;
+      
+      // 自動將抓回來的資料填入網頁表單中對應的元件
+      Object.keys(data).forEach(key => {
+        let field = document.querySelector(`[name='${key}']`);
+        if(field) {
+          // 如果是日期格式，需要稍微轉換成 YYYY-MM-DD
+          if(field.type === "date" && data[key]) {
+            let dateObj = new Date(data[key]);
+            if(!isNaN(dateObj)) {
+              field.value = dateObj.toISOString().split('T')[0];
+              return;
+            }
+          }
+          field.value = data[key];
+        }
+      });
+      calcBMI(); // 重新計算 BMI
+    } else {
+      alert("❌ 找不到該 Case no. 的歷史資料。");
+    }
+    btn.disabled = false;
+    btn.innerText = "載入歷史資料";
+  })
+  .catch(err => {
+    console.error(err);
+    alert("搜尋出錯，請確認 Apps Script 已正確部署。");
+    btn.disabled = false;
+    btn.innerText = "載入歷史資料";
+  });
 });
 
-/* 自動計算 BMI 邏輯 */
+/* 🖨️ 輸出 PDF 檔案列印 */
+document.getElementById("printBtn").addEventListener("click", function() { window.print(); });
+
+/* 自動計算 BMI */
 function calcBMI(){
   let h = document.getElementById("height").value / 100;
   let w = document.getElementById("weight").value;
-  if(h && w){
-    document.getElementById("bmi").value = (w / (h * h)).toFixed(2);
-  } else {
-    document.getElementById("bmi").value = "";
-  }
+  if(h && w){ document.getElementById("bmi").value = (w / (h * h)).toFixed(2); } 
+  else { document.getElementById("bmi").value = ""; }
 }
 
 /* 表單提交事件處理 */
 document.getElementById("form").addEventListener("submit", function(e) {
   e.preventDefault(); 
-  
   let ok = true;
   document.querySelectorAll("input[required], select[required]").forEach(f => {
-    if (!f.value) {
-      f.classList.add("invalid"); 
-      ok = false;
-    } else {
-      f.classList.remove("invalid");
-    }
+    if (!f.value) { f.classList.add("invalid"); ok = false; } 
+    else { f.classList.remove("invalid"); }
   });
-  
   if (!ok) {
     let first = document.querySelector(".invalid");
     first.scrollIntoView({ behavior: "smooth", block: "center" });
     first.focus();
     return;
   }
-
   const submitButton = document.getElementById("submitBtn");
   submitButton.disabled = true;
   submitButton.innerText = "⏳ Sending Data...";
@@ -321,9 +280,7 @@ document.getElementById("form").addEventListener("submit", function(e) {
   fetch(scriptURL, {
     method: "POST",
     mode: "no-cors", 
-    headers: {
-      "Content-Type": "application/x-www-form-urlencoded"
-    },
+    headers: { "Content-Type": "application/x-www-form-urlencoded" },
     body: urlParams
   })
   .then(response => {
@@ -334,14 +291,13 @@ document.getElementById("form").addEventListener("submit", function(e) {
     submitButton.innerText = "💾 Submit Data";
   })
   .catch(error => {
-    console.error("Error!", error.message);
-    alert("❌ 儲存失敗，請檢查網路連線或 Apps Script 權限。");
+    alert("❌ 儲存失敗。");
     submitButton.disabled = false;
     submitButton.innerText = "💾 Submit Data";
   });
 });
 
-/* Input 欄位 Enter 鍵自動跳下一格優化邏輯 */
+/* Enter 跳下一格 */
 let fields = document.querySelectorAll("input, select");
 fields.forEach((el, i) => {
   el.addEventListener("keydown", (e) => {
@@ -359,6 +315,5 @@ fields.forEach((el, i) => {
   });
 });
 </script>
-
 </body>
 </html>
