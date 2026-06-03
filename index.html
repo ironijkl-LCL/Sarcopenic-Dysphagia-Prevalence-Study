@@ -3,312 +3,249 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Sarcopenic Dysphagia Prevalence Study Data</title>
-
 <style>
-body { font-family: Arial; background:#eef2f7; margin:0; }
-.container { max-width:950px; margin:auto; padding:20px; }
-
-.section {
-  background:white;
-  padding:18px;
-  margin-bottom:18px;
-  border-radius:12px;
-  box-shadow:0 4px 10px rgba(0,0,0,0.05);
-}
-
-h1 { text-align:center; }
-
-h2 {
-  color:#192a56;
-  border-left:5px solid #4a69bd;
-  padding-left:8px;
-}
-
-.grid {
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:12px;
-}
-
-label { font-size:13px; }
-
-.qno {
-  font-weight:bold;
-  color:#1e3799;
-  margin-right:5px;
-}
-
-input, select {
-  width:100%;
-  padding:10px;
-  margin-top:4px;
-  border-radius:8px;
-  border:1px solid #ccc;
-}
-
-/* ✅ 未填 */
-input.invalid, select.invalid {
-  border:2px solid red;
-  background:#fff5f5;
-}
-
-.checkbox-group {
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:6px;
-}
-
-.checkbox-group label {
-  background:#f5f6fa;
-  padding:6px;
-  border-radius:6px;
-}
-
-button {
-  width:100%;
-  padding:14px;
-  background:#1e3799;
-  color:white;
-  border:none;
-  border-radius:10px;
-  cursor: pointer;
-}
-
-button:disabled {
-  background: #a4b0be;
-  cursor: not-allowed;
-}
-
-@media(max-width:600px){
-  .grid { grid-template-columns:1fr; }
-}
+  body { font-family: Arial, sans-serif; background: #eef2f7; margin: 0; padding: 20px; }
+  .container { max-width: 950px; margin: auto; background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
+  h1 { text-align: center; color: #1e3799; margin-bottom: 30px; }
+  h2 { color: #192a56; border-left: 5px solid #4a69bd; padding-left: 8px; margin-top: 30px; margin-bottom: 15px; }
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px; }
+  label { font-size: 14px; font-weight: 500; display: block; margin-bottom: 5px; }
+  .qno { font-weight: bold; color: #1e3799; margin-right: 5px; }
+  input, select { width: 100%; padding: 10px; border-radius: 8px; border: 1px solid #ccc; box-sizing: border-box; font-size: 14px; }
+  input:focus, select:focus { outline: none; border-color: #4a69bd; box-shadow: 0 0 5px rgba(74, 105, 189, 0.3); }
+  input.invalid, select.invalid { border: 2px solid red; background: #fff5f5; }
+  .checkbox-group { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; background: #f8f9fa; padding: 15px; border-radius: 8px; }
+  .checkbox-group label { background: white; padding: 10px; border-radius: 6px; border: 1px solid #eee; display: flex; align-items: center; cursor: pointer; margin: 0; }
+  .checkbox-group input { width: auto; margin-right: 10px; }
+  button { width: 100%; padding: 15px; background: #1e3799; color: white; border: none; border-radius: 10px; font-size: 16px; font-weight: bold; cursor: pointer; margin-top: 30px; transition: background 0.2s; }
+  button:hover { background: #142870; }
+  button:disabled { background: #a5b1c2; cursor: not-allowed; }
+  @media(max-width:768px){ .grid, .grid-3, .checkbox-group { grid-template-columns: 1fr; } }
 </style>
 </head>
-
 <body>
 
 <div class="container">
+  <h1>📊 Sarcopenic Dysphagia Prevalence Study Data</h1>
+  <form id="form">
 
-<h1>📊 Sarcopenic Dysphagia Prevalence Study Data</h1>
+    <div class="section">
+      <h2>1️⃣ 基本資料 (Basic Information)</h2>
+      <div class="grid">
+        <div><label><span class="qno">1.1</span>ST</label>
+          <select name="st" required>
+            <option value="" disabled selected>選擇 ST</option>
+            <option>Dorothy</option>
+            <option>Mattew</option>
+            <option>Tina</option>
+            <option>Bibianna</option>
+          </select>
+        </div>
+        <div><label><span class="qno">1.2</span>RCHE no.</label><input name="rche_no" required></div>
+        <div><label><span class="qno">1.3</span>Type of RCHE</label><input name="type_of_rche"></div>
+        <div><label><span class="qno">1.4</span>Case no.</label><input name="case_no" required></div>
+        <div><label><span class="qno">1.5</span>Age</label><input name="age" type="number" required></div>
+        <div><label><span class="qno">1.6</span>Gender</label>
+          <select name="gender" required>
+            <option value="" disabled selected>Select</option>
+            <option>Male</option>
+            <option>Female</option>
+          </select>
+        </div>
+        <div><label><span class="qno">1.7</span>Date of Ax</label><input name="date_of_ax" type="date" required></div>
+        <div><label><span class="qno">1.8</span>Weight (kg)</label><input id="weight" name="weight" type="number" step="0.1" oninput="calcBMI()" required></div>
+        <div><label><span class="qno">1.9</span>Height (cm)</label><input id="height" name="height" type="number" step="0.1" oninput="calcBMI()" required></div>
+        <div><label><span class="qno">1.10</span>BMI</label><input id="bmi" name="bmi" readonly placeholder="自動計算"></div>
+      </div>
+      <div style="margin-top: 15px;">
+        <label><span class="qno">1.11</span>MNA-SF</label><input name="mna_sf" placeholder="Enter MNA-SF score">
+      </div>
+    </div>
 
-<form id="form">
+    <div class="section">
+      <h2>2️⃣ Medical History (PMHx)</h2>
+      <div class="checkbox-group">
+        <label><span class="qno">2.1</span><input type="checkbox" name="cva" value="true">CVA</label>
+        <label><span class="qno">2.2</span><input type="checkbox" name="parkinson" value="true">Parkinson's</label>
+        <label><span class="qno">2.3</span><input type="checkbox" name="tbi_sci" value="true">TBI/SCI</label>
+        <label><span class="qno">2.4</span><input type="checkbox" name="brain_tumor" value="true">Brain tumor</label>
+        <label><span class="qno">2.5</span><input type="checkbox" name="neuromuscular" value="true">Neuromuscular diseases</label>
+        <label><span class="qno">2.6</span><input type="checkbox" name="head_neck_cancer" value="true">Head & Neck Cancer</label>
+        <label><span class="qno">2.7</span><input type="checkbox" name="connective_disease" value="true">Connective tissue diseases</label>
+        <label><span class="qno">2.8</span><input type="checkbox" name="copd" value="true">COPD</label>
+        <label><span class="qno">2.9</span><input type="checkbox" name="dementia" value="true">Dementia</label>
+      </div>
+      <br>
+      <div class="grid-3">
+        <div><label><span class="qno">2.10</span>Other causes for DSG</label><input name="other_causes_dsg"></div>
+        <div><label><span class="qno">2.11</span>Other causes (Specify)</label><input name="other_causes_specify"></div>
+        <div><label><span class="qno">2.12</span>Other PMHx</label><input name="other_pmhx"></div>
+      </div>
+    </div>
 
-<div class="section">
-<h2>1️⃣ 基本資料</h2>
+    <div class="section">
+      <h2>3️⃣ Admissions & Services</h2>
+      <div class="grid">
+        <label><span class="qno">3.1</span>Pneumonia episodes</label><input name="pneu_episodes" type="number" min="0">
+        <label><span class="qno">3.2</span>Pneumonia Total LOS (days)</label><input name="pneu_los" type="number" min="0">
+        <label><span class="qno">3.3</span>Fall episodes</label><input name="fall_episodes" type="number" min="0">
+        <label><span class="qno">3.4</span>Fall Total LOS (days)</label><input name="fall_los" type="number" min="0">
+        <label><span class="qno">3.5</span>UTI/Dehydration episodes</label><input name="uti_episodes" type="number" min="0">
+        <label><span class="qno">3.6</span>UTI/Dehydration Total LOS</label><input name="uti_los" type="number" min="0">
+        <label><span class="qno">3.7</span>No. of MOSTE ST sessions</label><input name="moste_st_sessions" type="number" min="0">
+        <label><span class="qno">3.8</span>No. of MOSTE PT sessions</label><input name="moste_pt_sessions" type="number" min="0">
+        <label><span class="qno">3.9</span>Dietetic service</label><input name="dietetic_service">
+        <label><span class="qno">3.10</span>On oral nutritional supplements (ONS)</label>
+        <select name="ons">
+          <option value="">Select</option>
+          <option>Yes</option>
+          <option>No</option>
+        </select>
+        <label><span class="qno">3.11</span>Pitting Edema</label>
+        <select name="pitting_edema">
+          <option value="">Select</option>
+          <option>Yes</option>
+          <option>No</option>
+        </select>
+      </div>
+    </div>
 
-<div class="grid">
+    <div class="section">
+      <h2>4️⃣ Sarcopenia & Clinical Measurements</h2>
+      <div class="grid">
+        <label><span class="qno">4.1</span>CC (cm)</label><input name="cc">
+        <label><span class="qno">4.2</span>MUAC (cm)</label><input name="muac" type="number" step="0.1">
+        <label><span class="qno">4.3</span>HGS (kg)</label><input name="hgs" type="number" step="0.1">
+        <label><span class="qno">4.4</span>Reliability of HGS</label>
+        <select name="hgs_reliability"><option value="">Select</option><option>Reliable</option><option>Unreliable</option></select>
+        <label><span class="qno">4.5</span>Max Tongue Pressure (kPa)</label><input name="tongue_pressure" type="number" step="0.1">
+        <label><span class="qno">4.6</span>Reliability of Tongue Data</label>
+        <select name="tongue_reliability"><option value="">Select</option><option>Reliable</option><option>Unreliable</option></select>
+        <label><span class="qno">4.7</span>Max Chin Tuck Strength (kPa)</label><input name="chin_tuck" type="number" step="0.1">
+        <label><span class="qno">4.8</span>Reliability of Chin Tuck Data</label>
+        <select name="chin_reliability"><option value="">Select</option><option>Reliable</option><option>Unreliable</option></select>
+      </div>
+    </div>
 
-<div><label><span class="qno">1.1</span>ST</label>
-<select id="st" name="st" required>
-<option value="" disabled selected>選擇 ST</option>
-<option>Dorothy</option>
-<option>Mattew</option>
-<option>Tina</option>
-<option>Bibianna</option>
-</select></div>
+    <div class="section">
+      <h2>5️⃣ Dysphagia & Outcome Measures (DSG)</h2>
+      <div class="grid">
+        <label><span class="qno">5.1</span>DSG</label>
+        <select name="dsg"><option value="">Select</option><option>Yes</option><option>No</option></select>
+        <label><span class="qno">5.2</span>Type of DSG</label><input name="type_of_dsg">
+        <label><span class="qno">5.3</span>IDDSI Liquid Level</label><input name="iddsi_liquid" type="number" min="0" max="4">
+        <label><span class="qno">5.4</span>IDDSI Food Level</label><input name="iddsi_food" type="number" min="3" max="7">
+        <label><span class="qno">5.5</span>IDDSI-FDS</label><input name="iddsi_fds">
+        <label><span class="qno">5.6</span>TOM_Impairment</label><input name="tom_impairment" type="number" step="0.5">
+        <label><span class="qno">5.7</span>TOM_Activity</label><input name="tom_activity" type="number" step="0.5">
+      </div>
+    </div>
 
-<div><label><span class="qno">1.2</span>RCHE no.</label><input id="rche" name="rche" required></div>
-<div><label><span class="qno">1.3</span>Type of RCHE</label><input id="rcheType" name="rcheType"></div>
-<div><label><span class="qno">1.4</span>Case no.</label><input id="caseNo" name="caseNo" required></div>
-<div><label><span class="qno">1.5</span>Age</label><input id="age" name="age" type="number" required></div>
-<div><label><span class="qno">1.6</span>Gender</label><select id="gender" name="gender" required><option value="">Select</option><option>Male</option><option>Female</option></select></div>
-<div><label><span class="qno">1.7</span>Date of Ax</label><input id="date" name="date" type="date" required></div>
-<div><label><span class="qno">1.8</span>Weight (kg)</label><input id="weight" name="weight" type="number" oninput="calcBMI()" required></div>
-<div><label><span class="qno">1.9</span>Height (cm)</label><input id="height" name="height" type="number" oninput="calcBMI()" required></div>
-<div><label><span class="qno">1.10</span>BMI</label><input id="bmi" name="bmi" readonly></div>
-
-</div>
-</div>
-
-<div class="section">
-<h2>2️⃣ PMHx</h2>
-
-<div class="checkbox-group">
-<label><span class="qno">2.1</span><input type="checkbox" id="cva" name="cva">CVA</label>
-<label><span class="qno">2.2</span><input type="checkbox" id="parkinson" name="parkinson">Parkinson's</label>
-<label><span class="qno">2.3</span><input type="checkbox" id="tbi" name="tbi">TBI/SCI</label>
-<label><span class="qno">2.4</span><input type="checkbox" id="brainTumor" name="brainTumor">Brain tumor</label>
-<label><span class="qno">2.5</span><input type="checkbox" id="neuro" name="neuro">Neuromuscular</label>
-<label><span class="qno">2.6</span><input type="checkbox" id="hnCancer" name="hnCancer">Head & Neck Cancer</label>
-<label><span class="qno">2.7</span><input type="checkbox" id="connective" name="connective">Connective disease</label>
-<label><span class="qno">2.8</span><input type="checkbox" id="copd" name="copd">COPD</label>
-<label><span class="qno">2.9</span><input type="checkbox" id="dementia" name="dementia">Dementia</label>
-</div>
-
-<br>
-
-<div class="grid">
-<div><label><span class="qno">2.10</span>Other causes for DSG</label><input id="otherDSG" name="otherDSG"></div>
-<div><label><span class="qno">2.11</span>Other PMHx</label><input id="otherPMHx" name="otherPMHx"></div>
-</div>
-
-</div>
-
-<div class="section">
-<h2>3️⃣ Admissions</h2>
-
-<div class="grid">
-<div><label><span class="qno">3.1</span>Pneumonia episodes</label><input id="pneumoniaEpisodes" name="pneumoniaEpisodes" type="number"></div>
-<div><label><span class="qno">3.2</span>Pneumonia LOS</label><input id="pneumoniaLOS" name="pneumoniaLOS" type="number"></div>
-<div><label><span class="qno">3.3</span>Fall episodes</label><input id="fallEpisodes" name="fallEpisodes" type="number"></div>
-<div><label><span class="qno">3.4</span>Fall LOS</label><input id="fallLOS" name="fallLOS" type="number"></div>
-<div><label><span class="qno">3.5</span>UTI episodes</label><input id="utiEpisodes" name="utiEpisodes" type="number"></div>
-<div><label><span class="qno">3.6</span>UTI LOS</label><input id="utiLOS" name="utiLOS" type="number"></div>
-</div>
-
-</div>
-
-<div class="section">
-<h2>4️⃣ Sarcopenia</h2>
-
-<div class="grid">
-<div><label><span class="qno">4.1</span>CC</label><input id="cc" name="cc" type="number"></div>
-<div><label><span class="qno">4.2</span>MUAC</label><input id="muac" name="muac" type="number"></div>
-<div><label><span class="qno">4.3</span>HGS</label><input id="hgs" name="hgs" type="number"></div>
-<div><label><span class="qno">4.4</span>HGS Reliability</label><select id="hgsReliability" name="hgsReliability"><option value="">Select</option><option>Reliable</option><option>Unreliable</option></select></div>
-<div><label><span class="qno">4.5</span>Tongue Pressure</label><input id="tongue" name="tongue" type="number"></div>
-<div><label><span class="qno">4.6</span>Tongue Reliability</label><select id="tongueReliability" name="tongueReliability"><option value="">Select</option><option>Reliable</option><option>Unreliable</option></select></div>
-<div><label><span class="qno">4.7</span>Chin Tuck</label><input id="chin" name="chin" type="number"></div>
-<div><label><span class="qno">4.8</span>Chin Reliability</label><select id="chinReliability" name="chinReliability"><option value="">Select</option><option>Reliable</option><option>Unreliable</option></select></div>
-</div>
-
-</div>
-
-<button type="submit" id="submitBtn">💾 Submit</button>
-
-</form>
+    <button type="submit" id="submitBtn">💾 Submit Data</button>
+  </form>
 </div>
 
 <script>
+// 這裡已經替換成你提供的 Google Apps Script 網頁應用程式 URL
+const scriptURL = 'https://script.google.com/macros/s/AKfycbwGls7YCho5UpH5IckkDnufeY_AAouXMPXTr2sDoUvQk1Q20m1BzsZ2GN35um0vF1GUeg/exec'; 
 
-/* BMI */
+/* 自動計算 BMI 邏輯 */
 function calcBMI(){
- let h = document.getElementById("height").value/100;
- let w = document.getElementById("weight").value;
- if(h && w){
-  document.getElementById("bmi").value=(w/(h*h)).toFixed(2);
- } else {
-  document.getElementById("bmi").value="";
- }
-}
-
-/* highlight & API submit */
-document.getElementById("form").addEventListener("submit", function(e){
- e.preventDefault(); // 阻擋預設表單跳頁動作
- 
- let ok = true;
- document.querySelectorAll("input,select").forEach(f => {
-  // 只針對有 required 的必填欄位進行樣式檢查
-  if (f.required && !f.value) {
-   f.classList.add("invalid"); 
-   ok = false;
+  let h = document.getElementById("height").value / 100;
+  let w = document.getElementById("weight").value;
+  if(h && w){
+    document.getElementById("bmi").value = (w / (h * h)).toFixed(2);
   } else {
-   f.classList.remove("invalid");
+    document.getElementById("bmi").value = "";
   }
- });
- 
- if (!ok) {
-  let first = document.querySelector(".invalid");
-  if (first) {
-   first.scrollIntoView({ behavior: "smooth", block: "center" });
-   first.focus();
-  }
-  return; // 驗證未通過則中斷執行
- }
-
- // 🚀 通過驗證，開始封裝資料
- const submitBtn = document.getElementById("submitBtn");
- submitBtn.disabled = true;
- submitBtn.innerText = "⏳ Submitting...";
-
- // 建立要傳送給後端的物件
- const payload = {
-   st: document.getElementById("st").value,
-   rche: document.getElementById("rche").value,
-   rcheType: document.getElementById("rcheType").value,
-   caseNo: document.getElementById("caseNo").value,
-   age: document.getElementById("age").value,
-   gender: document.getElementById("gender").value,
-   date: document.getElementById("date").value,
-   weight: document.getElementById("weight").value,
-   height: document.getElementById("height").value,
-   bmi: document.getElementById("bmi").value,
-   
-   // 針對核取方塊 (Checkbox)，勾選傳回 "Yes"，未勾選傳回 "No"
-   cva: document.getElementById("cva").checked ? "Yes" : "No",
-   parkinson: document.getElementById("parkinson").checked ? "Yes" : "No",
-   tbi: document.getElementById("tbi").checked ? "Yes" : "No",
-   brainTumor: document.getElementById("brainTumor").checked ? "Yes" : "No",
-   neuro: document.getElementById("neuro").checked ? "Yes" : "No",
-   hnCancer: document.getElementById("hnCancer").checked ? "Yes" : "No",
-   connective: document.getElementById("connective").checked ? "Yes" : "No",
-   copd: document.getElementById("copd").checked ? "Yes" : "No",
-   dementia: document.getElementById("dementia").checked ? "Yes" : "No",
-   
-   otherDSG: document.getElementById("otherDSG").value,
-   otherPMHx: document.getElementById("otherPMHx").value,
-   
-   pneumoniaEpisodes: document.getElementById("pneumoniaEpisodes").value,
-   pneumoniaLOS: document.getElementById("pneumoniaLOS").value,
-   fallEpisodes: document.getElementById("fallEpisodes").value,
-   fallLOS: document.getElementById("fallLOS").value,
-   utiEpisodes: document.getElementById("utiEpisodes").value,
-   utiLOS: document.getElementById("utiLOS").value,
-   
-   cc: document.getElementById("cc").value,
-   muac: document.getElementById("muac").value,
-   hgs: document.getElementById("hgs").value,
-   hgsReliability: document.getElementById("hgsReliability").value,
-   tongue: document.getElementById("tongue").value,
-   tongueReliability: document.getElementById("tongueReliability").value,
-   chin: document.getElementById("chin").value,
-   chinReliability: document.getElementById("chinReliability").value
- };
-
- // 將資料傳送到您的 Google Apps Script 網址
- const gasUrl = "https://script.google.com/macros/s/AKfycbw9W2T6vbg5YXCAsoPSw-CCX0Q_zzKNEmm31p6Um5bw8pqmydRFg9AdHfEjMcC5Kv16/exec";
-
- fetch(gasUrl, {
-   method: "POST",
-   mode: "no-cors", // 使用 no-cors 模式優化跨域資料上傳速度
-   headers: {
-     "Content-Type": "text/plain;charset=utf-8"
-   },
-   body: JSON.stringify(payload)
- })
- .then(() => {
-   alert("🎉 資料上傳成功並已記錄至試算表！");
-   document.getElementById("form").reset(); // 成功後重置表單清空資料
-   calcBMI(); // 清空 BMI 欄位
- })
- .catch(error => {
-   console.error("Error:", error);
-   alert("❌ 上傳系統發生錯誤，請稍後再試。");
- })
- .finally(() => {
-   submitBtn.disabled = false;
-   submitBtn.innerText = "💾 Submit";
- });
-});
-
-/* flow */
-let f = document.querySelectorAll("input,select");
-f.forEach((el, i) => {
- el.addEventListener("change", () => move(i));
- el.addEventListener("keydown", (e) => {
-  if (e.key === "Enter") { e.preventDefault(); move(i); }
- });
-});
-
-function move(i) {
- let f = document.querySelectorAll("input,select");
- for (let j = i + 1; j < f.length; j++) {
-  if (!f[j].disabled) { f[j].focus(); break; }
- }
 }
 
+/* 表單提交事件處理 */
+document.getElementById("form").addEventListener("submit", function(e) {
+  e.preventDefault(); // 阻止原生表單跳轉頁面
+  
+  let ok = true;
+  // 檢查所有必填欄位 (required)
+  document.querySelectorAll("input[required], select[required]").forEach(f => {
+    if (!f.value) {
+      f.classList.add("invalid"); 
+      ok = false;
+    } else {
+      f.classList.remove("invalid");
+    }
+  });
+  
+  if (!ok) {
+    let first = document.querySelector(".invalid");
+    first.scrollIntoView({ behavior: "smooth", block: "center" });
+    first.focus();
+    return;
+  }
+
+  // 進入發送狀態，停用按鈕防止重複點擊
+  const submitButton = document.getElementById("submitBtn");
+  submitButton.disabled = true;
+  submitButton.innerText = "⏳ Sending Data...";
+
+  // 封裝表單資料
+  const formData = new FormData(this);
+  
+  // 處理核取方塊 (Checkbox)：若未勾選則手動補上 "false"
+  const checkboxes = document.querySelectorAll("input[type='checkbox']");
+  checkboxes.forEach(cb => {
+    if (!formData.has(cb.name)) {
+      formData.append(cb.name, "false");
+    }
+  });
+
+  // 轉換為 URL 參數格式
+  const urlParams = new URLSearchParams(formData).toString();
+
+  // 透過 fetch 非同步發送 POST 請求至 Google Apps Script
+  fetch(scriptURL, {
+    method: "POST",
+    mode: "no-cors", // 使用 no-cors 模式避免跨網域拒絕問題
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded"
+    },
+    body: urlParams
+  })
+  .then(response => {
+    alert("🎉 資料已成功排程並寫入 Google 試算表！");
+    document.getElementById("form").reset(); // 重設表單
+    document.getElementById("bmi").value = ""; // 清空唯讀欄位
+    submitButton.disabled = false;
+    submitButton.innerText = "💾 Submit Data";
+  })
+  .catch(error => {
+    console.error("Error!", error.message);
+    alert("❌ 儲存失敗，請檢查網路連線或 Apps Script 權限。");
+    submitButton.disabled = false;
+    submitButton.innerText = "💾 Submit Data";
+  });
+});
+
+/* Input 欄位 Enter 鍵自動跳下一格優化邏輯 */
+let fields = document.querySelectorAll("input, select");
+fields.forEach((el, i) => {
+  el.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") {
+      // 排除 textarea 或 submit 按鈕
+      if (el.type !== "submit") {
+        e.preventDefault();
+        // 尋找下一個未停用的欄位聚焦
+        for (let j = i + 1; j < fields.length; j++) {
+          if (!fields[j].disabled && fields[j].type !== "hidden") {
+            fields[j].focus();
+            break;
+          }
+        }
+      }
+    }
+  });
+});
 </script>
 
 </body>
