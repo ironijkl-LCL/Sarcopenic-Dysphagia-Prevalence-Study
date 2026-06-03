@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-HK">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,19 +7,82 @@
 <title>Sarcopenic Dysphagia Prevalence Study Data</title>
 
 <style>
-body{font-family:Arial;background:#f6f8fb;margin:0;}
-.container{max-width:1000px;margin:auto;padding:16px;}
-.section{background:white;padding:12px 14px;margin-bottom:12px;border-radius:8px;border:1px solid #e6e9ef;}
-h1{text-align:center;}
-h2{font-size:14px;color:#1e3799;margin-bottom:10px;}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px 14px;}
-.field{display:flex;flex-direction:column;}
-label{font-size:12px;margin-bottom:2px;}
-input, select{padding:6px 8px;font-size:13px;border:1px solid #ccc;border-radius:5px;}
-button{width:100%;padding:10px;background:#2f59c0;color:white;border:none;border-radius:6px;}
+body { font-family: Arial; background:#eef2f7; margin:0; }
+.container { max-width:950px; margin:auto; padding:20px; }
+
+.section {
+  background:white;
+  padding:18px;
+  margin-bottom:18px;
+  border-radius:12px;
+  box-shadow:0 4px 10px rgba(0,0,0,0.05);
+}
+
+h1 { text-align:center; }
+
+h2 {
+  color:#192a56;
+  border-left:5px solid #4a69bd;
+  padding-left:8px;
+}
+
+.grid {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+}
+
+label { font-size:13px; }
+
+.qno {
+  font-weight:bold;
+  color:#1e3799;
+  margin-right:5px;
+}
+
+input, select {
+  width:100%;
+  padding:10px;
+  margin-top:4px;
+  border-radius:8px;
+  border:1px solid #ccc;
+}
+
+/* ✅ 未填 */
+input.invalid, select.invalid {
+  border:2px solid red;
+  background:#fff5f5;
+}
+
+.checkbox-group {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:6px;
+}
+
+.checkbox-group label {
+  background:#f5f6fa;
+  padding:6px;
+  border-radius:6px;
+}
+
+button {
+  width:100%;
+  padding:14px;
+  background:#1e3799;
+  color:white;
+  border:none;
+  border-radius:10px;
+  cursor: pointer;
+}
+
+button:disabled {
+  background: #a4b0be;
+  cursor: not-allowed;
+}
 
 @media(max-width:600px){
-  .grid{grid-template-columns:1fr;}
+  .grid { grid-template-columns:1fr; }
 }
 </style>
 </head>
@@ -30,116 +93,223 @@ button{width:100%;padding:10px;background:#2f59c0;color:white;border:none;border
 
 <h1>📊 Sarcopenic Dysphagia Prevalence Study Data</h1>
 
-<form id="form" onsubmit="submitData(event)">
+<form id="form">
 
 <div class="section">
-<h2>1️⃣ Personal Information</h2>
+<h2>1️⃣ 基本資料</h2>
 
 <div class="grid">
 
-<div class="field">
-<label>ST</label>
-<select name="st">
-<option>Select</option>
+<div><label><span class="qno">1.1</span>ST</label>
+<select id="st" name="st" required>
+<option value="" disabled selected>選擇 ST</option>
 <option>Dorothy</option>
 <option>Mattew</option>
 <option>Tina</option>
 <option>Bibianna</option>
-</select>
-</div>
+</select></div>
 
-<div class="field"><label>RCHE no.</label><input name="rche"></div>
-
-<div class="field">
-<label>Type of RCHE</label>
-<select name="rcheType">
-<option value="">Select</option>
-<option>CONTRACT</option>
-<option>PRIVATE</option>
-</select>
-</div>
-
-<div class="field"><label>Case no.</label><input name="caseNo"></div>
-
-<div class="field"><label>Age</label><input type="number" name="age"></div>
-
-<div class="field">
-<label>Gender</label>
-<select name="gender"><option>Male</option><option>Female</option></select>
-</div>
-
-<div class="field"><label>Date of Ax</label><input type="date" name="date"></div>
-
-<div class="field"><label>Weight</label>
-<input id="weight" name="weight" type="number" oninput="calcBMI()"></div>
-
-<div class="field"><label>Height</label>
-<input id="height" name="height" type="number" oninput="calcBMI()"></div>
-
-<div class="field"><label>BMI</label>
-<input id="bmi" name="bmi" readonly></div>
+<div><label><span class="qno">1.2</span>RCHE no.</label><input id="rche" name="rche" required></div>
+<div><label><span class="qno">1.3</span>Type of RCHE</label><input id="rcheType" name="rcheType"></div>
+<div><label><span class="qno">1.4</span>Case no.</label><input id="caseNo" name="caseNo" required></div>
+<div><label><span class="qno">1.5</span>Age</label><input id="age" name="age" type="number" required></div>
+<div><label><span class="qno">1.6</span>Gender</label><select id="gender" name="gender" required><option value="">Select</option><option>Male</option><option>Female</option></select></div>
+<div><label><span class="qno">1.7</span>Date of Ax</label><input id="date" name="date" type="date" required></div>
+<div><label><span class="qno">1.8</span>Weight (kg)</label><input id="weight" name="weight" type="number" oninput="calcBMI()" required></div>
+<div><label><span class="qno">1.9</span>Height (cm)</label><input id="height" name="height" type="number" oninput="calcBMI()" required></div>
+<div><label><span class="qno">1.10</span>BMI</label><input id="bmi" name="bmi" readonly></div>
 
 </div>
 </div>
 
-<button type="submit">Submit</button>
+<div class="section">
+<h2>2️⃣ PMHx</h2>
+
+<div class="checkbox-group">
+<label><span class="qno">2.1</span><input type="checkbox" id="cva" name="cva">CVA</label>
+<label><span class="qno">2.2</span><input type="checkbox" id="parkinson" name="parkinson">Parkinson's</label>
+<label><span class="qno">2.3</span><input type="checkbox" id="tbi" name="tbi">TBI/SCI</label>
+<label><span class="qno">2.4</span><input type="checkbox" id="brainTumor" name="brainTumor">Brain tumor</label>
+<label><span class="qno">2.5</span><input type="checkbox" id="neuro" name="neuro">Neuromuscular</label>
+<label><span class="qno">2.6</span><input type="checkbox" id="hnCancer" name="hnCancer">Head & Neck Cancer</label>
+<label><span class="qno">2.7</span><input type="checkbox" id="connective" name="connective">Connective disease</label>
+<label><span class="qno">2.8</span><input type="checkbox" id="copd" name="copd">COPD</label>
+<label><span class="qno">2.9</span><input type="checkbox" id="dementia" name="dementia">Dementia</label>
+</div>
+
+<br>
+
+<div class="grid">
+<div><label><span class="qno">2.10</span>Other causes for DSG</label><input id="otherDSG" name="otherDSG"></div>
+<div><label><span class="qno">2.11</span>Other PMHx</label><input id="otherPMHx" name="otherPMHx"></div>
+</div>
+
+</div>
+
+<div class="section">
+<h2>3️⃣ Admissions</h2>
+
+<div class="grid">
+<div><label><span class="qno">3.1</span>Pneumonia episodes</label><input id="pneumoniaEpisodes" name="pneumoniaEpisodes" type="number"></div>
+<div><label><span class="qno">3.2</span>Pneumonia LOS</label><input id="pneumoniaLOS" name="pneumoniaLOS" type="number"></div>
+<div><label><span class="qno">3.3</span>Fall episodes</label><input id="fallEpisodes" name="fallEpisodes" type="number"></div>
+<div><label><span class="qno">3.4</span>Fall LOS</label><input id="fallLOS" name="fallLOS" type="number"></div>
+<div><label><span class="qno">3.5</span>UTI episodes</label><input id="utiEpisodes" name="utiEpisodes" type="number"></div>
+<div><label><span class="qno">3.6</span>UTI LOS</label><input id="utiLOS" name="utiLOS" type="number"></div>
+</div>
+
+</div>
+
+<div class="section">
+<h2>4️⃣ Sarcopenia</h2>
+
+<div class="grid">
+<div><label><span class="qno">4.1</span>CC</label><input id="cc" name="cc" type="number"></div>
+<div><label><span class="qno">4.2</span>MUAC</label><input id="muac" name="muac" type="number"></div>
+<div><label><span class="qno">4.3</span>HGS</label><input id="hgs" name="hgs" type="number"></div>
+<div><label><span class="qno">4.4</span>HGS Reliability</label><select id="hgsReliability" name="hgsReliability"><option value="">Select</option><option>Reliable</option><option>Unreliable</option></select></div>
+<div><label><span class="qno">4.5</span>Tongue Pressure</label><input id="tongue" name="tongue" type="number"></div>
+<div><label><span class="qno">4.6</span>Tongue Reliability</label><select id="tongueReliability" name="tongueReliability"><option value="">Select</option><option>Reliable</option><option>Unreliable</option></select></div>
+<div><label><span class="qno">4.7</span>Chin Tuck</label><input id="chin" name="chin" type="number"></div>
+<div><label><span class="qno">4.8</span>Chin Reliability</label><select id="chinReliability" name="chinReliability"><option value="">Select</option><option>Reliable</option><option>Unreliable</option></select></div>
+</div>
+
+</div>
+
+<button type="submit" id="submitBtn">💾 Submit</button>
 
 </form>
-
 </div>
 
 <script>
 
-/* ✅ BMI */
+/* BMI */
 function calcBMI(){
- let h = document.getElementById("height").value / 100;
+ let h = document.getElementById("height").value/100;
  let w = document.getElementById("weight").value;
  if(h && w){
-  document.getElementById("bmi").value = (w/(h*h)).toFixed(2);
+  document.getElementById("bmi").value=(w/(h*h)).toFixed(2);
+ } else {
+  document.getElementById("bmi").value="";
  }
 }
 
-/* ✅ 提交去 Google Sheet */
-function submitData(e){
- e.preventDefault();
+/* highlight & API submit */
+document.getElementById("form").addEventListener("submit", function(e){
+ e.preventDefault(); // 阻擋預設表單跳頁動作
+ 
+ let ok = true;
+ document.querySelectorAll("input,select").forEach(f => {
+  // 只針對有 required 的必填欄位進行樣式檢查
+  if (f.required && !f.value) {
+   f.classList.add("invalid"); 
+   ok = false;
+  } else {
+   f.classList.remove("invalid");
+  }
+ });
+ 
+ if (!ok) {
+  let first = document.querySelector(".invalid");
+  if (first) {
+   first.scrollIntoView({ behavior: "smooth", block: "center" });
+   first.focus();
+  }
+  return; // 驗證未通過則中斷執行
+ }
 
- const url = "https://script.google.com/macros/s/AKfycbxIG66a-lCg_G6onZtrvA8NYtNdGsM9Ml-zW6kjEO5A2ZUY5dsnI-s2RWRkOueXavaM/exec";
+ // 🚀 通過驗證，開始封裝資料
+ const submitBtn = document.getElementById("submitBtn");
+ submitBtn.disabled = true;
+ submitBtn.innerText = "⏳ Submitting...";
 
- let data = {
-  st: val("st"),
-  rche: val("rche"),
-  rcheType: val("rcheType"),
-  caseNo: val("caseNo"),
-  age: val("age"),
-  gender: val("gender"),
-  date: val("date"),
-  weight: val("weight"),
-  height: val("height"),
-  bmi: val("bmi")
+ // 建立要傳送給後端的物件
+ const payload = {
+   st: document.getElementById("st").value,
+   rche: document.getElementById("rche").value,
+   rcheType: document.getElementById("rcheType").value,
+   caseNo: document.getElementById("caseNo").value,
+   age: document.getElementById("age").value,
+   gender: document.getElementById("gender").value,
+   date: document.getElementById("date").value,
+   weight: document.getElementById("weight").value,
+   height: document.getElementById("height").value,
+   bmi: document.getElementById("bmi").value,
+   
+   // 針對核取方塊 (Checkbox)，勾選傳回 "Yes"，未勾選傳回 "No"
+   cva: document.getElementById("cva").checked ? "Yes" : "No",
+   parkinson: document.getElementById("parkinson").checked ? "Yes" : "No",
+   tbi: document.getElementById("tbi").checked ? "Yes" : "No",
+   brainTumor: document.getElementById("brainTumor").checked ? "Yes" : "No",
+   neuro: document.getElementById("neuro").checked ? "Yes" : "No",
+   hnCancer: document.getElementById("hnCancer").checked ? "Yes" : "No",
+   connective: document.getElementById("connective").checked ? "Yes" : "No",
+   copd: document.getElementById("copd").checked ? "Yes" : "No",
+   dementia: document.getElementById("dementia").checked ? "Yes" : "No",
+   
+   otherDSG: document.getElementById("otherDSG").value,
+   otherPMHx: document.getElementById("otherPMHx").value,
+   
+   pneumoniaEpisodes: document.getElementById("pneumoniaEpisodes").value,
+   pneumoniaLOS: document.getElementById("pneumoniaLOS").value,
+   fallEpisodes: document.getElementById("fallEpisodes").value,
+   fallLOS: document.getElementById("fallLOS").value,
+   utiEpisodes: document.getElementById("utiEpisodes").value,
+   utiLOS: document.getElementById("utiLOS").value,
+   
+   cc: document.getElementById("cc").value,
+   muac: document.getElementById("muac").value,
+   hgs: document.getElementById("hgs").value,
+   hgsReliability: document.getElementById("hgsReliability").value,
+   tongue: document.getElementById("tongue").value,
+   tongueReliability: document.getElementById("tongueReliability").value,
+   chin: document.getElementById("chin").value,
+   chinReliability: document.getElementById("chinReliability").value
  };
 
- fetch(url,{
-  method:"POST",
-  body: JSON.stringify(data),
-  headers:{ "Content-Type":"application/json" }
- })
- .then(res=>res.json())
- .then(()=>{
-  alert("✅ Data saved to Google Sheet");
-  document.getElementById("form").reset();
- })
- .catch(()=>{
-  alert("❌ Error submitting");
- });
-}
+ // 將資料傳送到您的 Google Apps Script 網址
+ const gasUrl = "https://script.google.com/macros/s/AKfycbw9W2T6vbg5YXCAsoPSw-CCX0Q_zzKNEmm31p6Um5bw8pqmydRFg9AdHfEjMcC5Kv16/exec";
 
-/* helpers */
-function val(name){
- return document.querySelector(`[name='${name}']`)?.value || "";
+ fetch(gasUrl, {
+   method: "POST",
+   mode: "no-cors", // 使用 no-cors 模式優化跨域資料上傳速度
+   headers: {
+     "Content-Type": "text/plain;charset=utf-8"
+   },
+   body: JSON.stringify(payload)
+ })
+ .then(() => {
+   alert("🎉 資料上傳成功並已記錄至試算表！");
+   document.getElementById("form").reset(); // 成功後重置表單清空資料
+   calcBMI(); // 清空 BMI 欄位
+ })
+ .catch(error => {
+   console.error("Error:", error);
+   alert("❌ 上傳系統發生錯誤，請稍後再試。");
+ })
+ .finally(() => {
+   submitBtn.disabled = false;
+   submitBtn.innerText = "💾 Submit";
+ });
+});
+
+/* flow */
+let f = document.querySelectorAll("input,select");
+f.forEach((el, i) => {
+ el.addEventListener("change", () => move(i));
+ el.addEventListener("keydown", (e) => {
+  if (e.key === "Enter") { e.preventDefault(); move(i); }
+ });
+});
+
+function move(i) {
+ let f = document.querySelectorAll("input,select");
+ for (let j = i + 1; j < f.length; j++) {
+  if (!f[j].disabled) { f[j].focus(); break; }
+ }
 }
 
 </script>
 
 </body>
 </html>
-``
