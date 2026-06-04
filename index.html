@@ -116,7 +116,7 @@
     }
     
     h2 { font-size: 13pt; margin-top: 0; margin-bottom: 15px !important; border-left: 5px solid #1e3799 !important; padding-left: 8px; color: #1e3799; font-weight: bold; }
-    h3 { font-size: 11pt; border-bottom: 1px dashed #adadad !important; font-weight: bold; color: #000; margin-top: 15px; margin-bottom: 12px; padding-bottom: 4px; }
+    h3 { font-size: 11pt; border-bottom: 1px dashed #adadad !important; font-weight: bold; color: #000; margin-top: 15mm; margin-bottom: 12px; padding-bottom: 4px; }
     
     .grid { 
       display: grid !important;
@@ -173,7 +173,7 @@
     <input type="hidden" name="action" id="formAction" value="insert">
 
     <div class="section-block">
-      <h2>1️⃣ 基本資料 (Basic Information)</h2>
+      <h2>1️⃣ Background Information</h2>
       <div class="grid">
         <div class="grid-item">
           <label><span class="qno">1.1</span>ST</label>
@@ -196,7 +196,6 @@
         </div>
         <div class="grid-item"><label><span class="qno">1.4</span>Case no.</label><input name="case_no" required enterkeyhint="next"></div>
         <div class="grid-item"><label><span class="qno">1.5</span>Age</label><input name="age" type="number" inputmode="numeric" required enterkeyhint="next"></div>
-        
         <div class="grid-item">
           <label><span class="qno">1.6</span>Gender</label>
           <select name="gender" required>
@@ -205,7 +204,6 @@
             <option value="F">F</option>
           </select>
         </div>
-        
         <div class="grid-item"><label><span class="qno">1.7</span>Date of Ax</label><input name="date_of_ax" type="date" required enterkeyhint="next"></div>
         <div class="grid-item"><label><span class="qno">1.8</span>Weight (kg)</label><input id="weight" name="weight" type="number" step="0.1" inputmode="decimal" oninput="calcBMI()" required enterkeyhint="next"></div>
         <div class="grid-item"><label><span class="qno">1.9</span>Height (cm)</label><input id="height" name="height" type="number" step="0.1" inputmode="decimal" oninput="calcBMI()" required enterkeyhint="next"></div>
@@ -219,9 +217,9 @@
     </div>
 
     <div class="section-block">
-      <h2>2️⃣ Medical History (PMHx)</h2>
+      <h2>2️⃣ Past Medical History</h2>
       <div class="grid pmhx-grid">
-        <div class="grid-item"><label><span class="qno">2.1</span>Other for DSG</label>
+        <div class="grid-item"><label><span class="qno">2.1</span>Other Causes for DSG</label>
           <select name="other_causes_dsg">
             <option value="">Select</option><option>Obvious</option><option>Potential</option><option>No</option>
           </select>
@@ -259,20 +257,20 @@
     </div>
 
     <div class="section-block">
-      <h2>3️⃣ Admissions & Services</h2>
+      <h2>3️⃣ Recent Admissions & Services History</h2>
       <h3>🕒 Past 6 months (3.1 - 3.6)</h3>
       <div class="grid">
         <div class="grid-item"><label><span class="qno">3.1</span>Pneumonia episodes</label><input name="pneu_episodes" type="number" inputmode="numeric" min="0" enterkeyhint="next"></div>
-        <div class="grid-item"><label><span class="qno">3.2</span>Pneumonia LOS</label><input name="pneu_los" type="number" inputmode="numeric" min="0" enterkeyhint="next"></div>
+        <div class="grid-item"><label><span class="qno">3.2</span>Pneumonia LOS(days)</label><input name="pneu_los" type="number" inputmode="numeric" min="0" enterkeyhint="next"></div>
         <div class="grid-item"><label><span class="qno">3.3</span>Fall episodes</label><input name="fall_episodes" type="number" inputmode="numeric" min="0" enterkeyhint="next"></div>
-        <div class="grid-item"><label><span class="qno">3.4</span>Fall LOS</label><input name="fall_los" type="number" inputmode="numeric" min="0" enterkeyhint="next"></div>
-        <div class="grid-item"><label><span class="qno">3.5</span>UTI Episodes</label><input name="uti_episodes" type="number" inputmode="numeric" min="0" enterkeyhint="next"></div>
+        <div class="grid-item"><label><span class="qno">3.4</span>Fall LOS (days)</label><input name="fall_los" type="number" inputmode="numeric" min="0" enterkeyhint="next"></div>
+        <div class="grid-item"><label><span class="qno">3.5</span>UTI Episodes (days)</label><input name="uti_episodes" type="number" inputmode="numeric" min="0" enterkeyhint="next"></div>
         <div class="grid-item"><label><span class="qno">3.6</span>UTI LOS</label><input name="uti_los" type="number" inputmode="numeric" min="0" enterkeyhint="next"></div>
       </div>
       <h3>🕒 Past 3 months (3.7 - 3.10)</h3>
       <div class="grid">
         <div class="grid-item"><label><span class="qno">3.7</span>No. of MOSTE ST Sessions</label><input name="moste_st_sessions" type="number" inputmode="numeric" min="0" enterkeyhint="next"></div>
-        <div class="grid-item"><label><span class="qno">3.8</span>No. MOSTE PT Sessions</label><input name="moste_pt_sessions" type="number" inputmode="numeric" min="0" enterkeyhint="next"></div>
+        <div class="grid-item"><label><span class="qno">3.8</span>No. of MOSTE PT Sessions</label><input name="moste_pt_sessions" type="number" inputmode="numeric" min="0" enterkeyhint="next"></div>
         <div class="grid-item"><label><span class="qno">3.9</span>Dietetic service</label>
           <select name="dietetic_service"><option value="">Select</option><option>Yes</option><option>No</option></select>
         </div>
@@ -283,7 +281,7 @@
     </div>
 
     <div class="section-block">
-      <h2>4️⃣ Sarcopenia & Clinical Measurements</h2>
+      <h2>4️⃣ Whole-body Sarcopenia & Swallowing Muscle Strength Measurements</h2>
       <div class="grid">
         <div class="grid-item">
           <label><span class="qno">4.1</span>Pitting Edema</label>
@@ -294,7 +292,6 @@
             <option value="Bilateral">Bilateral</option>
           </select>
         </div>
-        
         <div class="grid-item"><label><span class="qno">4.2</span>CC (cm) [Invalid or Number]</label><input name="cc" placeholder="例如: 31 或 Invalid" enterkeyhint="next"></div>
         <div class="grid-item"><label><span class="qno">4.3</span>MUAC (cm)</label><input name="muac" type="number" step="0.1" inputmode="decimal" enterkeyhint="next"></div>
         <div class="grid-item"><label><span class="qno">4.4</span>HGS (kg)</label><input name="hgs" type="number" step="0.1" inputmode="decimal" enterkeyhint="next"></div>
@@ -304,14 +301,14 @@
           </select>
         </div>
         <div class="grid-item"><label><span class="qno">4.6</span>Max Tongue Pressure (kPa)</label><input name="tongue_pressure" type="number" step="0.1" inputmode="decimal" enterkeyhint="next"></div>
-        <div class="grid-item"><label><span class="qno">4.7</span>Reliability of Tongue Data</label>
+        <div class="grid-item"><label><span class="qno">4.7</span>Reliability of Tongue Strengh Data</label>
           <select name="tongue_reliability">
             <option value="">Select</option><option>Reliable</option><option>Questionable</option><option>Cannot be measured</option>
           </select>
         </div>
       </div>
 
-      <h3>5️⃣ Dysphagia & Outcome Measures (DSG)</h3>
+      <h3>5️⃣ Dysphagia Severity and Diet Recommendations</h3>
       <div class="grid">
         <div class="grid-item"><label><span class="qno">5.1</span>DSG</label>
           <select name="dsg"><option value="">Select</option><option>Yes</option><option>No</option></select>
@@ -331,7 +328,9 @@
             <option value="">Select</option><option>4</option><option>5</option><option>6</option><option>7EC</option><option>7</option><option>Non-oral</option>
           </select>
         </div>
-        <div class="grid-item"><label><span class="qno">5.5</span>IDDSI-FDS (Auto)</label><input name="iddsi_fds" id="iddsiFds" readonly placeholder="自動計算"></div>
+        
+        <div class="grid-item"><label><span class="qno">5.5</span>5.5 IDDSI-FDS</label><input name="iddsi_fds" id="iddsiFds" readonly placeholder="自動計算"></div>
+        
         <div class="grid-item"><label><span class="qno">5.6</span>TOM_Impairment</label>
           <select name="tom_impairment">
             <option value="">Select</option><option>0</option><option>0.5</option><option>1</option><option>1.5</option><option>2</option><option>2.5</option><option>3</option><option>3.5</option><option>4</option><option>4.5</option><option>5</option>
