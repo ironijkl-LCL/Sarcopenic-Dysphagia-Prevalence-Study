@@ -115,14 +115,14 @@
     .btn-submit, .btn-update, .btn-print { flex: 1 1 28%; font-size: 13px; padding: 12px 6px; }
   }
 
-  /* 🖨️ 精美雙欄列印排版（題目與答案完美顯示） */
+  /* 🖨️ 精美雙欄列印排版 */
   @media print {
     @page { size: A4 portrait; margin: 15mm 15mm; }
     html, body { height: auto; background: white; padding: 0; margin: 0; font-size: 11pt; color: #000; overflow: visible; }
     .container { box-shadow: none; padding: 0; max-width: 100%; width: 100%; }
     
     .bottom-toolbar { display: none !important; } 
-    .mna-link { display: none !important; } /* 列印時自動隱藏網頁按鈕標籤 */
+    .mna-link { display: none !important; }
     
     h1 { font-size: 18pt; margin-top: 0; margin-bottom: 20px; text-align: center; font-weight: bold; }
     
@@ -230,7 +230,6 @@
         <div class="grid-item"><label><span class="qno">1.9</span>Height (cm)</label><input id="height" name="height" type="number" step="0.1" inputmode="decimal" oninput="calcBMI()" required enterkeyhint="next"></div>
         <div class="grid-item"><label><span class="qno">1.10</span>BMI</label><input id="bmi" name="bmi" readonly placeholder="自動計算"></div>
         
-        <!-- 🛠️ 1.11 加入 MNA-SF 新分頁評估外鏈按鈕（100% 結構保留） -->
         <div class="grid-item span-full">
           <label>
             <span class="qno">1.11</span>MNA-SF 
@@ -291,8 +290,10 @@
         <div class="grid-item"><label><span class="qno">3.2</span>Pneumonia LOS(days)</label><input name="pneu_los" type="number" inputmode="numeric" min="0" enterkeyhint="next"></div>
         <div class="grid-item"><label><span class="qno">3.3</span>Fall episodes</label><input name="fall_episodes" type="number" inputmode="numeric" min="0" enterkeyhint="next"></div>
         <div class="grid-item"><label><span class="qno">3.4</span>Fall LOS (days)</label><input name="fall_los" type="number" inputmode="numeric" min="0" enterkeyhint="next"></div>
-        <div class="grid-item"><label><span class="qno">3.5</span>UTI Episodes (days)</label><input name="uti_episodes" type="number" inputmode="numeric" min="0" enterkeyhint="next"></div>
-        <div class="grid-item"><label><span class="qno">3.6</span>UTI LOS</label><input name="uti_los" type="number" inputmode="numeric" min="0" enterkeyhint="next"></div>
+        
+        <!-- 🛠️ 3.5 與 3.6 完全正確對照名稱綁定 -->
+        <div class="grid-item"><label><span class="qno">3.5</span>UTI LOS (days)</label><input name="uti_los" type="number" inputmode="numeric" min="0" enterkeyhint="next"></div>
+        <div class="grid-item"><label><span class="qno">3.6</span>UTI Episodes</label><input name="uti_episodes" type="number" inputmode="numeric" min="0" enterkeyhint="next"></div>
       </div>
       <h3>🕒 Past 3 months (3.7 - 3.10)</h3>
       <div class="grid">
