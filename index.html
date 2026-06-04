@@ -250,15 +250,14 @@
     </div>
 
     <div class="btn-container">
-      <button type="submit" class="action-btn btn-submit" id="submitBtn" onclick="setAction('insert')">💾 Submit New Data (提交新個案)</button>
-      <button type="button" class="action-btn btn-update" id="updateBtn" onclick="triggerUpdate()">💾 Update Data (覆蓋修改舊政)</button>
+      <button type="submit" class="action-btn btn-submit" id="submitBtn" onclick="setAction('insert')">💾 Submit New Data</button>
+      <button type="button" class="action-btn btn-update" id="updateBtn" onclick="triggerUpdate()">💾 Update Data</button>
       <button type="button" class="action-btn btn-print" id="printBtn">🖨️ Export PDF / Print</button>
     </div>
   </form>
 </div>
 
 <script>
-// 請確保此處的 Web App 網址與你最新的 Apps Script 部署網址一致
 const scriptURL = 'https://script.google.com/macros/s/AKfycbwGls7YCho5UpH5IckkDnufeY_AAouXMPXTr2sDoUvQk1Q20m1BzsZ2GN35um0vF1GUeg/exec';
 
 /* 🧠 5.5 IDDSI-FDS 自動計算邏輯 */
@@ -389,7 +388,7 @@ document.getElementById("form").addEventListener("submit", function(e) {
     document.getElementById("iddsiFds").value = "";
     submitButton.disabled = false;
     updateButton.disabled = false;
-    submitButton.innerText = "💾 Submit New Data (提交新個案)";
+    submitButton.innerText = "💾 Submit New Data";
     setAction('insert');
     window.scrollTo({ top: 0, behavior: 'smooth' });
   })
@@ -397,7 +396,7 @@ document.getElementById("form").addEventListener("submit", function(e) {
     alert("❌ 數據傳輸失敗，請檢查網絡。");
     submitButton.disabled = false;
     updateButton.disabled = false;
-    submitButton.innerText = "💾 Submit New Data (提交新個案)";
+    submitButton.innerText = "💾 Submit New Data";
   });
 });
 
