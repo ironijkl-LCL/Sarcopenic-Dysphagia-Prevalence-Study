@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sarcopenic Dysphagia Prevalence Study Data (Full View)</title>
+<title>Sarcopenic Dysphagia Screening Form</title>
 <style>
   /* 🌐 網頁版通用基本樣式 */
   body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; background: #eef2f7; margin: 0; padding: 15px; padding-bottom: 120px; } 
@@ -19,6 +19,8 @@
   .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
   .grid-item { display: flex; flex-direction: column; background: #fafafa; padding: 10px 12px; border: 1px solid #e0e0e0; border-radius: 6px; }
   
+  .grid-item.span-full { grid-column: span 2; }
+  
   label { font-size: 13px; font-weight: 600; color: #2c3e50; margin-bottom: 6px; display: block; }
   .qno { font-weight: bold; color: #1e3799; margin-right: 5px; }
   
@@ -26,8 +28,6 @@
   input:focus, select:focus { outline: none; border-color: #4a69bd; box-shadow: 0 0 5px rgba(74, 105, 189, 0.3); background-color: #fff; }
   input.invalid, select.invalid { border: 2px solid #e74c3c; background: #fff5f5; }
   input[readonly] { background-color: #f1f2f6; color: #7f8c8d; }
-
-  .full-width-print-block { background: #fafafa; padding: 10px 12px; border: 1px solid #e0e0e0; border-radius: 6px; margin-top: 15px; }
 
   /* ⚙️ 固定在底部的 4 核功能工具欄 */
   .bottom-toolbar {
@@ -88,6 +88,7 @@
 
   @media(max-width:768px) { 
     .grid { grid-template-columns: 1fr; gap: 10px; } 
+    .grid-item.span-full { grid-column: auto; }
     body { padding: 5px; padding-bottom: 180px; } 
     .container { padding: 15px; }
     .bottom-toolbar { flex-wrap: wrap; padding: 10px; gap: 8px; }
@@ -95,107 +96,93 @@
     .btn-submit, .btn-update, .btn-print { flex: 1 1 28%; font-size: 13px; padding: 12px 6px; }
   }
 
-  /* 🖨️ 【極致縮減版】專為一張 A4 紙設計的精美列印排版 */
+  /* 🖨️ 【Excel 全寫大字體平衡版】完美協調用盡一張 A4 紙的列印排版 */
   @media print {
     @page { size: A4 portrait; margin: 8mm 8mm; }
-    html, body { height: 99%; background: white; padding: 0; margin: 0; font-size: 9.5pt; color: #000; overflow: hidden; }
+    html, body { height: 100%; background: white; padding: 0; margin: 0; font-size: 10.5pt; color: #000; overflow: hidden; }
     .container { box-shadow: none; padding: 0; max-width: 100%; width: 100%; }
     
-    .bottom-toolbar { display: none !important; } /* 徹底隱藏底部導航 */
+    .bottom-toolbar { display: none !important; } 
     
-    h1 { font-size: 14pt; margin-top: 0; margin-bottom: 10px; text-align: center; letter-spacing: 1px; }
+    h1 { font-size: 15pt; margin-top: 0; margin-bottom: 10px; text-align: center; font-weight: bold; }
     
-    /* 緊湊區塊 */
     .section-block { 
-      border: 1px solid #4a69bd !important; 
-      border-radius: 5px; 
-      padding: 8px 10px !important; 
-      margin-bottom: 8px !important; 
+      border: 1px solid #1e3799 !important; 
+      border-radius: 6px; 
+      padding: 8px 12px !important; 
+      margin-bottom: 12px !important; 
       page-break-inside: avoid !important;
       background: transparent !important;
     }
     
-    h2 { font-size: 10.5pt; margin-top: 0; margin-bottom: 8px !important; border-left: 4px solid #1e3799 !important; padding-left: 6px; color: #1e3799; font-weight: bold; }
-    h3 { font-size: 9.5pt; border-bottom: 1px dashed #000 !important; font-weight: bold; color: #000; margin-top: 6px; margin-bottom: 6px; padding-bottom: 2px; }
+    h2 { font-size: 11.5pt; margin-top: 0; margin-bottom: 8px !important; border-left: 5px solid #1e3799 !important; padding-left: 8px; color: #1e3799; font-weight: bold; }
+    h3 { font-size: 10.5pt; border-bottom: 1px dashed #000 !important; font-weight: bold; color: #000; margin-top: 6px; margin-bottom: 6px; padding-bottom: 2px; }
     
-    /* 將網格重塑為四列緊湊佈局，節省一半以上的垂直空間 */
+    /* 四欄標準表格佈局 */
     .grid { 
       display: grid !important;
-      grid-template-columns: 1fr 1fr 1fr 1fr !important; /* 強制改為4欄排列 */
+      grid-template-columns: 1fr 1fr 1fr 1fr !important; 
       gap: 0 !important; 
-      border-top: 1px solid #cccccc; 
-      border-left: 1px solid #cccccc; 
+      border-top: 1px solid #adadad; 
+      border-left: 1px solid #adadad; 
     }
     
-    /* 特定需要更密集的區域 */
+    .grid-item.span-full { grid-column: span 2 !important; }
+
+    /* 病史區塊六欄結構，兼顧大字體與高密度排版 */
     .pmhx-grid {
-      grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr !important; /* 病史區塊改為更緊密的天地六欄 */
+      grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr !important; 
     }
+    .pmhx-grid label { font-size: 8.5pt !important; }
+    .pmhx-grid input, .pmhx-grid select { font-size: 9.5pt !important; width: 45% !important; }
 
     .grid-item { 
       background: transparent !important; 
-      padding: 3px 5px !important; 
+      padding: 5px 8px !important; 
       border: none !important;
-      border-right: 1px solid #cccccc !important; 
-      border-bottom: 1px solid #cccccc !important; 
+      border-right: 1px solid #adadad !important; 
+      border-bottom: 1px solid #adadad !important; 
       border-radius: 0 !important;
       flex-direction: row !important;
       align-items: center !important;
       justify-content: space-between !important;
-      min-height: 24px;
+      min-height: 28px;
     }
     
-    label { font-size: 8.5pt; color: #000; margin-bottom: 0 !important; white-space: nowrap; font-weight: 500; }
-    .qno { color: #1e3799 !important; font-size: 8pt; margin-right: 2px; }
+    label { font-size: 9.5pt; color: #000; margin-bottom: 0 !important; white-space: nowrap; font-weight: 600; }
+    .qno { color: #1e3799 !important; font-size: 9pt; margin-right: 3px; }
     
-    /* 移除原生輸入框邊框，改為靠右對齊的純文字輸出效果 */
     input, select { 
       border: none !important; 
       background: transparent !important;
       padding: 0 !important;
-      font-size: 9pt !important;
+      font-size: 10.5pt !important;
       color: #000 !important;
       text-align: right !important;
-      width: 55% !important;
+      width: 50% !important;
       font-weight: bold;
       -webkit-appearance: none;
       -moz-appearance: none;
       appearance: none;
     }
     
-    /* 針對自動計算的欄位(如BMI)加強列印深度 */
-    input[readonly] { color: #2c3e50 !important; }
-    
-    .full-width-print-block {
-      border: 1px solid #cccccc;
-      border-top: none;
-      padding: 4px 5px;
-      margin-top: 0px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background: transparent !important;
-      border-radius: 0;
-    }
-    .full-width-print-block label { font-size: 8.5pt; }
-    .full-width-print-block input { text-align: right; width: 50% !important; font-size: 9pt !important; }
+    input[readonly] { color: #1e3799 !important; }
   }
 </style>
 </head>
 <body>
 
 <div class="container">
-  <h1>📊 Sarcopenic Dysphagia Prevalence Study Data</h1>
+  <h1>📊 Sarcopenic Dysphagia Screening Form</h1>
 
   <form id="form">
     <input type="hidden" name="action" id="formAction" value="insert">
 
-    <!-- 1️⃣ 基本資料 -->
     <div class="section-block">
       <h2>1️⃣ 基本資料 (Basic Information)</h2>
       <div class="grid">
         <div class="grid-item">
-          <label><span class="qno">1.1</span>ST</label>
+          <label><span class="qno">1.1</span>Speech Therapist (ST)</label>
           <select name="st" required>
             <option value="" disabled selected>選擇 ST</option>
             <option>Dorothy</option>
@@ -204,16 +191,16 @@
             <option>Bibianna</option>
           </select>
         </div>
-        <div class="grid-item"><label><span class="qno">1.2</span>RCHE no.</label><input name="rche_no" required enterkeyhint="next"></div>
+        <div class="grid-item"><label><span class="qno">1.2</span>Residential Care Home for the Elderly (RCHE) Number</label><input name="rche_no" required enterkeyhint="next"></div>
         <div class="grid-item">
-          <label><span class="qno">1.3</span>Type of RCHE</label>
+          <label><span class="qno">1.3</span>Type of Residential Care Home for the Elderly (RCHE)</label>
           <select name="type_of_rche">
             <option value="">Select</option>
             <option>Private</option>
             <option>Contract</option>
           </select>
         </div>
-        <div class="grid-item"><label><span class="qno">1.4</span>Case no.</label><input name="case_no" required enterkeyhint="next"></div>
+        <div class="grid-item"><label><span class="qno">1.4</span>Case Number</label><input name="case_no" required enterkeyhint="next"></div>
         <div class="grid-item"><label><span class="qno">1.5</span>Age</label><input name="age" type="number" inputmode="numeric" required enterkeyhint="next"></div>
         <div class="grid-item">
           <label><span class="qno">1.6</span>Gender</label>
@@ -223,100 +210,98 @@
             <option>Female</option>
           </select>
         </div>
-        <div class="grid-item"><label><span class="qno">1.7</span>Date of Ax</label><input name="date_of_ax" type="date" required enterkeyhint="next"></div>
+        <div class="grid-item"><label><span class="qno">1.7</span>Date of Assessment (Date of Ax)</label><input name="date_of_ax" type="date" required enterkeyhint="next"></div>
         <div class="grid-item"><label><span class="qno">1.8</span>Weight (kg)</label><input id="weight" name="weight" type="number" step="0.1" inputmode="decimal" oninput="calcBMI()" required enterkeyhint="next"></div>
         <div class="grid-item"><label><span class="qno">1.9</span>Height (cm)</label><input id="height" name="height" type="number" step="0.1" inputmode="decimal" oninput="calcBMI()" required enterkeyhint="next"></div>
         <div class="grid-item"><label><span class="qno">1.10</span>BMI</label><input id="bmi" name="bmi" readonly placeholder="自動計算"></div>
-      </div>
-      <div class="full-width-print-block">
-        <label><span class="qno">1.11</span>MNA-SF</label>
-        <input name="mna_sf" type="number" inputmode="numeric" placeholder="Enter MNA-SF score" enterkeyhint="next">
+        
+        <div class="grid-item span-full">
+          <label><span class="qno">1.11</span>Mini Nutritional Assessment - Short Form (MNA-SF)</label>
+          <input name="mna_sf" type="number" inputmode="numeric" placeholder="Enter MNA-SF score" enterkeyhint="next">
+        </div>
       </div>
     </div>
 
-    <!-- 2️⃣ Medical History (病史端強改為 6 縱列超級壓縮) -->
     <div class="section-block">
       <h2>2️⃣ Medical History (PMHx)</h2>
       <div class="grid pmhx-grid">
-        <div class="grid-item"><label><span class="qno">2.1</span>Other DSG</label>
+        <div class="grid-item"><label><span class="qno">2.1</span>Other Causes for Dysphagia (DSG)</label>
           <select name="other_causes_dsg">
             <option value="">Select</option><option>Obvious</option><option>Potential</option><option>No</option>
           </select>
         </div>
-        <div class="grid-item"><label><span class="qno">2.2</span>PD</label>
+        <div class="grid-item"><label><span class="qno">2.2</span>Parkinson's Disease (PD)</label>
           <select name="parkinson"><option value="">Select</option><option>Yes</option><option>No</option></select>
         </div>
-        <div class="grid-item"><label><span class="qno">2.3</span>TBI/SCI</label>
+        <div class="grid-item"><label><span class="qno">2.3</span>Traumatic Brain Injury / Spinal Cord Injury (TBI/SCI)</label>
           <select name="tbi_sci"><option value="">Select</option><option>Yes</option><option>No</option></select>
         </div>
-        <div class="grid-item"><label><span class="qno">2.4</span>Tumor</label>
+        <div class="grid-item"><label><span class="qno">2.4</span>Brain Tumor</label>
           <select name="brain_tumor"><option value="">Select</option><option>Yes</option><option>No</option></select>
         </div>
-        <div class="grid-item"><label><span class="qno">2.5</span>Neuromusc</label>
+        <div class="grid-item"><label><span class="qno">2.5</span>Neuromuscular Diseases</label>
           <select name="neuromuscular"><option value="">Select</option><option>Yes</option><option>No</option></select>
         </div>
-        <div class="grid-item"><label><span class="qno">2.6</span>H&N Ca</label>
+        <div class="grid-item"><label><span class="qno">2.6</span>Head and Neck Cancer (H&N Ca)</label>
           <select name="head_neck_cancer"><option value="">Select</option><option>Yes</option><option>No</option></select>
         </div>
-        <div class="grid-item"><label><span class="qno">2.7</span>Connective</label>
+        <div class="grid-item"><label><span class="qno">2.7</span>Connective Tissue Diseases</label>
           <select name="connective_disease"><option value="">Select</option><option>Yes</option><option>No</option></select>
         </div>
-        <div class="grid-item"><label><span class="qno">2.8</span>COPD</label>
+        <div class="grid-item"><label><span class="qno">2.8</span>Chronic Obstructive Pulmonary Disease (COPD)</label>
           <select name="copd"><option value="">Select</option><option>Yes</option><option>No</option></select>
         </div>
         <div class="grid-item"><label><span class="qno">2.9</span>Dementia</label>
           <select name="dementia"><option value="">Select</option><option>Yes</option><option>No</option></select>
         </div>
-        <div class="grid-item"><label><span class="qno">2.10</span>CVA</label>
+        <div class="grid-item"><label><span class="qno">2.10</span>Cerebrovascular Accident (CVA)</label>
           <select name="cva"><option value="">Select</option><option>Yes</option><option>No</option></select>
         </div>
-        <div class="grid-item"><label><span class="qno">2.11</span>Specify</label><input name="other_causes_specify" enterkeyhint="next"></div>
-        <div class="grid-item"><label><span class="qno">2.12</span>Other</label><input name="other_pmhx" enterkeyhint="next"></div>
+        <div class="grid-item"><label><span class="qno">2.11</span>Other Causes (Specify)</label><input name="other_causes_specify" enterkeyhint="next"></div>
+        <div class="grid-item"><label><span class="qno">2.12</span>Other PMHx</label><input name="other_pmhx" enterkeyhint="next"></div>
       </div>
     </div>
 
-    <!-- 3️⃣ Admissions & Services -->
     <div class="section-block">
       <h2>3️⃣ Admissions & Services</h2>
       <h3>🕒 Past 6 months (3.1 - 3.6)</h3>
       <div class="grid">
-        <div class="grid-item"><label><span class="qno">3.1</span>Pneu Ep</label><input name="pneu_episodes" type="number" inputmode="numeric" min="0" enterkeyhint="next"></div>
-        <div class="grid-item"><label><span class="qno">3.2</span>Pneu LOS</label><input name="pneu_los" type="number" inputmode="numeric" min="0" enterkeyhint="next"></div>
-        <div class="grid-item"><label><span class="qno">3.3</span>Fall Ep</label><input name="fall_episodes" type="number" inputmode="numeric" min="0" enterkeyhint="next"></div>
-        <div class="grid-item"><label><span class="qno">3.4</span>Fall LOS</label><input name="fall_los" type="number" inputmode="numeric" min="0" enterkeyhint="next"></div>
-        <div class="grid-item"><label><span class="qno">3.5</span>UTI Ep</label><input name="uti_episodes" type="number" inputmode="numeric" min="0" enterkeyhint="next"></div>
-        <div class="grid-item"><label><span class="qno">3.6</span>UTI LOS</label><input name="uti_los" type="number" inputmode="numeric" min="0" enterkeyhint="next"></div>
+        <div class="grid-item"><label><span class="qno">3.1</span>Pneumonia Episodes</label><input name="pneu_episodes" type="number" inputmode="numeric" min="0" enterkeyhint="next"></div>
+        <div class="grid-item"><label><span class="qno">3.2</span>Pneumonia Total Length of Stay (LOS) (days)</label><input name="pneu_los" type="number" inputmode="numeric" min="0" enterkeyhint="next"></div>
+        <div class="grid-item"><label><span class="qno">3.3</span>Fall Episodes</label><input name="fall_episodes" type="number" inputmode="numeric" min="0" enterkeyhint="next"></div>
+        <div class="grid-item"><label><span class="qno">3.4</span>Fall Total Length of Stay (LOS) (days)</label><input name="fall_los" type="number" inputmode="numeric" min="0" enterkeyhint="next"></div>
+        <div class="grid-item"><label><span class="qno">3.5</span>UTI / Dehydration Episodes</label><input name="uti_episodes" type="number" inputmode="numeric" min="0" enterkeyhint="next"></div>
+        <div class="grid-item"><label><span class="qno">3.6</span>UTI / Dehydration Total Length of Stay (LOS) (days)</label><input name="uti_los" type="number" inputmode="numeric" min="0" enterkeyhint="next"></div>
       </div>
       <h3>🕒 Past 3 months (3.7 - 3.10)</h3>
       <div class="grid">
-        <div class="grid-item"><label><span class="qno">3.7</span>ST Sess</label><input name="moste_st_sessions" type="number" inputmode="numeric" min="0" enterkeyhint="next"></div>
-        <div class="grid-item"><label><span class="qno">3.8</span>PT Sess</label><input name="moste_pt_sessions" type="number" inputmode="numeric" min="0" enterkeyhint="next"></div>
-        <div class="grid-item"><label><span class="qno">3.9</span>Dietetic</label>
+        <div class="grid-item"><label><span class="qno">3.7</span>Number of MOSTE Speech Therapy (ST) Sessions</label><input name="moste_st_sessions" type="number" inputmode="numeric" min="0" enterkeyhint="next"></div>
+        <div class="grid-item"><label><span class="qno">3.8</span>Number of MOSTE Physical Therapy (PT) Sessions</label><input name="moste_pt_sessions" type="number" inputmode="numeric" min="0" enterkeyhint="next"></div>
+        <div class="grid-item"><label><span class="qno">3.9</span>Dietetic Service</label>
           <select name="dietetic_service"><option value="">Select</option><option>Yes</option><option>No</option></select>
         </div>
-        <div class="grid-item"><label><span class="qno">3.10</span>ONS</label>
+        <div class="grid-item"><label><span class="qno">3.10</span>On Oral Nutritional Supplements (ONS)</label>
           <select name="ons"><option value="">Select</option><option>Yes</option><option>No</option></select>
         </div>
       </div>
     </div>
 
-    <!-- 4️⃣ & 5️⃣ 綜合臨床評估區塊 -->
     <div class="section-block">
       <h2>4️⃣ Sarcopenia & Clinical Measurements</h2>
       <div class="grid">
-        <div class="grid-item"><label><span class="qno">4.1</span>Edema</label>
+        <div class="grid-item"><label><span class="qno">4.1</span>Pitting Edema</label>
           <select name="pitting_edema"><option value="">Select</option><option>Yes</option><option>No</option><option>Invalid</option></select>
         </div>
-        <div class="grid-item"><label><span class="qno">4.2</span>CC (cm)</label><input name="cc" placeholder="31 / Invalid" enterkeyhint="next"></div>
-        <div class="grid-item"><label><span class="qno">4.3</span>MUAC</label><input name="muac" type="number" step="0.1" inputmode="decimal" enterkeyhint="next"></div>
-        <div class="grid-item"><label><span class="qno">4.4</span>HGS (kg)</label><input name="hgs" type="number" step="0.1" inputmode="decimal" enterkeyhint="next"></div>
-        <div class="grid-item"><label><span class="qno">4.5</span>HGS Rel.</label>
+        <div class="grid-item"><label><span class="qno">4.2</span>Calf Circumference (CC) (cm)</label><input name="cc" placeholder="31 / Invalid" enterkeyhint="next"></div>
+        <div class="grid-item"><label><span class="qno">4.3</span>Mid-Upper Arm Circumference (MUAC) (cm)</label><input name="muac" type="number" step="0.1" inputmode="decimal" enterkeyhint="next"></div>
+        <div class="grid-item"><label><span class="qno">4.4</span>Handgrip Strength (HGS) (kg)</label><input name="hgs" type="number" step="0.1" inputmode="decimal" enterkeyhint="next"></div>
+        <div class="grid-item"><label><span class="qno">4.5</span>Reliability of Handgrip Strength (HGS)</label>
           <select name="hgs_reliability">
             <option value="">Select</option><option>Reliable</option><option>Questionable</option><option>Cannot measure</option>
           </select>
         </div>
-        <div class="grid-item"><label><span class="qno">4.6</span>Tongue (kPa)</label><input name="tongue_pressure" type="number" step="0.1" inputmode="decimal" enterkeyhint="next"></div>
-        <div class="grid-item"><label><span class="qno">4.7</span>Tongue Rel.</label>
+        <div class="grid-item"><label><span class="qno">4.6</span>Maximum Tongue Pressure (kPa)</label><input name="tongue_pressure" type="number" step="0.1" inputmode="decimal" enterkeyhint="next"></div>
+        <div class="grid-item"><label><span class="qno">4.7</span>Reliability of Tongue Data</label>
           <select name="tongue_reliability">
             <option value="">Select</option><option>Reliable</option><option>Questionable</option><option>Cannot measure</option>
           </select>
@@ -325,31 +310,31 @@
 
       <h3>5️⃣ Dysphagia & Outcome Measures (DSG)</h3>
       <div class="grid">
-        <div class="grid-item"><label><span class="qno">5.1</span>DSG</label>
+        <div class="grid-item"><label><span class="qno">5.1</span>Dysphagia (DSG)</label>
           <select name="dsg"><option value="">Select</option><option>Yes</option><option>No</option></select>
         </div>
-        <div class="grid-item"><label><span class="qno">5.2</span>Type DSG</label>
+        <div class="grid-item"><label><span class="qno">5.2</span>Type of Dysphagia (DSG)</label>
           <select name="type_of_dsg">
             <option value="">Select</option><option>NA</option><option>Oral</option><option>Pharyngeal</option><option>Oropharyngeal</option>
           </select>
         </div>
-        <div class="grid-item"><label><span class="qno">5.3</span>IDDSI Liq</label>
+        <div class="grid-item"><label><span class="qno">5.3</span>IDDSI Liquid Level</label>
           <select name="iddsi_liquid" id="iddsiLiquid" onchange="calcIDDSIFDS()">
             <option value="">Select</option><option>0</option><option>1</option><option>2</option><option>3</option><option>4</option><option>Non-oral</option>
           </select>
         </div>
-        <div class="grid-item"><label><span class="qno">5.4</span>IDDSI Food</label>
+        <div class="grid-item"><label><span class="qno">5.4</span>IDDSI Food Level</label>
           <select name="iddsi_food" id="iddsiFood" onchange="calcIDDSIFDS()">
             <option value="">Select</option><option>4</option><option>5</option><option>6</option><option>7EC</option><option>7</option><option>Non-oral</option>
           </select>
         </div>
-        <div class="grid-item"><label><span class="qno">5.5</span>FDS (Auto)</label><input name="iddsi_fds" id="iddsiFds" readonly placeholder="自動計算"></div>
-        <div class="grid-item"><label><span class="qno">5.6</span>TOM_Imp</label>
+        <div class="grid-item"><label><span class="qno">5.5</span>IDDSI Functional Diet Scale (IDDSI-FDS)</label><input name="iddsi_fds" id="iddsiFds" readonly placeholder="自動計算"></div>
+        <div class="grid-item"><label><span class="qno">5.6</span>TOM_Impairment</label>
           <select name="tom_impairment">
             <option value="">Select</option><option>0</option><option>0.5</option><option>1</option><option>1.5</option><option>2</option><option>2.5</option><option>3</option><option>3.5</option><option>4</option><option>4.5</option><option>5</option>
           </select>
         </div>
-        <div class="grid-item"><label><span class="qno">5.7</span>TOM_Act</label>
+        <div class="grid-item"><label><span class="qno">5.7</span>TOM_Activity</label>
           <select name="tom_activity">
             <option value="">Select</option><option>0</option><option>0.5</option><option>1</option><option>1.5</option><option>2</option><option>2.5</option><option>3</option><option>3.5</option><option>4</option><option>4.5</option><option>5</option>
           </select>
@@ -357,7 +342,6 @@
       </div>
     </div>
 
-    <!-- 🛠️ 底部固定工具欄 (簡單圖示鍵 🔍、💾、✏️、🖨️) -->
     <div class="bottom-toolbar">
       <div class="search-input-group">
         <input type="text" id="searchCaseNo" placeholder="Case no.">
