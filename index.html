@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sarcopenic Dysphagia Prevalence Study Data (Smart Complete v4)</title>
+<title>Sarcopenic Dysphagia Prevalence Study Data (Final Consolidated)</title>
 <style>
   body { font-family: Arial, sans-serif; background: #eef2f7; margin: 0; padding: 10px; }
   .container { max-width: 950px; margin: auto; background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
@@ -21,7 +21,7 @@
   .search-box button:hover { background: #b33921; }
 
   .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
-  .full-width { grid-column: 1 / -1; margin-top: 5px; } /* 用於讓項目撐滿整行 */
+  .full-width { grid-column: 1 / -1; margin-top: 5px; } 
   label { font-size: 14px; font-weight: 500; display: block; margin-bottom: 5px; color: #2c3e50; line-height: 1.4; }
   .qno { font-weight: bold; color: #1e3799; margin-right: 5px; }
   
@@ -56,15 +56,7 @@
     .section-block { border: none; padding: 0; margin-bottom: 30px; page-break-inside: avoid; }
     h2 { margin-top: 20px; border-left: 5px solid #000; }
     h3 { border-bottom: 1px solid #000; font-weight: bold; }
-    
-    input, select { 
-      border: none !important;
-      border-bottom: 1px solid #000 !important; 
-      border-radius: 0 !important; 
-      background: transparent !important;
-      padding: 5px 0 !important;
-      appearance: none;
-    }
+    input, select { border: none !important; border-bottom: 1px solid #000 !important; border-radius: 0 !important; background: transparent !important; padding: 5px 0 !important; appearance: none; }
   }
 </style>
 </head>
@@ -73,7 +65,7 @@
 <div class="container">
   <h1>📊 Sarcopenic Dysphagia Prevalence Study Data</h1>
   
-  <!-- 🔍 提取資料工具欄 (GET 機制) -->
+  <!-- 🔍 歷史個案提取工具欄 (GET) -->
   <div class="search-box">
     <span style="font-weight: bold; color: #d35400;">🔍 個案搜尋：</span>
     <input type="text" id="searchCaseNo" placeholder="請輸入 Case no.">
@@ -81,7 +73,7 @@
   </div>
 
   <form id="form">
-    <!-- 智慧 action 控制項：預設為 insert（全新儲存），歷史提取成功後自動切換為 update（覆蓋更新） -->
+    <!-- 智能操作控制項：預設為 insert (全新儲存)，歷史提取成功後自動切換為 update (精準橫行覆蓋更新) -->
     <input type="hidden" name="action" id="formAction" value="insert">
 
     <!-- 1️⃣ Background Information -->
@@ -110,7 +102,7 @@
         <div><label><span class="qno">1.4</span>Case no.</label><input id="case_no" name="case_no" required enterkeyhint="next"></div>
         <div><label><span class="qno">1.5</span>Age</label><input name="age" type="number" inputmode="numeric" required enterkeyhint="next"></div>
         
-        <!-- 🌟 1.6 Gender 欄位選項優化：畫面防錯提示，但底層傳輸給 Excel 時強制寫入精簡的 F 與 M -->
+        <!-- 🌟 1.6 Gender 欄位選項：畫面防錯提示，但傳輸給 Excel 時寫入精簡的 M 或 F -->
         <div>
           <label><span class="qno">1.6</span>Gender</label>
           <select name="gender" id="gender" required>
@@ -333,7 +325,7 @@
       </div>
     </div>
 
-    <!-- 🔘 智慧一鍵式整合儲存控制按鈕 -->
+    <!-- 🔘 智能一鍵式控制按鈕 -->
     <div class="btn-container">
       <button type="submit" class="action-btn btn-submit" id="submitBtn">💾 儲存個案數據 (Save Data)</button>
       <button type="button" class="action-btn btn-print" id="printBtn">🖨️ Export PDF / Print</button>
@@ -343,7 +335,7 @@
 
 <script>
 const scriptURL = 'https://script.google.com/macros/s/AKfycbwGls7YCho5UpH5IckkDnufeY_AAouXMPXTr2sDoUvQk1Q20m1BzsZ2GN35um0vF1GUeg/exec';
-let loadedCaseNo = ""; // 智慧防漏與安全核對快取
+let loadedCaseNo = ""; // 用於追蹤成功載入的歷史個案編號
 
 /* 🧠 6.5 IDDSI-FDS 自動計算邏輯 */
 function calcIDDSIFDS() {
@@ -357,7 +349,7 @@ function calcIDDSIFDS() {
   fdsInput.value = foodNum - liquidNum + 1;
 }
 
-/* 🧮 BMI 自動計算 + MNA-F1 智能同步連動 */
+/* 🧮 BMI 自動計算 + MNA-F1 智能同步選單連動 */
 function calcBMI(){
   let idHeight = document.getElementById("height").value / 100;
   let idWeight = document.getElementById("weight").value;
@@ -413,7 +405,7 @@ document.getElementById("searchBtn").addEventListener("click", function() {
   .then(res => res.json())
   .then(res => {
     if(res.status === "success") {
-      alert("🎉 提取成功！已自動還原個案歷史資料。\\n此模式下修改任何數據，點擊下方的『儲存個案數據』將直接精準覆蓋 Excel 原有資料行！");
+      alert("🎉 提取成功！已自動還原個案歷史資料。\\n此模式下修改任何數據，點擊下方的『儲存個案數據』將直接精準更新覆蓋 Excel 原有資料行！");
       let data = res.data;
       
       Object.keys(data).forEach(key => {
@@ -430,7 +422,7 @@ document.getElementById("searchBtn").addEventListener("click", function() {
         }
       });
       
-      // 記錄成功提取的案號，並就緒為 update 修改覆蓋狀態
+      // 關鍵鎖定：記錄目前成功載入出來的合法案號，並就緒為 update 修改覆蓋狀態
       loadedCaseNo = String(document.getElementById("case_no").value).trim();
       setAction('update');
       
@@ -451,7 +443,7 @@ document.getElementById("searchBtn").addEventListener("click", function() {
 
 document.getElementById("printBtn").addEventListener("click", function() { window.print(); });
 
-/* 💾 儲存與更改增加資料更新核心機制 (POST) */
+/* 💾 儲存、更改或增加資料更新核心機制 (POST) */
 document.getElementById("form").addEventListener("submit", function(e) {
   e.preventDefault(); 
   let ok = true;
@@ -466,14 +458,14 @@ document.getElementById("form").addEventListener("submit", function(e) {
   let currentCaseNo = String(document.getElementById("case_no").value).trim();
   let currentAction = document.getElementById("formAction").value;
 
-  // 🚀 智慧識別與手殘篡改攔截機制
+  // 🚀 智慧判定與防手殘修改案號攔截機制
   if (currentAction === "update" && currentCaseNo !== loadedCaseNo) {
-    let fixAction = confirm("⚠️ 偵測到您在修改歷史資料時變更了【Case no. 個案編號】！\\n\\n按「確定」：將目前整份表單當作『全新個案』於 Excel 末端建立新行。\\n按「取消」：自動恢復為原個案編號 " + loadedCaseNo + " 並執行精準覆蓋更新。");
+    let fixAction = confirm("⚠️ 偵測到您在修改歷史資料時變更了【Case no. 個案編號】！\\n\\n按「確定」：將目前整份表單當作『全新個案』於 Excel 末端建立新行 (Insert)。\\n按「取消」：自動恢復為原個案編號 " + loadedCaseNo + " 並執行精準覆蓋更新 (Update)。");
     if (fixAction) { setAction('insert'); currentAction = "insert"; } 
     else { document.getElementById("case_no").value = loadedCaseNo; currentCaseNo = loadedCaseNo; }
   }
 
-  // 🚀 覆蓋更新模式下的安全驗證
+  // 🚀 執行功能 3️⃣：當前為覆蓋更新模式時，啟動雙重安全機制 (對齊 image.png 規範)
   if (currentAction === "update") {
     let password = prompt("🔐 修改歷史數據需要權限認證，請輸入密碼：");
     if (password === null) return;
@@ -496,13 +488,13 @@ document.getElementById("form").addEventListener("submit", function(e) {
     headers: { "Content-Type": "application/x-www-form-urlencoded" },
     body: urlParams
   })
-  .then(response => response.json().catch(() => ({ status: "success" }))) // 跨域安全相容
+  .then(response => response.json().catch(() => ({ status: "success" }))) // CORS 與空響應相容性處理
   .then(res => {
     if (res && res.status === "error") {
       alert("❌ 雲端 Excel 拒絕寫入：" + res.message);
     } else {
       if(currentAction === "update") {
-        alert("🎉 歷史數據修改成功！已同步精準覆蓋並更新至雲端 Excel 試算表。");
+        alert("🎉 歷史數據修改成功！已將最新的資料完全同步精準覆蓋至 Excel 中對應的個案！");
       } else {
         alert("🎉 全新個案資料已成功寫入 Google 試算表最末端新行！");
       }
