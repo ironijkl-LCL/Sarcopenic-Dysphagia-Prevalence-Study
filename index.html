@@ -21,7 +21,7 @@
   .search-box button:hover { background: #b33921; }
 
   .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
-  .full-width { grid-column: 1 / -1; margin-top: 5px; } /* 用於讓項目撐滿整行 */
+  .full-width { grid-column: 1 / -1; margin-top: 5px; }
   label { font-size: 14px; font-weight: 500; display: block; margin-bottom: 5px; color: #2c3e50; line-height: 1.4; }
   .qno { font-weight: bold; color: #1e3799; margin-right: 5px; }
   
@@ -35,9 +35,7 @@
   button.action-btn { flex: 1; min-width: 140px; padding: 14px; color: white; border: none; border-radius: 10px; font-size: 16px; font-weight: bold; cursor: pointer; transition: background 0.2s; }
   .btn-submit { background: #1e3799; }
   .btn-submit:hover { background: #142870; }
-  .btn-submit:disabled, .btn-update:disabled { background: #a5b1c2; cursor: not-allowed; }
-  .btn-update { background: #9b59b6; }
-  .btn-update:hover { background: #8e44ad; }
+  .btn-submit:disabled { background: #a5b1c2; cursor: not-allowed; }
   .btn-print { background: #20bf6b; }
   .btn-print:hover { background: #1b9454; }
 
@@ -50,7 +48,7 @@
     .search-box { flex-direction: column; align-items: stretch; }
   }
 
-  /* 🖨️ PDF 列印美化設定 */
+  /* 🖨️ PDF 列印設定 */
   @media print {
     body { background: white; padding: 0; margin: 0; }
     .container { box-shadow: none; padding: 0; max-width: 100%; }
@@ -58,17 +56,7 @@
     .section-block { border: none; padding: 0; margin-bottom: 30px; page-break-inside: avoid; }
     h2 { margin-top: 20px; border-left: 5px solid #000; }
     h3 { border-bottom: 1px solid #000; font-weight: bold; }
-    
-    input, select { 
-      border: none !important;
-      border-bottom: 1px solid #000 !important; 
-      border-radius: 0 !important; 
-      background: transparent !important;
-      padding: 5px 0 !important;
-      -webkit-appearance: none;
-      -moz-appearance: none;
-      appearance: none;
-    }
+    input, select { border: none !important; border-bottom: 1px solid #000 !important; border-radius: 0 !important; background: transparent !important; padding: 5px 0 !important; -webkit-appearance: none; -moz-appearance: none; appearance: none; }
   }
 </style>
 </head>
@@ -86,13 +74,12 @@
   <form id="form">
     <input type="hidden" name="action" id="formAction" value="insert">
 
-    <!-- 1️⃣ Background Information -->
     <div class="section-block">
       <h2>1️⃣ Background Information</h2>
       <div class="grid">
         <div>
           <label><span class="qno">1.1</span>ST</label>
-          <select name="st" required>
+          <select name="st" id="st" required>
             <option value="" disabled selected>選擇 ST</option>
             <option>Dorothy</option>
             <option>Matthew</option>
@@ -100,76 +87,73 @@
             <option>Bibianna</option>
           </select>
         </div>
-        <div><label><span class="qno">1.2</span>RCHE no.</label><input name="rche_no" required enterkeyhint="next"></div>
+        <div><label><span class="qno">1.2</span>RCHE no.</label><input name="rche_no" id="rche_no" required enterkeyhint="next"></div>
         <div>
           <label><span class="qno">1.3</span>Type of RCHE</label>
-          <select name="type_of_rche">
+          <select name="type_of_rche" id="type_of_rche">
             <option value="">Select</option>
             <option>Private</option>
             <option>Contract</option>
           </select>
         </div>
-        <div><label><span class="qno">1.4</span>Case no.</label><input name="case_no" required enterkeyhint="next"></div>
-        <div><label><span class="qno">1.5</span>Age</label><input name="age" type="number" inputmode="numeric" required enterkeyhint="next"></div>
+        <div><label><span class="qno">1.4</span>Case no.</label><input id="case_no" name="case_no" required enterkeyhint="next"></div>
+        <div><label><span class="qno">1.5</span>Age</label><input name="age" id="age" type="number" inputmode="numeric" required enterkeyhint="next"></div>
         <div>
           <label><span class="qno">1.6</span>Gender</label>
-          <select name="gender" required>
+          <select name="gender" id="gender" required>
             <option value="">Select</option>
             <option>Male</option>
             <option>Female</option>
           </select>
         </div>
-        <div><label><span class="qno">1.7</span>Date of Ax</label><input name="date_of_ax" type="date" required enterkeyhint="next"></div>
+        <div><label><span class="qno">1.7</span>Date of Ax</label><input name="date_of_ax" id="date_of_ax" type="date" required enterkeyhint="next"></div>
       </div>
     </div>
 
-    <!-- 2️⃣ Past Medical History -->
     <div class="section-block">
       <h2>2️⃣ Past Medical History</h2>
       <div class="grid">
         <div><label><span class="qno">2.1</span>Other causes for DSG</label>
-          <select name="other_causes_dsg">
+          <select name="other_causes_dsg" id="other_causes_dsg">
             <option value="">Select</option><option>Obvious</option><option>Potential</option><option>No</option>
           </select>
         </div>
         <div><label><span class="qno">2.2</span>Parkinson's</label>
-          <select name="parkinson"><option value="">Select</option><option>Yes</option><option>No</option></select>
+          <select name="parkinson" id="parkinson"><option value="">Select</option><option>Yes</option><option>No</option></select>
         </div>
         <div><label><span class="qno">2.3</span>TBI/SCI</label>
-          <select name="tbi_sci"><option value="">Select</option><option>Yes</option><option>No</option></select>
+          <select name="tbi_sci" id="tbi_sci"><option value="">Select</option><option>Yes</option><option>No</option></select>
         </div>
         <div><label><span class="qno">2.4</span>Brain tumor</label>
-          <select name="brain_tumor"><option value="">Select</option><option>Yes</option><option>No</option></select>
+          <select name="brain_tumor" id="brain_tumor"><option value="">Select</option><option>Yes</option><option>No</option></select>
         </div>
         <div><label><span class="qno">2.5</span>Neuromuscular diseases</label>
-          <select name="neuromuscular"><option value="">Select</option><option>Yes</option><option>No</option></select>
+          <select name="neuromuscular" id="neuromuscular"><option value="">Select</option><option>Yes</option><option>No</option></select>
         </div>
         <div><label><span class="qno">2.6</span>Head and Neck Cancer</label>
-          <select name="head_neck_cancer"><option value="">Select</option><option>Yes</option><option>No</option></select>
+          <select name="head_neck_cancer" id="head_neck_cancer"><option value="">Select</option><option>Yes</option><option>No</option></select>
         </div>
         <div><label><span class="qno">2.7</span>Connective tissue diseases</label>
-          <select name="connective_disease"><option value="">Select</option><option>Yes</option><option>No</option></select>
+          <select name="connective_disease" id="connective_disease"><option value="">Select</option><option>Yes</option><option>No</option></select>
         </div>
         <div><label><span class="qno">2.8</span>COPD</label>
-          <select name="copd"><option value="">Select</option><option>Yes</option><option>No</option></select>
+          <select name="copd" id="copd"><option value="">Select</option><option>Yes</option><option>No</option></select>
         </div>
         <div><label><span class="qno">2.9</span>Dementia</label>
-          <select name="dementia"><option value="">Select</option><option>Yes</option><option>No</option></select>
+          <select name="dementia" id="dementia"><option value="">Select</option><option>Yes</option><option>No</option></select>
         </div>
         <div><label><span class="qno">2.10</span>CVA</label>
-          <select name="cva"><option value="">Select</option><option>Yes</option><option>No</option></select>
+          <select name="cva" id="cva"><option value="">Select</option><option>Yes</option><option>No</option></select>
         </div>
-        <div><label><span class="qno">2.11</span>Other causes (Specify here)</label><input name="other_causes_specify" enterkeyhint="next"></div>
+        <div><label><span class="qno">2.11</span>Other causes (Specify here)</label><input name="other_causes_specify" id="other_causes_specify" enterkeyhint="next"></div>
         
-        <!-- 🌟 2.12 改為撐滿整行 (給足一行寬度) -->
         <div class="full-width">
           <label><span class="qno">2.12</span>Other PMHx</label>
-          <input name="other_pmhx" placeholder="請在此輸入其他既往病史詳細資料..." enterkeyhint="next">
+          <input name="other_pmhx" id="other_pmhx" placeholder="請在此輸入其他既往病史詳細資料..." enterkeyhint="next">
         </div>
       </div>
     </div>
 
-    <!-- 3️⃣ Malnutrition Screening -->
     <div class="section-block">
       <h2>3️⃣ Malnutrition Screening</h2>
       <div class="grid" style="margin-bottom: 25px;">
@@ -247,66 +231,63 @@
       </div>
     </div>
 
-    <!-- 4️⃣ Recent Admissions & Services History -->
     <div class="section-block">
       <h2>4️⃣ Recent Admissions & Services History</h2>
       
       <h3>🕒 Past 6 months (4.1 - 4.6)</h3>
       <div class="grid">
-        <div><label><span class="qno">4.1</span>Pneumonia episodes</label><input name="pneu_episodes" type="number" inputmode="numeric" min="0" enterkeyhint="next"></div>
-        <div><label><span class="qno">4.2</span>Pneumonia Total LOS (days)</label><input name="pneu_los" type="number" inputmode="numeric" min="0" enterkeyhint="next"></div>
-        <div><label><span class="qno">4.3</span>Fall episodes</label><input name="fall_episodes" type="number" inputmode="numeric" min="0" enterkeyhint="next"></div>
-        <div><label><span class="qno">4.4</span>Fall Total LOS (days)</label><input name="fall_los" type="number" inputmode="numeric" min="0" enterkeyhint="next"></div>
-        <div><label><span class="qno">4.5</span>UTI/Dehydration episodes</label><input name="uti_episodes" type="number" inputmode="numeric" min="0" enterkeyhint="next"></div>
-        <div><label><span class="qno">4.6</span>UTI/Dehydration Total LOS (days)</label><input name="uti_los" type="number" inputmode="numeric" min="0" enterkeyhint="next"></div>
+        <div><label><span class="qno">4.1</span>Pneumonia episodes</label><input name="pneu_episodes" id="pneu_episodes" type="number" inputmode="numeric" min="0" enterkeyhint="next"></div>
+        <div><label><span class="qno">4.2</span>Pneumonia Total LOS (days)</label><input name="pneu_los" id="pneu_los" type="number" inputmode="numeric" min="0" enterkeyhint="next"></div>
+        <div><label><span class="qno">4.3</span>Fall episodes</label><input name="fall_episodes" id="fall_episodes" type="number" inputmode="numeric" min="0" enterkeyhint="next"></div>
+        <div><label><span class="qno">4.4</span>Fall Total LOS (days)</label><input name="fall_los" id="fall_los" type="number" inputmode="numeric" min="0" enterkeyhint="next"></div>
+        <div><label><span class="qno">4.5</span>UTI/Dehydration episodes</label><input name="uti_episodes" id="uti_episodes" type="number" inputmode="numeric" min="0" enterkeyhint="next"></div>
+        <div><label><span class="qno">4.6</span>UTI/Dehydration Total LOS (days)</label><input name="uti_los" id="uti_los" type="number" inputmode="numeric" min="0" enterkeyhint="next"></div>
       </div>
 
       <h3>🕒 Past 3 months (4.7 - 4.10)</h3>
       <div class="grid">
-        <div><label><span class="qno">4.7</span>No. of MOSTE ST sessions</label><input name="moste_st_sessions" type="number" inputmode="numeric" min="0" enterkeyhint="next"></div>
-        <div><label><span class="qno">4.8</span>No. of MOSTE PT sessions</label><input name="moste_pt_sessions" type="number" inputmode="numeric" min="0" enterkeyhint="next"></div>
+        <div><label><span class="qno">4.7</span>No. of MOSTE ST sessions</label><input name="moste_st_sessions" id="moste_st_sessions" type="number" inputmode="numeric" min="0" enterkeyhint="next"></div>
+        <div><label><span class="qno">4.8</span>No. of MOSTE PT sessions</label><input name="moste_pt_sessions" id="moste_pt_sessions" type="number" inputmode="numeric" min="0" enterkeyhint="next"></div>
         <div><label><span class="qno">4.9</span>Dietetic service</label>
-          <select name="dietetic_service"><option value="">Select</option><option>Yes</option><option>No</option></select>
+          <select name="dietetic_service" id="dietetic_service"><option value="">Select</option><option>Yes</option><option>No</option></select>
         </div>
         <div><label><span class="qno">4.10</span>On oral nutritional supplements (ONS)</label>
-          <select name="ons"><option value="">Select</option><option>Yes</option><option>No</option></select>
+          <select name="ons" id="ons"><option value="">Select</option><option>Yes</option><option>No</option></select>
         </div>
       </div>
     </div>
 
-    <!-- 5️⃣ Whole-body Sarcopenia & Swallowing Muscle Strength Measurements -->
     <div class="section-block">
       <h2>5️⃣ Whole-body Sarcopenia & Swallowing Muscle Strength Measurements</h2>
       <div class="grid">
         <div><label><span class="qno">5.1</span>Pitting Edema</label>
-          <select name="pitting_edema"><option value="">Select</option><option>Yes</option><option>No</option><option>Invalid</option></select>
+          <select name="pitting_edema" id="pitting_edema"><option value="">Select</option><option>Yes</option><option>No</option><option>Invalid</option></select>
         </div>
-        <div><label><span class="qno">5.2</span>CC (cm) [Invalid or Number]</label><input name="cc" placeholder="例如: 31 或 Invalid" enterkeyhint="next"></div>
-        <div><label><span class="qno">5.3</span>MUAC (cm)</label><input name="muac" type="number" step="0.1" inputmode="decimal" enterkeyhint="next"></div>
-        <div><label><span class="qno">5.4</span>HGS (kg)</label><input name="hgs" type="number" step="0.1" inputmode="decimal" enterkeyhint="next"></div>
+        <div><label><span class="qno">5.2</span>CC (cm) [Invalid or Number]</label><input name="cc" id="cc" placeholder="例如: 31 或 Invalid" enterkeyhint="next"></div>
+        <div><label><span class="qno">5.3</span>MUAC (cm)</label><input name="muac" id="muac" type="number" step="0.1" inputmode="decimal" enterkeyhint="next"></div>
+        <div><label><span class="qno">5.4</span>HGS (kg)</label><input name="hgs" id="hgs" type="number" step="0.1" inputmode="decimal" enterkeyhint="next"></div>
         <div><label><span class="qno">5.5</span>Reliability of HGS</label>
-          <select name="hgs_reliability">
+          <select name="hgs_reliability" id="hgs_reliability">
             <option value="">Select</option><option>Reliable</option><option>Questionable</option><option>Cannot be measured</option>
           </select>
         </div>
-        <div><label><span class="qno">5.6</span>Max Tongue Pressure (kPa)</label><input name="tongue_pressure" type="number" step="0.1" inputmode="decimal" enterkeyhint="next"></div>
+        <div><label><span class="qno">5.6</span>Max Tongue Pressure (kPa)</label><input name="tongue_pressure" id="tongue_pressure" type="number" step="0.1" inputmode="decimal" enterkeyhint="next"></div>
         <div><label><span class="qno">5.7</span>Reliability of Tongue Data</label>
-          <select name="tongue_reliability">
+          <select name="tongue_reliability" id="tongue_reliability">
             <option value="">Select</option><option>Reliable</option><option>Questionable</option><option>Cannot be measured</option>
           </select>
         </div>
       </div>
     </div>
 
-    <!-- 6️⃣ Dysphagia Severity and Diet Recommendations -->
     <div class="section-block">
       <h2>6️⃣ Dysphagia Severity and Diet Recommendations</h2>
       <div class="grid">
         <div><label><span class="qno">6.1</span>DSG</label>
-          <select name="dsg"><option value="">Select</option><option>Yes</option><option>No</option></select>
+          <select name="dsg" id="dsg"><option value="">Select</option><option>Yes</option><option>No</option></select>
         </div>
         <div><label><span class="qno">6.2</span>Type of DSG</label>
-          <select name="type_of_dsg">
+          <select name="type_of_dsg" id="type_of_dsg">
             <option value="">Select</option><option>NA</option><option>Oral</option><option>Pharyngeal</option><option>Oropharyngeal</option>
           </select>
         </div>
@@ -322,12 +303,12 @@
         </div>
         <div><label><span class="qno">6.5</span>IDDSI-FDS (Auto)</label><input name="iddsi_fds" id="iddsiFds" readonly placeholder="自動計算"></div>
         <div><label><span class="qno">6.6</span>TOM_Impairment</label>
-          <select name="tom_impairment">
+          <select name="tom_impairment" id="tom_impairment">
             <option value="">Select</option><option>0</option><option>0.5</option><option>1</option><option>1.5</option><option>2</option><option>2.5</option><option>3</option><option>3.5</option><option>4</option><option>4.5</option><option>5</option>
           </select>
         </div>
         <div><label><span class="qno">6.7</span>TOM_Activity</label>
-          <select name="tom_activity">
+          <select name="tom_activity" id="tom_activity">
             <option value="">Select</option><option>0</option><option>0.5</option><option>1</option><option>1.5</option><option>2</option><option>2.5</option><option>3</option><option>3.5</option><option>4</option><option>4.5</option><option>5</option>
           </select>
         </div>
@@ -335,8 +316,7 @@
     </div>
 
     <div class="btn-container">
-      <button type="submit" class="action-btn btn-submit" id="submitBtn" onclick="setAction('insert')">💾 Submit New Data</button>
-      <button type="button" class="action-btn btn-update" id="updateBtn" onclick="triggerUpdate()">💾 Update Data</button>
+      <button type="submit" class="action-btn btn-submit" id="submitBtn">💾 儲存個案數據 (Save Data)</button>
       <button type="button" class="action-btn btn-print" id="printBtn">🖨️ Export PDF / Print</button>
     </div>
   </form>
@@ -344,22 +324,21 @@
 
 <script>
 const scriptURL = 'https://script.google.com/macros/s/AKfycbwGls7YCho5UpH5IckkDnufeY_AAouXMPXTr2sDoUvQk1Q20m1BzsZ2GN35um0vF1GUeg/exec';
+let loadedCaseNo = ""; 
 
-/* 🧠 6.5 IDDSI-FDS 自動計算邏輯 */
+/* 🧠 6.5 IDDSI-FDS 自動計算 */
 function calcIDDSIFDS() {
   let liquidVal = document.getElementById("iddsiLiquid").value;
   let foodVal = document.getElementById("iddsiFood").value;
   let fdsInput = document.getElementById("iddsiFds");
-
   if (!liquidVal || !foodVal) { fdsInput.value = ""; return; }
   if (liquidVal === "Non-oral" || foodVal === "Non-oral") { fdsInput.value = "0"; return; }
-
   let foodNum = (foodVal === "7EC") ? 7 : parseInt(foodVal);
   let liquidNum = parseInt(liquidVal);
   fdsInput.value = foodNum - liquidNum + 1;
 }
 
-/* 🧮 BMI 自動計算 + MNA-F1 智能同步連動 */
+/* 🧮 BMI 自動計算 + MNA-F1 連動 */
 function calcBMI(){
   let idHeight = document.getElementById("height").value / 100;
   let idWeight = document.getElementById("weight").value;
@@ -368,24 +347,17 @@ function calcBMI(){
   if(idHeight && idWeight){ 
     let bmiVal = idWeight / (idHeight * idHeight);
     bmiInput.value = bmiVal.toFixed(2);
-    if (bmiVal < 19) {
-      f1Select.value = "0";
-    } else if (bmiVal >= 19 && bmiVal < 21) {
-      f1Select.value = "1";
-    } else if (bmiVal >= 21 && bmiVal < 23) {
-      f1Select.value = "2";
-    } else if (bmiVal >= 23) {
-      f1Select.value = "3";
-    }
+    if (bmiVal < 19) f1Select.value = "0";
+    else if (bmiVal >= 19 && bmiVal < 21) f1Select.value = "1";
+    else if (bmiVal >= 21 && bmiVal < 23) f1Select.value = "2";
+    else if (bmiVal >= 23) f1Select.value = "3";
     calcMNASF();
   } else { 
-    bmiInput.value = ""; 
-    f1Select.value = "";
-    document.getElementById("mna_sf_total").value = "";
+    bmiInput.value = ""; f1Select.value = ""; document.getElementById("mna_sf_total").value = "";
   }
 }
 
-/* 📊 MNA-SF 篩查總分即時累加 */
+/* 📊 MNA-SF 篩查總分累加 */
 function calcMNASF() {
   let a = document.getElementById("mna_a").value;
   let b = document.getElementById("mna_b").value;
@@ -403,23 +375,6 @@ function calcMNASF() {
 
 function setAction(mode) {
   document.getElementById("formAction").value = mode;
-}
-
-/* 🌟 UPDATE DATA 安全防護與覆蓋確認邏輯 */
-function triggerUpdate() {
-  let password = prompt("🔐 修改歷史數據需要權限認證，請輸入密碼：");
-  if (password === null) return;
-  if (password !== "3577") { alert("❌ 密碼錯誤，拒絕更新！"); return; }
-  
-  // 核心邏輯：雙重確認彈窗
-  let confirmOverwrite = confirm("⚠️ 您確定要覆蓋此個案的舊檔案/歷史數據嗎？此操作將覆蓋雲端 Excel 試算表內的原有紀錄，且無法復原！");
-  if (!confirmOverwrite) {
-    alert("❌ 操作已取消，未對雲端資料進行任何更動。");
-    return;
-  }
-  
-  setAction('update');
-  document.getElementById("form").requestSubmit(); // 觸發帶有 'update' 動作的 POST 表單提交
 }
 
 /* 🔍 個案搜尋 (GET) */
@@ -442,8 +397,9 @@ document.getElementById("searchBtn").addEventListener("click", function() {
       alert("🎉 認證成功！已自動載入個案歷史資料。");
       let data = res.data;
       
+      // 全方位還原所有輸入項
       Object.keys(data).forEach(key => {
-        let field = document.querySelector(`[name='${key}']`);
+        let field = document.querySelector(`[name='${key}']`) || document.getElementById(key);
         if(field) {
           if(field.type === "date" && data[key]) {
             let dateObj = new Date(data[key]);
@@ -455,26 +411,31 @@ document.getElementById("searchBtn").addEventListener("click", function() {
           field.value = data[key];
         }
       });
+      
+      loadedCaseNo = String(document.getElementById("case_no").value).trim();
+      setAction('update'); // 切換為覆蓋更新狀態
+      
       calcBMI(); 
       calcIDDSIFDS();
       calcMNASF();
     } else {
       alert("❌ 找不到該 Case no. 的歷史資料。");
+      loadedCaseNo = "";
+      setAction('insert');
     }
     btn.disabled = false;
     btn.innerText = "載入歷史資料";
   })
   .catch(err => {
-    alert("搜尋出錯，請檢查網路連線。");
+    alert("搜尋出錯，請檢查網絡連線。");
     btn.disabled = false;
     btn.innerText = "載入歷史資料";
   });
 });
 
-// 列印控制
 document.getElementById("printBtn").addEventListener("click", function() { window.print(); });
 
-/* 💾 表單提交 (POST) - 支援將全新或修改後的 UPDATED 資料同步發送至 Excel 端 */
+/* 💾 核心資料儲存機制修正（解決 Update 資料去不到 Excel 的關鍵） */
 document.getElementById("form").addEventListener("submit", function(e) {
   e.preventDefault(); 
   let ok = true;
@@ -486,49 +447,83 @@ document.getElementById("form").addEventListener("submit", function(e) {
 
   if (!ok) { alert("部分必填欄位未填寫，請檢查。"); window.scrollTo({ top: 0, behavior: 'smooth' }); return; }
 
-  var currentAction = document.getElementById("formAction").value;
+  let currentCaseNo = String(document.getElementById("case_no").value).trim();
+  let currentAction = document.getElementById("formAction").value;
+
+  // 智慧防錯攔截
+  if (currentAction === "update" && currentCaseNo !== loadedCaseNo) {
+    let fixAction = confirm("⚠️ 偵測到您修改了【Case no.】！\n\n按「確定」：當作新個案建立新行。\n按「取消」：恢復原編號 " + loadedCaseNo + " 進行修改。");
+    if (fixAction) {
+      setAction('insert');
+      currentAction = "insert";
+    } else {
+      document.getElementById("case_no").value = loadedCaseNo;
+      currentCaseNo = loadedCaseNo;
+    }
+  }
+
+  // 覆蓋更新的雙重驗證
+  if (currentAction === "update") {
+    let password = prompt("🔐 修改歷史數據需要權限認證，請輸入密碼：");
+    if (password === null) return;
+    if (password !== "3577") { alert("❌ 密碼錯誤，拒絕更新！"); return; }
+
+    let confirmOverwrite = confirm("⚠️ 您確定要將目前的全新修改數據，完全覆蓋並更新至個案 " + currentCaseNo + " 的雲端 Excel 紀錄中嗎？此操作無法復原！");
+    if (!confirmOverwrite) {
+      alert("❌ 操作已取消，未對雲端資料進行任何更動。");
+      return;
+    }
+  }
+
   const submitButton = document.getElementById("submitBtn");
-  const updateButton = document.getElementById("updateBtn");
-  
   submitButton.disabled = true;
-  updateButton.disabled = true;
   submitButton.innerText = "⏳ Transmission...";
 
-  const formData = new FormData(this);
-  const urlParams = new URLSearchParams(formData).toString();
+  // 🚀 【關鍵修正點】：放棄不穩定的 FormData String 轉換，改採純物件手動顯式組裝成 URLSearchParams
+  const payload = new URLSearchParams();
+  
+  // 遍歷所有具備 name 屬性的輸入元件，確保值能穩固打包
+  document.querySelectorAll("#form input, #form select").forEach(el => {
+    if (el.name && el.id !== "formAction") {
+      payload.append(el.name, el.value);
+    }
+  });
+  // 單獨補入目前的 action 指令 (insert 或 update)
+  payload.append("action", currentAction);
 
-  // 將資料以標準 application/x-www-form-urlencoded 格式發送給後端 Apps Script 網頁應用程式接口
   fetch(scriptURL, {
     method: "POST",
     mode: "no-cors", 
     headers: { "Content-Type": "application/x-www-form-urlencoded" },
-    body: urlParams
+    body: payload.toString() // 精確傳送標準 URL 字串
   })
   .then(response => {
     if(currentAction === "update") {
-      alert("🎉 歷史數據修改成功！已同步覆蓋更新至雲端 Excel 試算表。");
+      alert("🎉 歷史數據修改成功！已將最新的資料完全同步覆蓋至 Excel 中對應的個案！");
     } else {
       alert("🎉 新個案資料已成功寫入 Google 試算表預留空行！");
     }
+    
+    // 儲存完成後完全重置
     document.getElementById("form").reset(); 
     document.getElementById("bmi").value = "";
     document.getElementById("iddsiFds").value = "";
     document.getElementById("mna_sf_total").value = "";
+    loadedCaseNo = "";
+    setAction('insert'); 
+    
     submitButton.disabled = false;
-    updateButton.disabled = false;
-    submitButton.innerText = "💾 Submit New Data";
-    setAction('insert');
+    submitButton.innerText = "💾 儲存個案數據 (Save Data)";
     window.scrollTo({ top: 0, behavior: 'smooth' });
   })
   .catch(error => {
     alert("❌ 數據傳輸失敗，請檢查網絡。");
     submitButton.disabled = false;
-    updateButton.disabled = false;
-    submitButton.innerText = "💾 Submit New Data";
+    submitButton.innerText = "💾 儲存個案數據 (Save Data)";
   });
 });
 
-/* ⌨️ 支援 Enter 鍵跳轉下一欄位 */
+/* Enter 鍵跳轉 */
 let fields = document.querySelectorAll("input, select");
 fields.forEach((el, i) => {
   el.addEventListener("keydown", (e) => {
