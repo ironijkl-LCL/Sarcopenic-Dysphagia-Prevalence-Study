@@ -3,18 +3,18 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sarcopenic Dysphagia Prevalence Study Data (Smart Consolidated Version)</title>
+<title>Sarcopenic Dysphagia Prevalence Study Data (Smart Complete v4)</title>
 <style>
   body { font-family: Arial, sans-serif; background: #eef2f7; margin: 0; padding: 10px; }
   .container { max-width: 950px; margin: auto; background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
   h1 { text-align: center; color: #1e3799; margin-bottom: 25px; font-size: 24px; }
   
-  /* 🧱 區塊化分組設計 */
+  /* 🧱 區塊化設計 */
   .section-block { background: #fff; border: 1px solid #dcdde1; border-radius: 8px; padding: 20px; margin-bottom: 25px; box-shadow: 0 2px 5px rgba(0,0,0,0.02); }
   h2 { color: #192a56; border-left: 5px solid #4a69bd; padding-left: 8px; margin-top: 0; margin-bottom: 20px; font-size: 18px; }
   h3 { color: #2c3e50; font-size: 15px; margin-top: 15px; margin-bottom: 15px; padding-bottom: 5px; border-bottom: 1px dashed #ccc; }
   
-  /* 🔍 個案搜尋工具列樣式 */
+  /* 🔍 個案搜尋工具欄樣式 */
   .search-box { background: #ffeaa7; padding: 12px; border-radius: 10px; margin-bottom: 25px; display: flex; gap: 8px; align-items: center; border: 1px solid #f1c40f; }
   .search-box input { flex: 2; padding: 10px; border-radius: 6px; border: 1px solid #ccc; font-size: 14px; }
   .search-box button { flex: 1; margin: 0; padding: 10px; background: #d35400; font-size: 14px; color: white; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; }
@@ -73,6 +73,7 @@
 <div class="container">
   <h1>📊 Sarcopenic Dysphagia Prevalence Study Data</h1>
   
+  <!-- 🔍 提取資料工具欄 (GET 機制) -->
   <div class="search-box">
     <span style="font-weight: bold; color: #d35400;">🔍 個案搜尋：</span>
     <input type="text" id="searchCaseNo" placeholder="請輸入 Case no.">
@@ -80,8 +81,10 @@
   </div>
 
   <form id="form">
+    <!-- 智慧 action 控制項：預設為 insert（全新儲存），歷史提取成功後自動切換為 update（覆蓋更新） -->
     <input type="hidden" name="action" id="formAction" value="insert">
 
+    <!-- 1️⃣ Background Information -->
     <div class="section-block">
       <h2>1️⃣ Background Information</h2>
       <div class="grid">
@@ -106,18 +109,21 @@
         </div>
         <div><label><span class="qno">1.4</span>Case no.</label><input id="case_no" name="case_no" required enterkeyhint="next"></div>
         <div><label><span class="qno">1.5</span>Age</label><input name="age" type="number" inputmode="numeric" required enterkeyhint="next"></div>
+        
+        <!-- 🌟 1.6 Gender 欄位選項優化：畫面防錯提示，但底層傳輸給 Excel 時強制寫入精簡的 F 與 M -->
         <div>
           <label><span class="qno">1.6</span>Gender</label>
-          <select name="gender" required>
-            <option value="">Select</option>
-            <option>Male</option>
-            <option>Female</option>
+          <select name="gender" id="gender" required>
+            <option value="" disabled selected>Select</option>
+            <option value="M">M (Male)</option>
+            <option value="F">F (Female)</option>
           </select>
         </div>
         <div><label><span class="qno">1.7</span>Date of Ax</label><input name="date_of_ax" type="date" required enterkeyhint="next"></div>
       </div>
     </div>
 
+    <!-- 2️⃣ Past Medical History -->
     <div class="section-block">
       <h2>2️⃣ Past Medical History</h2>
       <div class="grid">
@@ -155,6 +161,7 @@
         </div>
         <div><label><span class="qno">2.11</span>Other causes (Specify here)</label><input name="other_causes_specify" enterkeyhint="next"></div>
         
+        <!-- 🌟 2.12 Other PMHx 答案條獨佔一整行 -->
         <div class="full-width">
           <label><span class="qno">2.12</span>Other PMHx</label>
           <input name="other_pmhx" placeholder="請在此輸入其他既往病史詳細資料..." enterkeyhint="next">
@@ -162,6 +169,7 @@
       </div>
     </div>
 
+    <!-- 3️⃣ Malnutrition Screening -->
     <div class="section-block">
       <h2>3️⃣ Malnutrition Screening</h2>
       <div class="grid" style="margin-bottom: 25px;">
@@ -239,6 +247,7 @@
       </div>
     </div>
 
+    <!-- 4️⃣ Recent Admissions & Services History -->
     <div class="section-block">
       <h2>4️⃣ Recent Admissions & Services History</h2>
       <h3>🕒 Past 6 months (4.1 - 4.6)</h3>
@@ -264,6 +273,7 @@
       </div>
     </div>
 
+    <!-- 5️⃣ Whole-body Sarcopenia & Swallowing Muscle Strength Measurements -->
     <div class="section-block">
       <h2>5️⃣ Whole-body Sarcopenia & Swallowing Muscle Strength Measurements</h2>
       <div class="grid">
@@ -287,6 +297,7 @@
       </div>
     </div>
 
+    <!-- 6️⃣ Dysphagia Severity and Diet Recommendations -->
     <div class="section-block">
       <h2>6️⃣ Dysphagia Severity and Diet Recommendations</h2>
       <div class="grid">
@@ -322,6 +333,7 @@
       </div>
     </div>
 
+    <!-- 🔘 智慧一鍵式整合儲存控制按鈕 -->
     <div class="btn-container">
       <button type="submit" class="action-btn btn-submit" id="submitBtn">💾 儲存個案數據 (Save Data)</button>
       <button type="button" class="action-btn btn-print" id="printBtn">🖨️ Export PDF / Print</button>
@@ -331,7 +343,7 @@
 
 <script>
 const scriptURL = 'https://script.google.com/macros/s/AKfycbwGls7YCho5UpH5IckkDnufeY_AAouXMPXTr2sDoUvQk1Q20m1BzsZ2GN35um0vF1GUeg/exec';
-let loadedCaseNo = ""; // 嚴格比對器，用以確保修改安全
+let loadedCaseNo = ""; // 智慧防漏與安全核對快取
 
 /* 🧠 6.5 IDDSI-FDS 自動計算邏輯 */
 function calcIDDSIFDS() {
@@ -345,7 +357,7 @@ function calcIDDSIFDS() {
   fdsInput.value = foodNum - liquidNum + 1;
 }
 
-/* 🧮 BMI 自動計算 + MNA-F1 智能選單自動同步 */
+/* 🧮 BMI 自動計算 + MNA-F1 智能同步連動 */
 function calcBMI(){
   let idHeight = document.getElementById("height").value / 100;
   let idWeight = document.getElementById("weight").value;
@@ -354,8 +366,6 @@ function calcBMI(){
   if(idHeight && idWeight){ 
     let bmiVal = idWeight / (idHeight * idHeight);
     bmiInput.value = bmiVal.toFixed(2);
-    
-    // 依國際 MNA-SF 標準自動選定分值
     if (bmiVal < 19) { f1Select.value = "0"; } 
     else if (bmiVal >= 19 && bmiVal < 21) { f1Select.value = "1"; } 
     else if (bmiVal >= 21 && bmiVal < 23) { f1Select.value = "2"; } 
@@ -366,7 +376,7 @@ function calcBMI(){
   }
 }
 
-/* 📊 MNA-SF 篩查總分即時聯動加總 */
+/* 📊 MNA-SF 篩查總分即時累加 */
 function calcMNASF() {
   let a = document.getElementById("mna_a").value;
   let b = document.getElementById("mna_b").value;
@@ -403,7 +413,7 @@ document.getElementById("searchBtn").addEventListener("click", function() {
   .then(res => res.json())
   .then(res => {
     if(res.status === "success") {
-      alert("🎉 提取成功！已自動還原個案歷史資料。\\n此模式下修改任何數據，點擊下方的『儲存個案數據』將直接更新覆蓋 Excel 原有資料行！");
+      alert("🎉 提取成功！已自動還原個案歷史資料。\\n此模式下修改任何數據，點擊下方的『儲存個案數據』將直接精準覆蓋 Excel 原有資料行！");
       let data = res.data;
       
       Object.keys(data).forEach(key => {
@@ -420,7 +430,7 @@ document.getElementById("searchBtn").addEventListener("click", function() {
         }
       });
       
-      // 核心控制點：將歷史個案號記錄在快取中，並將狀態直接改為修改覆蓋模式 (update)
+      // 記錄成功提取的案號，並就緒為 update 修改覆蓋狀態
       loadedCaseNo = String(document.getElementById("case_no").value).trim();
       setAction('update');
       
@@ -463,7 +473,7 @@ document.getElementById("form").addEventListener("submit", function(e) {
     else { document.getElementById("case_no").value = loadedCaseNo; currentCaseNo = loadedCaseNo; }
   }
 
-  // 🚀 執行功能 3️⃣：更改更新模式下的雙重安全機制
+  // 🚀 覆蓋更新模式下的安全驗證
   if (currentAction === "update") {
     let password = prompt("🔐 修改歷史數據需要權限認證，請輸入密碼：");
     if (password === null) return;
@@ -477,7 +487,7 @@ document.getElementById("form").addEventListener("submit", function(e) {
   submitButton.disabled = true;
   submitButton.innerText = "⏳ Transmission...";
 
-  // 🌟 精準使用標準 URL 編碼字串對接，確保資料流穩定不發生記憶體碼移位錯位
+  // 使用標準 URLSearchParams 序列化編碼字串，徹底終結亂碼與格子錯位
   const formData = new FormData(this);
   const urlParams = new URLSearchParams(formData).toString();
 
@@ -486,15 +496,15 @@ document.getElementById("form").addEventListener("submit", function(e) {
     headers: { "Content-Type": "application/x-www-form-urlencoded" },
     body: urlParams
   })
-  .then(response => response.json().catch(() => ({ status: "success" }))) // CORS & 空響應相容性處理
+  .then(response => response.json().catch(() => ({ status: "success" }))) // 跨域安全相容
   .then(res => {
     if (res && res.status === "error") {
       alert("❌ 雲端 Excel 拒絕寫入：" + res.message);
     } else {
       if(currentAction === "update") {
-        alert("🎉 功能 3️⃣ 執行成功：歷史數據已同步精準覆蓋並更新至雲端 Excel 試算表對應個案！");
+        alert("🎉 歷史數據修改成功！已同步精準覆蓋並更新至雲端 Excel 試算表。");
       } else {
-        alert("🎉 功能 1️⃣ 執行成功：全新個案資料已成功寫入 Google 試算表最末端新行！");
+        alert("🎉 全新個案資料已成功寫入 Google 試算表最末端新行！");
       }
       
       // 成功後全面安全重置狀態，回歸常規 insert 狀態
@@ -515,7 +525,7 @@ document.getElementById("form").addEventListener("submit", function(e) {
   });
 });
 
-/* ⌨️ 支援 Enter 鍵跳轉下一欄位 */
+/* Enter 鍵自動跳轉 */
 let fields = document.querySelectorAll("input, select");
 fields.forEach((el, i) => {
   el.addEventListener("keydown", (e) => {
