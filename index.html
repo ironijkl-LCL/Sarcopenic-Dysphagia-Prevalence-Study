@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sarcopenic Dysphagia Prevalence Study Data (Final Consolidated)</title>
+<title>Sarcopenic Dysphagia Screening Form (Final Consolidated)</title>
 <style>
   body { font-family: Arial, sans-serif; background: #eef2f7; margin: 0; padding: 10px; }
   .container { max-width: 950px; margin: auto; background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
@@ -63,9 +63,8 @@
 <body>
 
 <div class="container">
-  <h1>📊 Sarcopenic Dysphagia Prevalence Study Data</h1>
+  <h1>📋 Sarcopenic Dysphagia Screening Form</h1>
   
-  <!-- 🔍 歷史個案提取工具欄 (GET) -->
   <div class="search-box">
     <span style="font-weight: bold; color: #d35400;">🔍 個案搜尋：</span>
     <input type="text" id="searchCaseNo" placeholder="請輸入 Case no.">
@@ -73,10 +72,8 @@
   </div>
 
   <form id="form">
-    <!-- 智能操作控制項：預設為 insert (全新儲存)，歷史提取成功後自動切換為 update (精準橫行覆蓋更新) -->
     <input type="hidden" name="action" id="formAction" value="insert">
 
-    <!-- 1️⃣ Background Information -->
     <div class="section-block">
       <h2>1️⃣ Background Information</h2>
       <div class="grid">
@@ -101,8 +98,6 @@
         </div>
         <div><label><span class="qno">1.4</span>Case no.</label><input id="case_no" name="case_no" required enterkeyhint="next"></div>
         <div><label><span class="qno">1.5</span>Age</label><input name="age" type="number" inputmode="numeric" required enterkeyhint="next"></div>
-        
-        <!-- 🌟 1.6 Gender 欄位選項：畫面防錯提示，但傳輸給 Excel 時寫入精簡的 M 或 F -->
         <div>
           <label><span class="qno">1.6</span>Gender</label>
           <select name="gender" id="gender" required>
@@ -115,7 +110,6 @@
       </div>
     </div>
 
-    <!-- 2️⃣ Past Medical History -->
     <div class="section-block">
       <h2>2️⃣ Past Medical History</h2>
       <div class="grid">
@@ -152,8 +146,6 @@
           <select name="cva"><option value="">Select</option><option>Yes</option><option>No</option></select>
         </div>
         <div><label><span class="qno">2.11</span>Other causes (Specify here)</label><input name="other_causes_specify" enterkeyhint="next"></div>
-        
-        <!-- 🌟 2.12 Other PMHx 答案條獨佔一整行 -->
         <div class="full-width">
           <label><span class="qno">2.12</span>Other PMHx</label>
           <input name="other_pmhx" placeholder="請在此輸入其他既往病史詳細資料..." enterkeyhint="next">
@@ -161,7 +153,6 @@
       </div>
     </div>
 
-    <!-- 3️⃣ Malnutrition Screening -->
     <div class="section-block">
       <h2>3️⃣ Malnutrition Screening</h2>
       <div class="grid" style="margin-bottom: 25px;">
@@ -174,61 +165,61 @@
         <div>
           <label><span class="qno">3.4a</span>MNA-A 過去三個月內有沒有因為食慾不振、消化問題、咀嚼或吞嚥困難而減少食量? (0 = 食量嚴重減少&nbsp;&nbsp;1 = 食量中度減少&nbsp;&nbsp;2 = 食量沒有改變)</label>
           <select name="mna_a" id="mna_a" onchange="calcMNASF()" required>
-            <option value="">請選擇分數</option>
-            <option value="0">0 = 食量嚴重減少</option>
-            <option value="1">1 = 食量中度減少</option>
-            <option value="2">2 = 食量沒有改變</option>
+            <option value="">分數</option>
+            <option value="0">0</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
           </select>
         </div>
 
         <div>
           <label><span class="qno">3.4b</span>MNA-B 過去三個月內體重下降的情況 (0 = 體重下降大於3公斤 (6.6磅)&nbsp;&nbsp;1 = 不知道&nbsp;&nbsp;2 = 體重下降1‐3公斤 (2.2‐6.6磅)&nbsp;&nbsp;3 = 體重沒有下降)</label>
           <select name="mna_b" id="mna_b" onchange="calcMNASF()" required>
-            <option value="">請選擇分數</option>
-            <option value="0">0 = 體重下降大於3公斤 (6.6磅)</option>
-            <option value="1">1 = 不知道</option>
-            <option value="2">2 = 體重下降1‐3公斤 (2.2‐6.6磅)</option>
-            <option value="3">3 = 體重沒有下降</option>
+            <option value="">分數</option>
+            <option value="0">0</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
           </select>
         </div>
 
         <div>
           <label><span class="qno">3.4c</span>MNA-C 活動能力 (0 = 需長期臥床或坐輪椅&nbsp;&nbsp;1 = 可以下床或離開輪椅，但不能外出&nbsp;&nbsp;2 = 可以外出)</label>
           <select name="mna_c" id="mna_c" onchange="calcMNASF()" required>
-            <option value="">請選擇分數</option>
-            <option value="0">0 = 需長期臥床或坐輪椅</option>
-            <option value="1">1 = 可以下床或離開輪椅，但不能外出</option>
-            <option value="2">2 = 可以外出</option>
+            <option value="">分數</option>
+            <option value="0">0</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
           </select>
         </div>
 
         <div>
           <label><span class="qno">3.4d</span>MNA-D 過去三個月內有沒有受到心理創傷或患上急性疾病? (0 = 有&nbsp;&nbsp;2 = 沒有)</label>
           <select name="mna_d" id="mna_d" onchange="calcMNASF()" required>
-            <option value="">請選擇分數</option>
-            <option value="0">0 = 有</option>
-            <option value="2">2 = 沒有</option>
+            <option value="">分數</option>
+            <option value="0">0</option>
+            <option value="2">2</option>
           </select>
         </div>
 
         <div>
           <label><span class="qno">3.4e</span>MNA-E 精神心理問題 (0 = 嚴重痴呆或抑鬱&nbsp;&nbsp;1 = 輕度痴呆&nbsp;&nbsp;2 = 沒有精神心理問題)</label>
           <select name="mna_e" id="mna_e" onchange="calcMNASF()" required>
-            <option value="">請選擇分數</option>
-            <option value="0">0 = 嚴重痴呆或抑鬱</option>
-            <option value="1">1 = 輕度痴呆</option>
-            <option value="2">2 = 沒有精神心理問題</option>
+            <option value="">分數</option>
+            <option value="0">0</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
           </select>
         </div>
 
         <div>
           <label><span class="qno">3.4f</span>MNA-F1 身體質量指數(BMI) (公斤/米², kg/m²)&nbsp;&nbsp;(0 = BMI 低於 19&nbsp;&nbsp;1 = BMI 19至低於21&nbsp;&nbsp;2 = BMI 21至低於23&nbsp;&nbsp;3 = BMI 相等或大於 23)</label>
           <select name="mna_f1" id="mna_f1" onchange="calcMNASF()" required>
-            <option value="">請選擇（可由體重身高自動運算帶入）</option>
-            <option value="0">0 = BMI 低於 19</option>
-            <option value="1">1 = BMI 19至低於21</option>
-            <option value="2">2 = BMI 21至低於23</option>
-            <option value="3">3 = BMI 相等或大於 23</option>
+            <option value="">分數</option>
+            <option value="0">0</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
           </select>
         </div>
 
@@ -239,7 +230,6 @@
       </div>
     </div>
 
-    <!-- 4️⃣ Recent Admissions & Services History -->
     <div class="section-block">
       <h2>4️⃣ Recent Admissions & Services History</h2>
       <h3>🕒 Past 6 months (4.1 - 4.6)</h3>
@@ -265,7 +255,6 @@
       </div>
     </div>
 
-    <!-- 5️⃣ Whole-body Sarcopenia & Swallowing Muscle Strength Measurements -->
     <div class="section-block">
       <h2>5️⃣ Whole-body Sarcopenia & Swallowing Muscle Strength Measurements</h2>
       <div class="grid">
@@ -289,7 +278,6 @@
       </div>
     </div>
 
-    <!-- 6️⃣ Dysphagia Severity and Diet Recommendations -->
     <div class="section-block">
       <h2>6️⃣ Dysphagia Severity and Diet Recommendations</h2>
       <div class="grid">
@@ -325,7 +313,6 @@
       </div>
     </div>
 
-    <!-- 🔘 智能一鍵式控制按鈕 -->
     <div class="btn-container">
       <button type="submit" class="action-btn btn-submit" id="submitBtn">💾 儲存個案數據 (Save Data)</button>
       <button type="button" class="action-btn btn-print" id="printBtn">🖨️ Export PDF / Print</button>
@@ -405,7 +392,7 @@ document.getElementById("searchBtn").addEventListener("click", function() {
   .then(res => res.json())
   .then(res => {
     if(res.status === "success") {
-      alert("🎉 提取成功！已自動還原個案歷史資料。\\n此模式下修改任何數據，點擊下方的『儲存個案數據』將直接精準更新覆蓋 Excel 原有資料行！");
+      alert("🎉 提取成功！已自動還原個案歷史資料。\n此模式下修改任何數據，點擊下方的『儲存個案數據』將直接精準更新覆蓋 Excel 原有資料行！");
       let data = res.data;
       
       Object.keys(data).forEach(key => {
@@ -422,10 +409,8 @@ document.getElementById("searchBtn").addEventListener("click", function() {
         }
       });
       
-      // 關鍵鎖定：記錄目前成功載入出來的合法案號，並就緒為 update 修改覆蓋狀態
       loadedCaseNo = String(document.getElementById("case_no").value).trim();
       setAction('update');
-      
       calcBMI(); 
       calcIDDSIFDS();
       calcMNASF();
@@ -460,12 +445,12 @@ document.getElementById("form").addEventListener("submit", function(e) {
 
   // 🚀 智慧判定與防手殘修改案號攔截機制
   if (currentAction === "update" && currentCaseNo !== loadedCaseNo) {
-    let fixAction = confirm("⚠️ 偵測到您在修改歷史資料時變更了【Case no. 個案編號】！\\n\\n按「確定」：將目前整份表單當作『全新個案』於 Excel 末端建立新行 (Insert)。\\n按「取消」：自動恢復為原個案編號 " + loadedCaseNo + " 並執行精準覆蓋更新 (Update)。");
+    let fixAction = confirm("⚠️ 偵測到您在修改歷史資料時變更了【Case no. 個案編號】！\n\n按「確定」：將目前整份表單當作『全新個案』於 Excel 末端建立新行 (Insert)。\n按「取消」：自動恢復為原個案編號 " + loadedCaseNo + " 並執行精準覆蓋更新 (Update)。");
     if (fixAction) { setAction('insert'); currentAction = "insert"; } 
     else { document.getElementById("case_no").value = loadedCaseNo; currentCaseNo = loadedCaseNo; }
   }
 
-  // 🚀 執行功能 3️⃣：當前為覆蓋更新模式時，啟動雙重安全機制 (對齊 image.png 規範)
+  // 🚀 雙重安全驗證機制
   if (currentAction === "update") {
     let password = prompt("🔐 修改歷史數據需要權限認證，請輸入密碼：");
     if (password === null) return;
@@ -479,16 +464,14 @@ document.getElementById("form").addEventListener("submit", function(e) {
   submitButton.disabled = true;
   submitButton.innerText = "⏳ Transmission...";
 
-  // 使用標準 URLSearchParams 序列化編碼字串，徹底終結亂碼與格子錯位
   const formData = new FormData(this);
   const urlParams = new URLSearchParams(formData).toString();
-
   fetch(scriptURL, {
     method: "POST",
     headers: { "Content-Type": "application/x-www-form-urlencoded" },
     body: urlParams
   })
-  .then(response => response.json().catch(() => ({ status: "success" }))) // CORS 與空響應相容性處理
+  .then(response => response.json().catch(() => ({ status: "success" })))
   .then(res => {
     if (res && res.status === "error") {
       alert("❌ 雲端 Excel 拒絕寫入：" + res.message);
@@ -499,7 +482,6 @@ document.getElementById("form").addEventListener("submit", function(e) {
         alert("🎉 全新個案資料已成功寫入 Google 試算表最末端新行！");
       }
       
-      // 成功後全面安全重置狀態，回歸常規 insert 狀態
       document.getElementById("form").reset(); 
       document.getElementById("bmi").value = "";
       document.getElementById("iddsiFds").value = "";
