@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sarcopenic Dysphagia Prevalence Study Data (Final Consolidated)</title>
+<title>Sarcopenic Dysphagia Screening Form (Final Consolidated)</title>
 <style>
   body { font-family: Arial, sans-serif; background: #eef2f7; margin: 0; padding: 10px; }
   .container { max-width: 950px; margin: auto; background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
@@ -91,7 +91,7 @@
       -moz-appearance: none;
     }
     
-    /* 特殊調整：第4部分 MNA 題目極致緊湊排版（順序對調後指向第4個 block） */
+    /* 特殊調整：第4部分 MNA 題目極致緊湊排版 */
     .section-block:nth-of-type(4) > div:last-of-type {
       gap: 3px !important;
     }
@@ -122,7 +122,7 @@
 <body>
 
 <div class="container">
-  <h1>📊 Sarcopenic Dysphagia Prevalence Study Data</h1>
+  <h1>📊 Sarcopenic Dysphagia Screening Form</h1>
   
   <div class="search-box">
     <span style="font-weight: bold; color: #d35400;">🔍 個案搜尋：</span>
@@ -458,7 +458,7 @@ document.getElementById("searchBtn").addEventListener("click", function() {
   .then(res => res.json())
   .then(res => {
     if(res.status === "success") {
-      alert("🎉 提取成功！已自動還原個案歷史資料。\n此模式下修改任何數據，點擊下方的『儲存個案數據』將直接精準更新覆蓋 Excel 原有資料行！");
+      alert("🎉 提取成功！已自動還原個案歷史資料。\n此模式下修改 any 數據，點擊下方的『儲存個案數據』將直接精準更新覆蓋 Excel 原有資料行！");
       let data = res.data;
       
       Object.keys(data).forEach(key => {
