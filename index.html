@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sarcopenic Dysphagia Prevalence Study Data (Final Consolidated)</title>
+<title>Sarcopenic Dysphagia Screening Form (Final Consolidated)</title>
 <style>
   body { font-family: Arial, sans-serif; background: #eef2f7; margin: 0; padding: 10px; }
   .container { max-width: 950px; margin: auto; background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
@@ -48,24 +48,82 @@
     .search-box { flex-direction: column; align-items: stretch; }
   }
 
-  /* 🖨️ PDF 列印美化設定 */
+  /* 🖨️ PDF 極致極簡單頁 A4 列印設定 */
   @media print {
-    body { background: white; padding: 0; margin: 0; }
-    .container { box-shadow: none; padding: 0; max-width: 100%; }
-    .btn-container, .search-box { display: none !important; }
-    .section-block { border: none; padding: 0; margin-bottom: 30px; page-break-inside: avoid; }
-    h2 { margin-top: 20px; border-left: 5px solid #000; }
-    h3 { border-bottom: 1px solid #000; font-weight: bold; }
-    input, select { border: none !important; border-bottom: 1px solid #000 !important; border-radius: 0 !important; background: transparent !important; padding: 5px 0 !important; appearance: none; }
+    @page {
+      size: a4;
+      margin: 8mm 10mm 8mm 10mm; /* 最佳化頁邊距，騰出最大垂直空間 */
+    }
+    
+    body { background: white; padding: 0; margin: 0; font-size: 11px; color: #000; }
+    .container { box-shadow: none; padding: 0; max-width: 100%; width: 100%; }
+    
+    /* 🛑 徹底隱藏功能按鈕區域及其外框容器與個案搜尋列，絕不留白、不顯示 */
+    .btn-container, .search-box, .action-btn, select::-ms-expand { display: none !important; }
+    
+    /* 標題與區塊緊湊化 */
+    h1 { font-size: 16px; margin-top: 0; margin-bottom: 8px; text-align: center; color: #000; }
+    .section-block { border: none; padding: 0; margin-bottom: 8px; page-break-inside: avoid; }
+    
+    /* 項目主標題與副標題 */
+    h2 { font-size: 12px; margin-top: 5px; margin-bottom: 6px; border-left: 3px solid #000; padding-left: 5px; color: #000; }
+    h3 { font-size: 11px; margin-top: 4px; margin-bottom: 4px; padding-bottom: 2px; border-bottom: 1px solid #000; font-weight: bold; color: #000; }
+    
+    /* 數據網格改為更緊密排版 */
+    .grid { gap: 4px 12px; grid-template-columns: 1fr 1fr; }
+    
+    /* 標籤字型縮小並與輸入框並排或緊貼 */
+    label { font-size: 10.5px; margin-bottom: 1px; color: #000; display: inline-block; }
+    .qno { color: #000; }
+    
+    /* 輸入框與選單轉為精美打印線條，減少空白浪費 */
+    input, select { 
+      border: none !important; 
+      border-bottom: 1px dashed #444 !important; 
+      border-radius: 0 !important; 
+      background: transparent !important; 
+      padding: 2px 0 !important; 
+      font-size: 11px; 
+      height: 18px;
+      color: #000 !important;
+      appearance: none; 
+      -webkit-appearance: none;
+      -moz-appearance: none;
+    }
+    
+    /* 特殊調整：第4部分 MNA 題目極致緊湊排版 */
+    .section-block:nth-of-type(4) > div:last-of-type {
+      gap: 3px !important;
+    }
+    .section-block:nth-of-type(4) label {
+      display: inline-block;
+      width: 88%;
+      vertical-align: middle;
+      line-height: 1.2;
+    }
+    .section-block:nth-of-type(4) select {
+      display: inline-block;
+      width: 10%;
+      float: right;
+      text-align: center;
+      border-bottom: 1px solid #000 !important;
+    }
+    
+    /* 總分欄位特別加粗凸顯 */
+    #mna_sf_total, #bmi, #iddsiFds {
+      font-weight: bold;
+      border-bottom: 1px solid #000 !important;
+    }
+    
+    .full-width { margin-top: 2px; }
   }
 </style>
 </head>
 <body>
 
 <div class="container">
-  <h1>📊 Sarcopenic Dysphagia Prevalence Study Data</h1>
+  <h1>📊 Sarcopenic Dysphagia Screening Form</h1>
   
-  <!-- 🔍 歷史個案提取工具欄 (GET) -->
   <div class="search-box">
     <span style="font-weight: bold; color: #d35400;">🔍 個案搜尋：</span>
     <input type="text" id="searchCaseNo" placeholder="請輸入 Case no.">
@@ -73,10 +131,8 @@
   </div>
 
   <form id="form">
-    <!-- 智能操作控制項：預設為 insert (全新儲存)，歷史提取成功後自動切換為 update (精準橫行覆蓋更新) -->
     <input type="hidden" name="action" id="formAction" value="insert">
 
-    <!-- 1️⃣ Background Information -->
     <div class="section-block">
       <h2>1️⃣ Background Information</h2>
       <div class="grid">
@@ -102,7 +158,6 @@
         <div><label><span class="qno">1.4</span>Case no.</label><input id="case_no" name="case_no" required enterkeyhint="next"></div>
         <div><label><span class="qno">1.5</span>Age</label><input name="age" type="number" inputmode="numeric" required enterkeyhint="next"></div>
         
-        <!-- 🌟 1.6 Gender 欄位選項：畫面防錯提示，但傳輸給 Excel 時寫入精簡的 M 或 F -->
         <div>
           <label><span class="qno">1.6</span>Gender</label>
           <select name="gender" id="gender" required>
@@ -115,7 +170,6 @@
       </div>
     </div>
 
-    <!-- 2️⃣ Past Medical History -->
     <div class="section-block">
       <h2>2️⃣ Past Medical History</h2>
       <div class="grid">
@@ -153,7 +207,6 @@
         </div>
         <div><label><span class="qno">2.11</span>Other causes (Specify here)</label><input name="other_causes_specify" enterkeyhint="next"></div>
         
-        <!-- 🌟 2.12 Other PMHx 答案條獨佔一整行 -->
         <div class="full-width">
           <label><span class="qno">2.12</span>Other PMHx</label>
           <input name="other_pmhx" placeholder="請在此輸入其他既往病史詳細資料..." enterkeyhint="next">
@@ -161,18 +214,42 @@
       </div>
     </div>
 
-    <!-- 3️⃣ Malnutrition Screening -->
     <div class="section-block">
-      <h2>3️⃣ Malnutrition Screening</h2>
-      <div class="grid" style="margin-bottom: 25px;">
-        <div><label><span class="qno">3.1</span>Weight (kg)</label><input id="weight" name="weight" type="number" step="0.1" inputmode="decimal" oninput="calcBMI()" required enterkeyhint="next"></div>
-        <div><label><span class="qno">3.2</span>Height (cm)</label><input id="height" name="height" type="number" step="0.1" inputmode="decimal" oninput="calcBMI()" required enterkeyhint="next"></div>
-        <div><label><span class="qno">3.3</span>BMI</label><input id="bmi" name="bmi" readonly placeholder="自動計算"></div>
+      <h2>3️⃣ Recent Admissions & Services History</h2>
+      <h3>🕒 Past 6 months (3.1 - 3.6)</h3>
+      <div class="grid">
+        <div><label><span class="qno">3.1</span>Pneumonia episodes</label><input name="pneu_episodes" type="number" inputmode="numeric" min="0" enterkeyhint="next"></div>
+        <div><label><span class="qno">3.2</span>Pneumonia Total LOS (days)</label><input name="pneu_los" type="number" inputmode="numeric" min="0" enterkeyhint="next"></div>
+        <div><label><span class="qno">3.3</span>Fall episodes</label><input name="fall_episodes" type="number" inputmode="numeric" min="0" enterkeyhint="next"></div>
+        <div><label><span class="qno">3.4</span>Fall Total LOS (days)</label><input name="fall_los" type="number" inputmode="numeric" min="0" enterkeyhint="next"></div>
+        <div><label><span class="qno">3.5</span>UTI/Dehydration episodes</label><input name="uti_episodes" type="number" inputmode="numeric" min="0" enterkeyhint="next"></div>
+        <div><label><span class="qno">3.6</span>UTI/Dehydration Total LOS (days)</label><input name="uti_los" type="number" inputmode="numeric" min="0" enterkeyhint="next"></div>
+      </div>
+
+      <h3>🕒 Past 3 months (3.7 - 3.10)</h3>
+      <div class="grid">
+        <div><label><span class="qno">3.7</span>No. of MOSTE ST sessions</label><input name="moste_st_sessions" type="number" inputmode="numeric" min="0" enterkeyhint="next"></div>
+        <div><label><span class="qno">3.8</span>No. of MOSTE PT sessions</label><input name="moste_pt_sessions" type="number" inputmode="numeric" min="0" enterkeyhint="next"></div>
+        <div><label><span class="qno">3.9</span>Dietetic service</label>
+          <select name="dietetic_service"><option value="">Select</option><option>Yes</option><option>No</option></select>
+        </div>
+        <div><label><span class="qno">3.10</span>On oral nutritional supplements (ONS)</label>
+          <select name="ons"><option value="">Select</option><option>Yes</option><option>No</option></select>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-block">
+      <h2>4️⃣ Malnutrition Screening</h2>
+      <div class="grid" style="margin-bottom: 10px;">
+        <div><label><span class="qno">4.1</span>Weight (kg)</label><input id="weight" name="weight" type="number" step="0.1" inputmode="decimal" oninput="calcBMI()" required enterkeyhint="next"></div>
+        <div><label><span class="qno">4.2</span>Height (cm)</label><input id="height" name="height" type="number" step="0.1" inputmode="decimal" oninput="calcBMI()" required enterkeyhint="next"></div>
+        <div><label><span class="qno">4.3</span>BMI</label><input id="bmi" name="bmi" readonly placeholder="自動計算"></div>
       </div>
       
       <div style="display: flex; flex-direction: column; gap: 18px;">
         <div>
-          <label><span class="qno">3.4a</span>MNA-A 過去三個月內有沒有因為食慾不振、消化問題、咀嚼或吞嚥困難而減少食量? (0 = 食量嚴重減少&nbsp;&nbsp;1 = 食量中度減少&nbsp;&nbsp;2 = 食量沒有改變)</label>
+          <label><span class="qno">4.4a</span>MNA-A 過去三個月內有沒有因為食慾不振、消化問題、咀嚼或吞嚥困難而減少食量? (0=嚴重減少 1=中度減少 2=沒有改變)</label>
           <select name="mna_a" id="mna_a" onchange="calcMNASF()" required>
             <option value="">請選擇分數</option>
             <option value="0">0 = 食量嚴重減少</option>
@@ -182,7 +259,7 @@
         </div>
 
         <div>
-          <label><span class="qno">3.4b</span>MNA-B 過去三個月內體重下降的情況 (0 = 體重下降大於3公斤 (6.6磅)&nbsp;&nbsp;1 = 不知道&nbsp;&nbsp;2 = 體重下降1‐3公斤 (2.2‐6.6磅)&nbsp;&nbsp;3 = 體重沒有下降)</label>
+          <label><span class="qno">4.4b</span>MNA-B 過去三個月內體重下降的情況 (0=>3kg 1=不知道 2=1-3kg 3=沒有下降)</label>
           <select name="mna_b" id="mna_b" onchange="calcMNASF()" required>
             <option value="">請選擇分數</option>
             <option value="0">0 = 體重下降大於3公斤 (6.6磅)</option>
@@ -193,7 +270,7 @@
         </div>
 
         <div>
-          <label><span class="qno">3.4c</span>MNA-C 活動能力 (0 = 需長期臥床或坐輪椅&nbsp;&nbsp;1 = 可以下床或離開輪椅，但不能外出&nbsp;&nbsp;2 = 可以外出)</label>
+          <label><span class="qno">4.4c</span>MNA-C 活動能力 (0=需長期臥床/輪椅 1=可下床/離開輪椅但不能外出 2=可以外出)</label>
           <select name="mna_c" id="mna_c" onchange="calcMNASF()" required>
             <option value="">請選擇分數</option>
             <option value="0">0 = 需長期臥床或坐輪椅</option>
@@ -203,7 +280,7 @@
         </div>
 
         <div>
-          <label><span class="qno">3.4d</span>MNA-D 過去三個月內有沒有受到心理創傷或患上急性疾病? (0 = 有&nbsp;&nbsp;2 = 沒有)</label>
+          <label><span class="qno">4.4d</span>MNA-D 過去三個月內有沒有受到心理創傷或患上急性疾病? (0=有 2=沒有)</label>
           <select name="mna_d" id="mna_d" onchange="calcMNASF()" required>
             <option value="">請選擇分數</option>
             <option value="0">0 = 有</option>
@@ -212,17 +289,17 @@
         </div>
 
         <div>
-          <label><span class="qno">3.4e</span>MNA-E 精神心理問題 (0 = 嚴重痴呆或抑鬱&nbsp;&nbsp;1 = 輕度痴呆&nbsp;&nbsp;2 = 沒有精神心理問題)</label>
+          <label><span class="qno">4.4e</span>MNA-E 精神心理問題 (0=嚴重癡呆/抑鬱 1=輕度癡呆 2=無精神心理問題)</label>
           <select name="mna_e" id="mna_e" onchange="calcMNASF()" required>
             <option value="">請選擇分數</option>
-            <option value="0">0 = 嚴重痴呆或抑鬱</option>
-            <option value="1">1 = 輕度痴呆</option>
+            <option value="0">0 = 嚴重癡呆或抑鬱</option>
+            <option value="1">1 = 輕度癡呆</option>
             <option value="2">2 = 沒有精神心理問題</option>
           </select>
         </div>
 
         <div>
-          <label><span class="qno">3.4f</span>MNA-F1 身體質量指數(BMI) (公斤/米², kg/m²)&nbsp;&nbsp;(0 = BMI 低於 19&nbsp;&nbsp;1 = BMI 19至低於21&nbsp;&nbsp;2 = BMI 21至低於23&nbsp;&nbsp;3 = BMI 相等或大於 23)</label>
+          <label><span class="qno">4.4f</span>MNA-F1 身體質量指數(BMI) (0=BMI<19 1=19-21 2=21-23 3=BMI>=23)</label>
           <select name="mna_f1" id="mna_f1" onchange="calcMNASF()" required>
             <option value="">請選擇（可由體重身高自動運算帶入）</option>
             <option value="0">0 = BMI 低於 19</option>
@@ -232,45 +309,22 @@
           </select>
         </div>
 
-        <div style="max-width: 300px; margin-top: 10px;">
-          <label><span class="qno">3.5</span>MNA-SF-Total (篩查總分)</label>
+        <div style="max-width: 300px; margin-top: 5px;">
+          <label><span class="qno">4.5</span>MNA-SF-Total (篩查總分)</label>
           <input name="mna_sf_total" id="mna_sf_total" readonly placeholder="系統自動核算">
         </div>
       </div>
     </div>
 
-    <!-- 4️⃣ Recent Admissions & Services History -->
-    <div class="section-block">
-      <h2>4️⃣ Recent Admissions & Services History</h2>
-      <h3>🕒 Past 6 months (4.1 - 4.6)</h3>
-      <div class="grid">
-        <div><label><span class="qno">4.1</span>Pneumonia episodes</label><input name="pneu_episodes" type="number" inputmode="numeric" min="0" enterkeyhint="next"></div>
-        <div><label><span class="qno">4.2</span>Pneumonia Total LOS (days)</label><input name="pneu_los" type="number" inputmode="numeric" min="0" enterkeyhint="next"></div>
-        <div><label><span class="qno">4.3</span>Fall episodes</label><input name="fall_episodes" type="number" inputmode="numeric" min="0" enterkeyhint="next"></div>
-        <div><label><span class="qno">4.4</span>Fall Total LOS (days)</label><input name="fall_los" type="number" inputmode="numeric" min="0" enterkeyhint="next"></div>
-        <div><label><span class="qno">4.5</span>UTI/Dehydration episodes</label><input name="uti_episodes" type="number" inputmode="numeric" min="0" enterkeyhint="next"></div>
-        <div><label><span class="qno">4.6</span>UTI/Dehydration Total LOS (days)</label><input name="uti_los" type="number" inputmode="numeric" min="0" enterkeyhint="next"></div>
-      </div>
-
-      <h3>🕒 Past 3 months (4.7 - 4.10)</h3>
-      <div class="grid">
-        <div><label><span class="qno">4.7</span>No. of MOSTE ST sessions</label><input name="moste_st_sessions" type="number" inputmode="numeric" min="0" enterkeyhint="next"></div>
-        <div><label><span class="qno">4.8</span>No. of MOSTE PT sessions</label><input name="moste_pt_sessions" type="number" inputmode="numeric" min="0" enterkeyhint="next"></div>
-        <div><label><span class="qno">4.9</span>Dietetic service</label>
-          <select name="dietetic_service"><option value="">Select</option><option>Yes</option><option>No</option></select>
-        </div>
-        <div><label><span class="qno">4.10</span>On oral nutritional supplements (ONS)</label>
-          <select name="ons"><option value="">Select</option><option>Yes</option><option>No</option></select>
-        </div>
-      </div>
-    </div>
-
-    <!-- 5️⃣ Whole-body Sarcopenia & Swallowing Muscle Strength Measurements -->
     <div class="section-block">
       <h2>5️⃣ Whole-body Sarcopenia & Swallowing Muscle Strength Measurements</h2>
       <div class="grid">
         <div><label><span class="qno">5.1</span>Pitting Edema</label>
-          <select name="pitting_edema"><option value="">Select</option><option>Yes</option><option>No</option><option>Invalid</option></select>
+          <select name="pitting_edema">
+            <option value="No">No</option>
+            <option value="Unilateral">Unilateral</option>
+            <option value="Bilateral">Bilateral</option>
+          </select>
         </div>
         <div><label><span class="qno">5.2</span>CC (cm) [Invalid or Number]</label><input name="cc" placeholder="例如: 31 或 Invalid" enterkeyhint="next"></div>
         <div><label><span class="qno">5.3</span>MUAC (cm)</label><input name="muac" type="number" step="0.1" inputmode="decimal" enterkeyhint="next"></div>
@@ -281,7 +335,7 @@
           </select>
         </div>
         <div><label><span class="qno">5.6</span>Max Tongue Pressure (kPa)</label><input name="tongue_pressure" type="number" step="0.1" inputmode="decimal" enterkeyhint="next"></div>
-        <div><label><span class="qno">5.7</span>Reliability of Tongue Data</label>
+        <div><label><span class="qno">5.7</span>Reliability of Tongue Strength Data</label>
           <select name="tongue_reliability">
             <option value="">Select</option><option>Reliable</option><option>Questionable</option><option>Cannot be measured</option>
           </select>
@@ -289,7 +343,6 @@
       </div>
     </div>
 
-    <!-- 6️⃣ Dysphagia Severity and Diet Recommendations -->
     <div class="section-block">
       <h2>6️⃣ Dysphagia Severity and Diet Recommendations</h2>
       <div class="grid">
@@ -311,7 +364,7 @@
             <option value="">Select</option><option>4</option><option>5</option><option>6</option><option>7EC</option><option>7</option><option>Non-oral</option>
           </select>
         </div>
-        <div><label><span class="qno">6.5</span>IDDSI-FDS (Auto)</label><input name="iddsi_fds" id="iddsiFds" readonly placeholder="自動計算"></div>
+        <div><label><span class="qno">6.5</span>IDDSI-FDS</label><input name="iddsi_fds" id="iddsiFds" readonly placeholder="自動計算"></div>
         <div><label><span class="qno">6.6</span>TOM_Impairment</label>
           <select name="tom_impairment">
             <option value="">Select</option><option>0</option><option>0.5</option><option>1</option><option>1.5</option><option>2</option><option>2.5</option><option>3</option><option>3.5</option><option>4</option><option>4.5</option><option>5</option>
@@ -325,7 +378,6 @@
       </div>
     </div>
 
-    <!-- 🔘 智能一鍵式控制按鈕 -->
     <div class="btn-container">
       <button type="submit" class="action-btn btn-submit" id="submitBtn">💾 儲存個案數據 (Save Data)</button>
       <button type="button" class="action-btn btn-print" id="printBtn">🖨️ Export PDF / Print</button>
@@ -405,7 +457,7 @@ document.getElementById("searchBtn").addEventListener("click", function() {
   .then(res => res.json())
   .then(res => {
     if(res.status === "success") {
-      alert("🎉 提取成功！已自動還原個案歷史資料。\\n此模式下修改任何數據，點擊下方的『儲存個案數據』將直接精準更新覆蓋 Excel 原有資料行！");
+      alert("🎉 提取成功！已自動還原個案歷史資料。\n此模式下修改 any 數據，點擊下方的『儲存個案數據』將直接精準更新覆蓋 Excel 原有資料行！");
       let data = res.data;
       
       Object.keys(data).forEach(key => {
@@ -422,7 +474,6 @@ document.getElementById("searchBtn").addEventListener("click", function() {
         }
       });
       
-      // 關鍵鎖定：記錄目前成功載入出來的合法案號，並就緒為 update 修改覆蓋狀態
       loadedCaseNo = String(document.getElementById("case_no").value).trim();
       setAction('update');
       
@@ -460,12 +511,12 @@ document.getElementById("form").addEventListener("submit", function(e) {
 
   // 🚀 智慧判定與防手殘修改案號攔截機制
   if (currentAction === "update" && currentCaseNo !== loadedCaseNo) {
-    let fixAction = confirm("⚠️ 偵測到您在修改歷史資料時變更了【Case no. 個案編號】！\\n\\n按「確定」：將目前整份表單當作『全新個案』於 Excel 末端建立新行 (Insert)。\\n按「取消」：自動恢復為原個案編號 " + loadedCaseNo + " 並執行精準覆蓋更新 (Update)。");
+    let fixAction = confirm("⚠️ 偵測到您在修改歷史資料時變更了【Case no. 個案編號】！\n\n按「確定」：將目前整份表單當作『全新個案』於 Excel 末端建立新行 (Insert)。\n按「取消」：自動恢復為原個案編號 " + loadedCaseNo + " 並執行精準覆蓋更新 (Update)。");
     if (fixAction) { setAction('insert'); currentAction = "insert"; } 
     else { document.getElementById("case_no").value = loadedCaseNo; currentCaseNo = loadedCaseNo; }
   }
 
-  // 🚀 執行功能 3️⃣：當前為覆蓋更新模式時，啟動雙重安全機制 (對齊 image.png 規範)
+  // 🚀 雙重安全驗證機制
   if (currentAction === "update") {
     let password = prompt("🔐 修改歷史數據需要權限認證，請輸入密碼：");
     if (password === null) return;
@@ -479,7 +530,6 @@ document.getElementById("form").addEventListener("submit", function(e) {
   submitButton.disabled = true;
   submitButton.innerText = "⏳ Transmission...";
 
-  // 使用標準 URLSearchParams 序列化編碼字串，徹底終結亂碼與格子錯位
   const formData = new FormData(this);
   const urlParams = new URLSearchParams(formData).toString();
 
@@ -488,7 +538,7 @@ document.getElementById("form").addEventListener("submit", function(e) {
     headers: { "Content-Type": "application/x-www-form-urlencoded" },
     body: urlParams
   })
-  .then(response => response.json().catch(() => ({ status: "success" }))) // CORS 與空響應相容性處理
+  .then(response => response.json().catch(() => ({ status: "success" })))
   .then(res => {
     if (res && res.status === "error") {
       alert("❌ 雲端 Excel 拒絕寫入：" + res.message);
@@ -499,7 +549,6 @@ document.getElementById("form").addEventListener("submit", function(e) {
         alert("🎉 全新個案資料已成功寫入 Google 試算表最末端新行！");
       }
       
-      // 成功後全面安全重置狀態，回歸常規 insert 狀態
       document.getElementById("form").reset(); 
       document.getElementById("bmi").value = "";
       document.getElementById("iddsiFds").value = "";
