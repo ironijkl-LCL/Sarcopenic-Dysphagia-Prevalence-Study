@@ -198,7 +198,7 @@
             <option value="">請選擇分數</option>
             <option value="0">0 = 需長期臥床或坐輪椅</option>
             <option value="1">1 = 可以下床或離開輪椅，但不能外出</option>
-            <option value="2 = 可以外出</option>
+            <option value="2">2 = 可以外出</option>
           </select>
         </div>
 
@@ -217,7 +217,7 @@
             <option value="">請選擇分數</option>
             <option value="0">0 = 嚴重痴呆或抑鬱</option>
             <option value="1">1 = 輕度痴呆</option>
-            <option value="2 = 沒有精神心理問題</option>
+            <option value="2">2 = 沒有精神心理問題</option>
           </select>
         </div>
 
@@ -336,7 +336,6 @@
 <script>
 const scriptURL = 'https://script.google.com/macros/s/AKfycbwGls7YCho5UpH5IckkDnufeY_AAouXMPXTr2sDoUvQk1Q20m1BzsZ2GN35um0vF1GUeg/exec';
 let loadedCaseNo = ""; // 用於追蹤成功載入的歷史個案編號
-let loadedDateOfAx = ""; // 🌟 用於精準追蹤與鎖定載入的原始香港評估日期
 
 /* 🧠 6.5 IDDSI-FDS 自動計算邏輯 */
 function calcIDDSIFDS() {
@@ -387,16 +386,6 @@ function calcMNASF() {
 
 function setAction(mode) {
   document.getElementById("formAction").value = mode;
-  
-  // 🌟 控制項優化：當切換至歷史修改模式時，將日期欄位設置為唯讀 (Readonly)，在介面上防止直接修改
-  let dateField = document.querySelector("[name='date_of_ax']");
-  if (dateField) {
-    if (mode === "update") {
-      dateField.setAttribute("readonly", true);
-    } else {
-      dateField.removeAttribute("readonly");
-    }
-  }
 }
 
 /* 🔍 提取資料核心機制 (GET) */
@@ -416,7 +405,7 @@ document.getElementById("searchBtn").addEventListener("click", function() {
   .then(res => res.json())
   .then(res => {
     if(res.status === "success") {
-      alert("🎉 提取成功！已自動還原個案歷史資料。\n此模式下修改任何數據，點擊下方的『儲存個案數據』將直接精準更新覆蓋 Excel 原有資料行！\n(註：此模式下為確保數據軌跡一致，1.7 評估日期 將強制維持原輸入日期而不予變動。)");
+      alert("🎉 提取成功！已自動還原個案歷史資料。\\n此模式下修改任何數據，點擊下方的『儲存個案數據』將直接精準更新覆蓋 Excel 原有資料行！");
       let data = res.data;
       
       Object.keys(data).forEach(key => {
@@ -425,19 +414,11 @@ document.getElementById("searchBtn").addEventListener("click", function() {
           if(field.type === "date" && data[key]) {
             let dateObj = new Date(data[key]);
             if(!isNaN(dateObj)) {
-              // 🌟 修正時區偏移 Bug：改用本地時間方法 (Local Time) 提取日月，完美貼合香港本地時間
-              let year = dateObj.getFullYear();
-              let month = String(dateObj.getMonth() + 1).padStart(2, '0');
-              let day = String(dateObj.getDate()).padStart(2, '0');
-              let dateStr = `${year}-${month}-${day}`;
-              
-              field.value = dateStr;
-              if(key === 'date_of_ax') { loadedDateOfAx = dateStr; } // 鎖定並儲存原始日期
+              field.value = dateObj.toISOString().split('T')[0];
               return;
             }
           }
           field.value = data[key];
-          if(key === 'date_of_ax') { loadedDateOfAx = String(data[key]).trim(); }
         }
       });
       
@@ -450,7 +431,7 @@ document.getElementById("searchBtn").addEventListener("click", function() {
       calcMNASF();
     } else {
       alert("❌ 找不到該 Case no. 的歷史資料。");
-      loadedCaseNo = ""; loadedDateOfAx = ""; setAction('insert');
+      loadedCaseNo = ""; setAction('insert');
     }
     btn.disabled = false; btn.innerText = "載入歷史資料";
   })
@@ -479,7 +460,7 @@ document.getElementById("form").addEventListener("submit", function(e) {
 
   // 🚀 智慧判定與防手殘修改案號攔截機制
   if (currentAction === "update" && currentCaseNo !== loadedCaseNo) {
-    let fixAction = confirm("⚠️ 偵測到您在修改歷史資料時變更了【Case no. 個案編號】！\n\n按「確定」：將目前整份表單當作『全新個案』於 Excel 末端建立新行 (Insert)。\n按「取消」：自動恢復為原個案編號 " + loadedCaseNo + " 並執行精準覆蓋更新 (Update)。");
+    let fixAction = confirm("⚠️ 偵測到您在修改歷史資料時變更了【Case no. 個案編號】！\\n\\n按「確定」：將目前整份表單當作『全新個案』於 Excel 末端建立新行 (Insert)。\\n按「取消」：自動恢復為原個案編號 " + loadedCaseNo + " 並執行精準覆蓋更新 (Update)。");
     if (fixAction) { setAction('insert'); currentAction = "insert"; } 
     else { document.getElementById("case_no").value = loadedCaseNo; currentCaseNo = loadedCaseNo; }
   }
@@ -492,12 +473,6 @@ document.getElementById("form").addEventListener("submit", function(e) {
 
     let confirmOverwrite = confirm("⚠️ 您確定要將目前的全新修改數據，完全覆蓋並更新至個案 " + currentCaseNo + " 的雲端 Excel 舊檔案中嗎？此操作將覆蓋原有數據且無法復原！");
     if (!confirmOverwrite) { alert("❌ 操作已取消，未對雲端資料進行任何更動。"); return; }
-    
-    // 🌟 保險核心：在進行資料打包傳輸前，二度強制重寫日期欄位值為原始載入的 `loadedDateOfAx`，萬無一失維持原輸入日期
-    if (loadedDateOfAx) {
-      let dateField = document.querySelector("[name='date_of_ax']");
-      if (dateField) dateField.value = loadedDateOfAx;
-    }
   }
 
   const submitButton = document.getElementById("submitBtn");
@@ -519,7 +494,7 @@ document.getElementById("form").addEventListener("submit", function(e) {
       alert("❌ 雲端 Excel 拒絕寫入：" + res.message);
     } else {
       if(currentAction === "update") {
-        alert("🎉 歷史數據修改成功！已將最新的資料完全同步精準覆蓋至 Excel 中對應的個案！\n(註：評估日期已依設定完整維持原樣，未作任何改動。)");
+        alert("🎉 歷史數據修改成功！已將最新的資料完全同步精準覆蓋至 Excel 中對應的個案！");
       } else {
         alert("🎉 全新個案資料已成功寫入 Google 試算表最末端新行！");
       }
@@ -529,9 +504,7 @@ document.getElementById("form").addEventListener("submit", function(e) {
       document.getElementById("bmi").value = "";
       document.getElementById("iddsiFds").value = "";
       document.getElementById("mna_sf_total").value = "";
-      loadedCaseNo = ""; 
-      loadedDateOfAx = ""; // 清空追蹤變數
-      setAction('insert');
+      loadedCaseNo = ""; setAction('insert');
     }
     submitButton.disabled = false;
     submitButton.innerText = "💾 儲存個案數據 (Save Data)";
